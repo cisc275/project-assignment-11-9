@@ -1,4 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
+package Project;
+
 /*
  * public class View handles the UI, and defines the main method.
  */

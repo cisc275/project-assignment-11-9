@@ -1,8 +1,16 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
+package Project;
+
+import java.util.*;
+
 /*
- * public class Quiz defines the behavior and attributes of the Quizzes in each game.
+ * Public class Quiz defines the behavior and attributes of the Quizzes in each game.
  */
 public class Quiz {
+	
+	ArrayList<String> questions;
+	ArrayList<String> answers;
 	
 	/*
 	 * public method isRight.
@@ -12,4 +20,12 @@ public class Quiz {
 	public boolean isRight() {
 		return false;
 	}
+	
+	public ArrayList<String> getQuestions() { return this.questions; }
+	
+	public void setQuestions(ArrayList<String> questions) { this.questions = questions; }
+	
+	public ArrayList<String> getAnswers() { return this.answers; }
+	
+	public void setAnswers(ArrayList<String> answers) { this.answers = answers; }
 }

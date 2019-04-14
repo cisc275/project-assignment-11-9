@@ -1,6 +1,9 @@
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
+package Project;
+
+import java.awt.event.*;
+
 /* 
  * Public Controller class runs the game.
  */

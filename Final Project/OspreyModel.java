@@ -1,9 +1,14 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
+package Project;
+
 /*
- * public class OspreyModel contains all the world information about the Osprey game.
+ * Public class OspreyModel contains all the world information about the Osprey game.
  */
 public class OspreyModel extends Model {
 
+	int stage;
+	
 	/* 
 	 * Public method isEnd.
 	 * Takes no parameters, returns a boolean signifying if the game is over.
@@ -39,5 +44,9 @@ public class OspreyModel extends Model {
 	@Override
 	public void checkInteractions() {
 	}
+	
+	public int getStage() { return this.stage; }
+	
+	public void setStage(int stage) { this.stage = stage; }
 
 }

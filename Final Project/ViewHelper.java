@@ -1,4 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
+package Project;
+
 /*
  * public class ViewHelper defines methods and variables to help the View in refreshing and updating the images.
  */

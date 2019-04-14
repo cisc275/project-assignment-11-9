@@ -1,9 +1,12 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
+package Project;
+
 /*
- * public class HarrierModel contains all the world information about the Harrier game.
+ * Public class HarrierModel contains all the world information about the Harrier game.
  */
 public class HarrierModel extends Model {
-
+	
 	/* 
 	 * Public method isEnd.
 	 * Takes no parameters, returns a boolean signifying if the game is over.

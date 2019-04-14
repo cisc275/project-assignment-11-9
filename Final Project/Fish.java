@@ -1,16 +1,20 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
+package Project;
+
 /* 
  * public class Fish contains the behaviors and attributes of Fish.
  */
 public class Fish extends Animal {
 	
+	int size;
+	
 	/*
 	 * public method interact.
-	 * Takes no parameters and returns nothing.
-	 * Processes an interaction with another GameObject.
+	 * Takes Osprey object and returns nothing.
+	 * Processes an interaction with the Osprey.
 	 */
-	@Override
-	public void interact() {
+	public void interact(Osprey o) {
 	}
 
 	/*
@@ -21,4 +25,8 @@ public class Fish extends Animal {
 	@Override
 	public void move() {
 	}
+	
+	public int getSize() { return size; }
+	
+	public void setSize(int size) { this.size = size; }
 }
