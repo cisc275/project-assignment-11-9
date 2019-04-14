@@ -3,24 +3,44 @@
 package Project;
 
 /* 
- * public class Osprey contains the behaviors and attributes of Ospreys.
+ * Public class Osprey contains the behaviors and attributes of Ospreys, one of the types of playable characters.
  */
 public class Osprey extends Animal {
-
+	
 	/*
-	 * public method move.
-	 * Takes no parameters and returns nothing.
-	 * Updates the position, velocity, and direction of the animal.
+	 * public method interact.
+	 * Takes Fish as parameter and returns nothing.
+	 * Processes an interaction between the Osprey and the Fish.
 	 */
-	@Override
-	public void move() {
+	public void interact(Fish f) {
+		
+	}
+	
+	/*
+	 * public method interact.
+	 * Takes GoldenFish as parameter and returns nothing.
+	 * Processes an interaction between the Osprey and the GoldenFish.
+	 */
+	public void interact(GoldenFish gf) {
+		
+	}
+	
+	/*
+	 * public method interact.
+	 * Takes Seaweed as parameter and returns nothing.
+	 * Processes an interaction between the Osprey and the Seaweed.
+	 */
+	public void interact(Seaweed s) {
+		
 	}
 
 	/*
 	 * public method dive.
 	 * Takes no parameters and returns nothing.
-	 * Makes the osprey dive.
+	 * Makes the osprey dive by incrementing its yVelocity.
 	 */
 	public void dive() {
+		
 	}
+	
 }

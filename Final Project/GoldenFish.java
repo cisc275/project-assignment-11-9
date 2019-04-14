@@ -3,16 +3,8 @@
 package Project;
 
 /* 
- * public class GoldenFish contains the behaviors and attributes of Golden Fish.
+ * Public class GoldenFish contains the behaviors and attributes of Golden Fish, the special power-up in the Osprey game.
  */
 public class GoldenFish extends Fish {
-
-	/*
-	 * public method interact.
-	 * Takes Osprey object and returns nothing.
-	 * Processes an interaction with the Osprey.
-	 */
-	public void interact(Osprey o) {
-	}
 	
 }

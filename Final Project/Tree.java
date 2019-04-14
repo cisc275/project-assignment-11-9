@@ -3,16 +3,8 @@
 package Project;
 
 /* 
- * public class Tree contains the behaviors and attributes of Trees.
+ * Public class Tree contains the behaviors and attributes of Trees, the obstacles in the Harrier game.
  */
 public class Tree extends GameObject {
-
-	/*
-	 * public abstract method interact.
-	 * Takes Harrier object and returns nothing.
-	 * Processes an interaction with the Harrier.
-	 */
-	public void interact(Harrier h) {
-	}
-
+	
 }

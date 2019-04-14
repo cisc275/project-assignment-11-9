@@ -3,25 +3,8 @@
 package Project;
 
 /* 
- * public class Mouse contains the behaviors and attributes of Mice.
+ * Public class Mouse contains the behaviors and attributes of Mice, the primary consumables in the Harrier game.
  */
 public class Mouse extends Animal {
-
-	/*
-	 * public method interact.
-	 * Takes Harrier object and returns nothing.
-	 * Processes an interaction with the Harrier.
-	 */
-	public void interact(Harrier h) {
-	}
-
-	/*
-	 * public method move.
-	 * Takes no parameters and returns nothing.
-	 * Updates the position, velocity, and direction of the animal.
-	 */
-	@Override
-	public void move() {
-	}
-
+	
 }

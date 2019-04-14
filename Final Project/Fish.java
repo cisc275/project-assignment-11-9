@@ -3,30 +3,19 @@
 package Project;
 
 /* 
- * public class Fish contains the behaviors and attributes of Fish.
+ * Public class Fish contains the behaviors and attributes of Fish, the consumables in the Osprey game.
  */
 public class Fish extends Animal {
-	
+
 	int size;
-	
-	/*
-	 * public method interact.
-	 * Takes Osprey object and returns nothing.
-	 * Processes an interaction with the Osprey.
-	 */
-	public void interact(Osprey o) {
+
+	public Fish() {
+		super();
+		size = 1;
 	}
 
-	/*
-	 * public method move.
-	 * Takes no parameters and returns nothing.
-	 * Updates the position, velocity, and direction of the animal.
-	 */
-	@Override
-	public void move() {
-	}
-	
 	public int getSize() { return size; }
-	
+
 	public void setSize(int size) { this.size = size; }
+	
 }
