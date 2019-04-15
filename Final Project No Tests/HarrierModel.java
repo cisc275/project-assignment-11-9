@@ -1,22 +1,21 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
+package Project;
+
 import java.util.*;
 
 /*
- * Public class OspreyModel contains all the world information about the Osprey game.
+ * Public class HarrierModel contains all the world information about the Harrier game.
  */
-public class OspreyModel extends Model {
-	
-	ArrayList<OspreyAble> objects;
-	Osprey osprey;
-	int stage;
+public class HarrierModel extends Model {
 
-	OspreyModel(){
+	ArrayList<HarrierAble> objects;
+	Harrier harrier;
+
+	HarrierModel(){
 		super();
-		osprey = new Osprey();
+		harrier = new Harrier();
 		objects = new ArrayList<>();
-		stage = 0;
-		initialize();
 	}
 
 	/* 
@@ -26,12 +25,12 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public void initialize() {
-		objects.add(new Fish(500, 250, 1));
-		objects.add(new Fish(700, 450, 2));
-		objects.add(new Fish(1600, 360, 3));
-		objects.add(new Fish(1000, 270, 2));
-		objects.add(new Fish(2000, 535, 2));
-		objects.add(new Seaweed(1500, 200));
+		objects.add(new Mouse(100, 100));
+		objects.add(new Mouse(-300, -300));
+		objects.add(new Fox(-500, -500));
+		objects.add(new Tree(-500, 0));
+		objects.add(new Tree(370, -280));
+		objects.add(new Twig(100, 100));
 	}
 
 	/* 
@@ -40,7 +39,7 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public boolean isEnd() {
-		return isWin() || osprey.getXVel() < 0;
+		return isWin() || harrier.getVision() < 1;
 	}
 
 	/*
@@ -49,7 +48,7 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public boolean isWin() {
-		return osprey.getXPos() > 100000;
+		return getTime() > 100000;
 	}
 
 	/*
@@ -59,10 +58,10 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public void update() {
-		osprey.move();
-		for(OspreyAble o : objects) {
-			if(o instanceof Animal) {
-				Animal a = (Animal)o;
+		harrier.move();
+		for(HarrierAble h : objects) {
+			if(h instanceof Animal) {
+				Animal a = (Animal)h;
 				a.move();
 			}
 		}
@@ -77,20 +76,16 @@ public class OspreyModel extends Model {
 	@Override
 	public void checkInteractions() {
 		for(int i = objects.size() - 1; i >= 0; i--) {
-			OspreyAble o = objects.get(i);
-			if(isCollision(osprey, (GameObject)o)) {
-				o.interact(osprey);
-				if(o instanceof Fish) { objects.remove(i); }
+			HarrierAble h = objects.get(i);
+			if(isCollision(harrier, (GameObject)h)) {
+				h.interact(harrier);
+				if(h instanceof Mouse || h instanceof Twig) { objects.remove(i); }
 			}
 		}
 	}
 
-	public int getStage() { return this.stage; }
+	public Harrier getHarrier() { return this.harrier; }
 
-	public void setStage(int stage) { this.stage = stage; }
-	
-	public Osprey getOsprey() { return this.osprey; }
-	
-	public ArrayList<OspreyAble> getObjects() { return this.objects; }
-	
+	public ArrayList<HarrierAble> getObjects() { return this.objects; }
+
 }

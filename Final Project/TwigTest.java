@@ -7,7 +7,7 @@ public class TwigTest {
 
 	@Test
 	void testInteractHarrier() {
-		Twig t = new Twig();
+		Twig t = new Twig(0, 0);
 		Harrier h = new Harrier();
 		/*
 		t.interact(h);

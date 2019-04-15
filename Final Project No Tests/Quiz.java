@@ -1,5 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
+package Project;
+
 /*
  * Public class Quiz defines the behavior and attributes of the Quizzes in both games.
  */

@@ -7,7 +7,7 @@ public class MouseTest {
 
 	@Test
 	void testMove() {
-		Mouse m = new Mouse();
+		Mouse m = new Mouse(0, 0);
 		m.setXVel(1);
 		m.setYVel(1);
 		
@@ -21,7 +21,7 @@ public class MouseTest {
 	
 	@Test
 	void testInteractHarrier() {
-		Mouse m = new Mouse();
+		Mouse m = new Mouse(0, 0);
 		Harrier h = new Harrier();
 		
 		m.interact(h);

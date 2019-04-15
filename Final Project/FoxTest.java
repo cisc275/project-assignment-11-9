@@ -7,7 +7,7 @@ public class FoxTest {
 
 	@Test
 	void testInteract() {
-		Fox f = new Fox();
+		Fox f = new Fox(0, 0);
 		Harrier h = new Harrier();
 		
 		f.interact(h);
@@ -18,7 +18,7 @@ public class FoxTest {
 
 	@Test
 	void testMove() {
-		Fox f = new Fox();
+		Fox f = new Fox(0, 0);
 		f.setXVel(1);
 		f.setYVel(1);
 		
@@ -33,7 +33,7 @@ public class FoxTest {
 
 	@Test
 	void testChase() {
-		Fox f = new Fox();
+		Fox f = new Fox(0, 0);
 		Harrier h = new Harrier();
 		
 		h.setXPos(10);

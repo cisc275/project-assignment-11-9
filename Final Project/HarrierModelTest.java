@@ -27,8 +27,8 @@ public class HarrierModelTest {
 	void testUpdate() {
 		HarrierModel hm = new HarrierModel();
 		Harrier h = new Harrier();
-		Mouse m = new Mouse();
-		Tree t = new Tree();
+		Mouse m = new Mouse(0, 0);
+		Tree t = new Tree(10, 10);
 		
 		hm.update();
 		

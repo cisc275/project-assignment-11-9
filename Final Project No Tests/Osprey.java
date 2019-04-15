@@ -1,12 +1,11 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
+package Project;
+
 /* 
  * Public class Osprey contains the behaviors and attributes of Ospreys, one of the types of playable characters.
  */
 public class Osprey extends Animal {
-	static int STABLEYVEL = 0;
-	static int DIVINGYVEL = 5;
-	static int RISINGYVEL = -5;
 	
 	public Osprey(){
 		setXPos(0);
@@ -24,7 +23,7 @@ public class Osprey extends Animal {
 	 * Makes the Osprey dive by incrementing its yVelocity.
 	 */
 	public void dive() {
-		setYVel(DIVINGYVEL);
+		setYVel(getYVel() + 5);
 		updateDirection();
 	}
 	
@@ -34,7 +33,7 @@ public class Osprey extends Animal {
 	 * Makes the Osprey rise by decrementing its yVelocity.
 	 */
 	public void rise() {
-		setYVel(RISINGYVEL);
+		setYVel(getYVel() - 5);
 		updateDirection();
 	}
 	

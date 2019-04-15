@@ -9,7 +9,7 @@ public class SeaweedTest {
 	void Slowdowntest() {
 		
 		Osprey o = new Osprey();
-		Seaweed s = new Seaweed();
+		Seaweed s = new Seaweed(0, 0);
 		/*
 		s.interact(o);
 		*/

@@ -10,7 +10,7 @@ public class TreeTest {
 		
 		Harrier h= new Harrier();
 		
-		Tree t = new Tree();
+		Tree t = new Tree(0, 0);
 		/*
 		t.interact(h);
 		*/

@@ -1,5 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
+package Project;
+
 /* 
  * Public class Harrier contains the behaviors and attributes of Harriers, one of the types of playable characters.
  */
@@ -7,10 +9,6 @@ public class Harrier extends Animal {
 
 	private int score;
 	private double visionRadius;
-	static int GOINGNORTH = -1;
-	static int GOINGWEST = -1;
-	static int GOINGEAST = 1;
-	static int GOINGSOUTH = 1;
 
 	public Harrier() {
 		setXPos(0);
@@ -24,13 +22,13 @@ public class Harrier extends Animal {
 		visionRadius = 5;
 	}
 	
-	public void goNorth() { setYVel(GOINGNORTH); updateDirection(); }
+	public void goNorth() { setYVel(getYVel() - 1); updateDirection(); }
 	
-	public void goSouth() { setYVel(GOINGSOUTH); updateDirection(); }
+	public void goSouth() { setYVel(getYVel() + 1); updateDirection(); }
 	
-	public void goEast() { setXVel(GOINGEAST); updateDirection(); }
+	public void goEast() { setXVel(getXVel() + 1); updateDirection(); }
 	
-	public void goWest() { setXVel(GOINGWEST); updateDirection(); }
+	public void goWest() { setXVel(getXVel() - 1); updateDirection(); }
 	
 	
 	

@@ -9,7 +9,7 @@ public class GoldenMouseTest {
 	void testInteractHarrier() {
 		Harrier h= new Harrier();
 		
-		GoldenMouse gm=new GoldenMouse();
+		GoldenMouse gm=new GoldenMouse(0, 0);
 		
 		gm.interact(h);
 		

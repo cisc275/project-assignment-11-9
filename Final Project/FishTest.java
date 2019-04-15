@@ -9,7 +9,7 @@ public class FishTest {
 	void interactionTest() {
 		
 		Osprey o = new Osprey();
-		Fish f = new Fish();
+		Fish f = new Fish(0, 0, 20);
 		
 		f.interact(o);
 		
@@ -21,7 +21,7 @@ public class FishTest {
 	@Test
 	void moveTest() {
 		
-		Fish f = new Fish();
+		Fish f = new Fish(0, 0, 20);
 		
 		f.move();
 		

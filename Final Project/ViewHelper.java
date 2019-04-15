@@ -8,11 +8,12 @@ import java.awt.image.*;
 /*
  * public class ViewHelper defines methods and variables to help the View in refreshing and updating the images.
  */
-public class ViewHelper extends JPanel {
+public class ViewHelper extends JPanel {/*
 	private int[] xloc;
 	private int[] yloc;
 	private Direction[] direction;
 	BufferedImage[] images;
+<<<<<<< HEAD
 	BufferedImage mine;
 	
 	public ViewHelper(BufferedImage[] newIms) {
@@ -23,6 +24,14 @@ public class ViewHelper extends JPanel {
 		for (int i = 0; i < newIms.length; i++) {
 			this.images[i] = newIms[i];
 		}
+=======
+	
+	public ViewHelper(BufferedImage[] images) {
+		xloc = new int[1000];
+		yloc = new int[1000];
+		direction = new Direction[1000];
+		this.images = images;
+>>>>>>> aedce4deabd18a43f1e603839a6a76de455756cf
 	}
 	public void setX(int newX, int index) {
 		xloc[index] = newX;
@@ -44,7 +53,7 @@ public class ViewHelper extends JPanel {
 	 * public method paint.
 	 * Takes no parameters, and returns nothing.
 	 * Repaints the ViewHelper Image.
-	 */
+	 *//*
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		updateImage();
@@ -58,7 +67,7 @@ public class ViewHelper extends JPanel {
 	 * public method updateImage.
 	 * Takes no parameters, and returns nothing.
 	 * Updates the ViewHelper Image.
-	 */
+	 *//*
 	public void updateImage() {
-	}
+	}*/
 }

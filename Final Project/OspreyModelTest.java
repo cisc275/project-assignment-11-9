@@ -10,8 +10,8 @@ public class OspreyModelTest {
 		
 		OspreyModel om = new OspreyModel();
 		Osprey o = new Osprey();
-		Fish f = new Fish();
-		Seaweed s = new Seaweed();
+		Fish f = new Fish(0, 0, 10);
+		Seaweed s = new Seaweed(3, 3);
 		
 		om.update();
 		
