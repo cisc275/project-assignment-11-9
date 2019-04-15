@@ -30,7 +30,7 @@ public class Harrier extends Animal {
 	 * Processes an interaction between the Harrier and the Mouse.
 	 */
 	public void interact(Mouse m) {
-		
+		this.setXVel(2*getXVel());
 	}
 	
 	/*
@@ -39,7 +39,7 @@ public class Harrier extends Animal {
 	 * Processes an interaction between the Harrier and the GoldenMouse.
 	 */
 	public void interact(GoldenMouse gm) {
-		
+		this.setXVel(3*getXVel());
 	}
 	
 	/*
@@ -48,7 +48,7 @@ public class Harrier extends Animal {
 	 * Processes an interaction between the Harrier and the Fox.
 	 */
 	public void interact(Fox f) {
-		
+		this.setXVel(-1*getXVel());
 	}
 	
 	/*
@@ -57,7 +57,7 @@ public class Harrier extends Animal {
 	 * Processes an interaction between the Harrier and the Tree.
 	 */
 	public void interact(Tree tr) {
-		
+		this.setXVel(-1*getXVel());
 	}
 	
 	/*
@@ -66,7 +66,7 @@ public class Harrier extends Animal {
 	 * Processes an interaction between the Harrier and the Twig.
 	 */
 	public void interact(Twig tw) {
-		
+		this.setXVel(2*getXVel());
 	}
 
 }
