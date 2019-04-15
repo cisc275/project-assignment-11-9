@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
-package Project;
-
 /* 
  * Public class Osprey contains the behaviors and attributes of Ospreys, one of the types of playable characters.
  */

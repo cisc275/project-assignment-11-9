@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
-package Project;
-
 /*
  * Public class OspreyModel contains all the world information about the Osprey game.
  */

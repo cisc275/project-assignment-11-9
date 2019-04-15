@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
-package Project;
-
 /*
  * Public class MiniMap contains the information about the minimaps in each game.
  */

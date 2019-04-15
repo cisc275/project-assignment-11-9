@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
-package Project;
-
 /* 
  * Public class Fish contains the behaviors and attributes of Fish, the consumables in the Osprey game.
  */

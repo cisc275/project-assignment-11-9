@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
-package Project;
-
 /*
  * Public class HarrierModel contains all the world information about the Harrier game.
  */

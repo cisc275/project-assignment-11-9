@@ -1,4 +1,3 @@
-package Project;
 
 public enum Direction {
 

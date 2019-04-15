@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
-package Project;
-
 /* 
  * Public abstract class GameObject outlines general behavior and attributes shared by all of the objects in the game.
  */

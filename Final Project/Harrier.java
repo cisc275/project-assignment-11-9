@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
-package Project;
-
 /* 
  * Public class Harrier contains the behaviors and attributes of Harriers, one of the types of playable characters.
  */
