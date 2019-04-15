@@ -14,7 +14,7 @@ public class Fish extends Animal {
 		size = 1;
 	}
 
-	public int getSize() { return size; }
+	public int getSize() { return this.size; }
 
 	public void setSize(int size) { this.size = size; }
 	

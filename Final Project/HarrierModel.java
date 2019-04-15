@@ -7,13 +7,29 @@ package Project;
  */
 public class HarrierModel extends Model {
 	
+	Harrier harrier;
+	
+	HarrierModel(){
+		super();
+		harrier = new Harrier();
+	}
+	
+	/* 
+	 * Public method initializeGame.
+	 * Takes no parameters and returns nothing.
+	 * Adds relevant GameObjects to plants and animals.
+	 */
+	public void initializeGame() {
+
+	}
+	
 	/* 
 	 * Public method isEnd.
 	 * Takes no parameters, returns a boolean signifying if the game is over.
 	 */
 	@Override
 	public boolean isEnd() {
-		return false;
+		return time > 100000 || harrier.getVision() == 0;
 	}
 
 	/*
@@ -22,7 +38,7 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public boolean isWin() {
-		return false;
+		return time > 100000;
 	}
 
 	/*
@@ -32,6 +48,8 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public void update() {
+		for(Animal a : animals) { a.move(); }
+		checkInteractions();
 	}
 
 	/*
@@ -41,6 +59,15 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public void checkInteractions() {
+		for(int i = animals.size() - 1; i >= 0; i--) {
+			Animal a = animals.get(i);
+			if(isCollision(harrier, a)) {
+				harrier.interact(a);
+				if(a instanceof Mouse) { animals.remove(i); }
+			}
+		}
+		for(GameObject p : plants) {
+			if(isCollision(harrier, p)) { harrier.interact(p); }
+		}
 	}
-
 }
