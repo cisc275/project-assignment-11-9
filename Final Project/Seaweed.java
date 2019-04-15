@@ -18,7 +18,10 @@ public class Seaweed extends GameObject implements OspreyAble {
 	 * Processes an interaction between the Osprey and the Seaweed.
 	 */
 	public void interact(Osprey o) {
-		o.setXVel(o.getXVel() - 2);
+		if (o.getXVel() > 4)
+			o.setXVel(o.getXVel() - 2);
+		else
+			o.setXVel(4);
 	}
 	
 }

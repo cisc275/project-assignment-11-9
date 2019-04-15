@@ -7,10 +7,10 @@ public class Harrier extends Animal {
 
 	private int score;
 	private double visionRadius;
-	static int GOINGNORTH = -1;
-	static int GOINGWEST = -1;
-	static int GOINGEAST = 1;
-	static int GOINGSOUTH = 1;
+	static int GOINGNORTH = -3;
+	static int GOINGWEST = -3;
+	static int GOINGEAST = 3;
+	static int GOINGSOUTH = 3;
 
 	public Harrier() {
 		setXPos(0);
