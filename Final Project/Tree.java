@@ -6,5 +6,9 @@ package Project;
  * Public class Tree contains the behaviors and attributes of Trees, the obstacles in the Harrier game.
  */
 public class Tree extends GameObject {
+	Tree(){
+		super();
+		setXWidth(5);
+		setYWidth(5);
 	
 }
