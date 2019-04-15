@@ -7,4 +7,10 @@ package Project;
  */
 public class Seaweed extends GameObject {
 	
+	Seaweed(){
+		super();
+		setXWidth(5);
+		setYWidth(5);
+	}
+	
 }

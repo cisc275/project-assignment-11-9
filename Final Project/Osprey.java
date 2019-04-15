@@ -7,12 +7,21 @@ package Project;
  */
 public class Osprey extends Animal {
 	
+	public Osprey(){
+		super();
+		setXWidth(25);
+		setYWidth(25);
+		
+	}
+	
 	/*
 	 * public method interact.
 	 * Takes Fish as parameter and returns nothing.
 	 * Processes an interaction between the Osprey and the Fish.
 	 */
 	public void interact(Fish f) {
+		
+		this.setXVel(2*getXVel());
 		
 	}
 	
@@ -23,6 +32,8 @@ public class Osprey extends Animal {
 	 */
 	public void interact(GoldenFish gf) {
 		
+		this.setXVel(3*getXVel());
+		
 	}
 	
 	/*
@@ -32,6 +43,8 @@ public class Osprey extends Animal {
 	 */
 	public void interact(Seaweed s) {
 		
+		this.setXVel(-1*getXVel());
+		
 	}
 
 	/*
@@ -40,6 +53,11 @@ public class Osprey extends Animal {
 	 * Makes the osprey dive by incrementing its yVelocity.
 	 */
 	public void dive() {
+		
+		this.setYVel(2*getYVel());
+		
+		
+		
 		
 	}
 	

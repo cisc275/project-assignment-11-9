@@ -7,4 +7,10 @@ package Project;
  */
 public class GoldenFish extends Fish {
 	
+	public GoldenFish() {
+		super();
+		setXWidth(5);
+		setYWidth(5);
+	}
+	
 }

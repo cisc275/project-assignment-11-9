@@ -11,10 +11,12 @@ public class Fish extends Animal {
 
 	public Fish() {
 		super();
+		setXWidth(5);
+		setYWidth(5);
 		size = 1;
 	}
 
-	public int getSize() { return this.size; }
+	public int getSize() { return size; }
 
 	public void setSize(int size) { this.size = size; }
 	
