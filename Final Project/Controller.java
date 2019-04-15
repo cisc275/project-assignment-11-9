@@ -1,6 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
-
 import java.util.*;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -12,13 +11,13 @@ import java.awt.event.*;
  */
 public class Controller implements KeyListener {
 
-	private int num;
-
+	int num;
 	private OspreyModel om;
 	private OspreyView ov;
 
 	private HarrierModel hm;
 	private HarrierView hv;
+	View view;
 
 	public void start(int num) {
 
@@ -108,16 +107,14 @@ public class Controller implements KeyListener {
 		}
 	}
 
-	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
-		String input = "";
-		while(!(input.equals("1") || input.equals("2"))) {
-			System.out.println("Enter 1 for Osprey, 2 for Harrier");
-			input = scan.nextLine();
-		}
-		int num = Integer.parseInt(input);
-		Controller c = new Controller();
-		c.start(num);
+	public Controller() {
+		view = new View();
+	}
+	public void setNum(int i) {
+		num = i;
+	}
+	public int getNum() {
+		return num;
 	}
 
 }

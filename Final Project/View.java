@@ -5,10 +5,28 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
 import java.io.File;
+import java.util.Scanner;
 /*
  * public class View handles the UI, and defines the main method.
  */
-public class View {/*
+public class View {
+	public int getGame() {
+		Scanner scan = new Scanner(System.in);
+		String input = "";
+		while(!(input.equals("1") || input.equals("2"))) {
+			System.out.println("Enter 1 for Osprey, 2 for Harrier");
+			input = scan.nextLine();
+		}
+		int num = Integer.parseInt(input);
+		return num;
+	}
+	
+	public static void main(String[] args) {
+		Controller c = new Controller();
+		c.setNum(c.view.getGame());
+		c.start(c.getNum());
+	}
+	/*
 	BufferedImage[] images;
 	int imageNum;
 	int picNum;
