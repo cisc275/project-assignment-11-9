@@ -11,9 +11,9 @@ public class TreeTest {
 		Harrier h= new Harrier();
 		
 		Tree t = new Tree();
-		
+		/*
 		t.interact(h);
-		
+		*/
 		assertEquals(h.getScore(),-1);
 		
 		fail("Not yet implemented");

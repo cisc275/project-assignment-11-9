@@ -3,27 +3,24 @@
 import java.util.*;
 
 /*
- * Public class Quiz defines the behavior and attributes of the Quizzes in each game.
+ * Public class Quiz defines the behavior and attributes of the Quizzes in both games.
  */
 public class Quiz {
 	
-	ArrayList<String> questions;
-	ArrayList<String> answers;
+	String[] questions;
+	char[] answerKey;
 	
 	/*
 	 * public method isRight.
-	 * Takes no parameters, and returns a boolean value 
-	 * reflecting if the correct answer was chosen.
+	 * Takes int and char as parameter, and returns a boolean value 
+	 * reflecting if the correct answer was chosen for the given question.
 	 */
-	public boolean isRight() {
-		return false;
+	public boolean isRight(int question, char answer) {
+		return answer == answerKey[question];
 	}
 	
-	public ArrayList<String> getQuestions() { return this.questions; }
+	public String[] getQuestions() { return this.questions; }
 	
-	public void setQuestions(ArrayList<String> questions) { this.questions = questions; }
-	
-	public ArrayList<String> getAnswers() { return this.answers; }
-	
-	public void setAnswers(ArrayList<String> answers) { this.answers = answers; }
+	public char[] getAnswers() { return this.answerKey; }
+
 }

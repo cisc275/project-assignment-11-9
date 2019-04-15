@@ -10,9 +10,9 @@ public class SeaweedTest {
 		
 		Osprey o = new Osprey();
 		Seaweed s = new Seaweed();
-		
+		/*
 		s.interact(o);
-		
+		*/
 		assertEquals(o.getXVel(),-1);
 		
 		

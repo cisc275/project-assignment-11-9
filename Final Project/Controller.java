@@ -7,6 +7,8 @@ import java.awt.event.*;
  */
 public class Controller implements KeyListener {
 
+	HarrierModel hModel;
+	View hView;
 	/*
 	 * (non-Javadoc
 	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
@@ -21,6 +23,25 @@ public class Controller implements KeyListener {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
+		int keyCode = e.getKeyCode();
+		switch(keyCode) {
+		case KeyEvent.VK_UP:
+			hModel.harrier.setXVel(0);
+			hModel.harrier.setYVel(-10);
+			break;
+		case KeyEvent.VK_DOWN:
+			hModel.harrier.setXVel(0);
+			hModel.harrier.setYVel(10);
+			break;
+		case KeyEvent.VK_LEFT:
+			hModel.harrier.setYVel(0);
+			hModel.harrier.setXVel(-10);
+			break;
+		case KeyEvent.VK_RIGHT:
+			hModel.harrier.setYVel(0);
+			hModel.harrier.setXVel(10);
+			break;
+		}
 	}
 
 	/*
@@ -31,4 +52,15 @@ public class Controller implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 	}
 
+	
+	public void start() {
+		hModel = new HarrierModel();
+		hView = new View(hModel.getObjectTypes());
+		hView.addListener(this);
+		for (int i = 0; i < 50; i++) {
+			hModel.update();
+			hView.update(hModel.getXs(), hModel.getYs(), hModel.getDirs());
+		}
+		
+	}
 }

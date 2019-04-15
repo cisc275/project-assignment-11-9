@@ -9,25 +9,35 @@ import java.awt.image.*;
  * public class ViewHelper defines methods and variables to help the View in refreshing and updating the images.
  */
 public class ViewHelper extends JPanel {
-	private int xloc;
-	private int yloc;
-	private int direction;
-	BufferedImage images;
+	private int[] xloc;
+	private int[] yloc;
+	private Direction[] direction;
+	BufferedImage[] images;
+	BufferedImage mine;
 	
-	public void setX(int newX) {
-		xloc = newX;
+	public ViewHelper(BufferedImage[] newIms) {
+		xloc = new int[1000];
+		yloc = new int[1000];
+		direction = new Direction[1000];
+		images = new BufferedImage[1000];
+		for (int i = 0; i < newIms.length; i++) {
+			this.images[i] = newIms[i];
+		}
+	}
+	public void setX(int newX, int index) {
+		xloc[index] = newX;
 	}
 	
-	public void setY(int newY) {
-		yloc = newY;
+	public void setY(int newY, int index) {
+		yloc[index] = newY;
 	}
 	
-	public void setDir(int newDir) {
-		direction = newDir;
+	public void setDir(Direction newDir, int index) {
+		direction[index] = newDir;
 	}
 	
-	public void setImages(BufferedImage newIms) {
-		images = newIms;
+	public void setImages(BufferedImage newIms, int index) {
+		images[index] = newIms;
 	}
 	
 	/*
@@ -38,9 +48,10 @@ public class ViewHelper extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		updateImage();
-		g.drawRect(xloc, yloc, 25, 25);
-		g.setColor(Color.GREEN);
-		g.fillRect(xloc, yloc, 25, 25);
+		g.setColor(Color.GRAY);
+		for (int i = 0; i < 1000 && xloc[i] != -1; i++) {
+			g.drawImage(images[i], xloc[i], yloc[i], Color.gray, this);
+		}
 	}
 	
 	/*

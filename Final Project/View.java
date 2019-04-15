@@ -1,21 +1,22 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
-import java.awt.image.*;
+import java.awt.*;
 import javax.swing.*;
-import java.awt.Graphics;
-import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.awt.event.*;
+import java.io.File;
 /*
  * public class View handles the UI, and defines the main method.
  */
 public class View {
-	BufferedImage images;
+	BufferedImage[] images;
 	int imageNum;
 	int picNum;
 	int frameCount;
 	int frameWidth = 500;
 	int frameHeight = 500;
-	int imgWidth = 2500;
-	int imgHeight = 2500;
+	int imgWidth = 25;
+	int imgHeight = 25;
 	JFrame frame;
 	ViewHelper helper;
 	
@@ -25,10 +26,9 @@ public class View {
 	 * Creates a gameImage to be used by the GUI.
 	 */
 	
-	View() {
-		buildImages();
-		helper = new ViewHelper();
-		helper.setImages(images);
+	View(int[] objects) {
+		buildImages(objects);
+		helper = new ViewHelper(images);
 		frame = new JFrame();
 		frame.getContentPane().add(helper);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,8 +37,18 @@ public class View {
 		frame.repaint();
 	}
 	
-	public BufferedImage createImage(String path) {
+	void addListener(Controller c) {
+		frame.addKeyListener(c);
+	}
+	public BufferedImage createImage(int type) {
 		BufferedImage mine = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics g = mine.createGraphics();
+		if (type == 0) {
+			g.setColor(Color.GREEN);
+		} else {
+			g.setColor(Color.BLUE);
+		}
+		g.fillRect(0, 0, mine.getWidth(), mine.getHeight());
 		return mine;
 	}
 	
@@ -47,7 +57,11 @@ public class View {
 	 * Takes no parameters, and returns nothing.
 	 * Builds all the images that make up the whole game image.
 	 */
-	public void buildImages() {
+	public void buildImages(int[] types) {
+		images = new BufferedImage[types.length];
+		for (int i = 0; i < types.length; i++) {
+			images[i] = createImage(types[i]);
+		}
 	}
 	
 	/*
@@ -55,10 +69,12 @@ public class View {
 	 * Takes no parameters, and returns nothing.
 	 * Updates the image displayed by the GUI.
 	 */
-	public void update(int xloc, int yloc, int direction) {
-		helper.setX(xloc);
-		helper.setY(yloc);
-		helper.setDir(direction);
+	public void update(int xloc[], int yloc[], Direction direction[]) {
+		for (int i = 0; i < xloc.length; i++) {
+			helper.setX(xloc[i], i);
+			helper.setY(yloc[i], i);
+			helper.setDir(direction[i], i);
+		}
 		frame.repaint();
 		try {
 			Thread.sleep(100);
@@ -73,9 +89,7 @@ public class View {
 	 * Runs the code.
 	 */
 	public static void main(String args[]) {
-		View test = new View();
-		for (int i = 0; i < 500; i += 5) {
-			test.update(i, i, 1);
-		}
+		Controller c = new Controller();
+		c.start();
 	}
 }

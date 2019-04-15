@@ -5,15 +5,31 @@
  */
 public class OspreyModel extends Model {
 
+	Osprey osprey;
 	int stage;
-	
+
+	OspreyModel(){
+		super();
+		osprey = new Osprey();
+		stage = 0;
+	}
+
+	/* 
+	 * Public method initializeGame.
+	 * Takes no parameters and returns nothing.
+	 * Adds relevant GameObjects to plants and animals.
+	 */
+	public void initializeGame() {
+
+	}
+
 	/* 
 	 * Public method isEnd.
 	 * Takes no parameters, returns a boolean signifying if the game is over.
 	 */
 	@Override
 	public boolean isEnd() {
-		return false;
+		return osprey.getXPos() > 1000 || osprey.getXVel() == 0;
 	}
 
 	/*
@@ -22,7 +38,7 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public boolean isWin() {
-		return false;
+		return osprey.getXPos() > 1000;
 	}
 
 	/*
@@ -32,6 +48,8 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public void update() {
+		for(Animal a : animals) { a.move(); }
+		checkInteractions();
 	}
 
 	/*
@@ -41,10 +59,19 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public void checkInteractions() {
+		for(int i = animals.size() - 1; i >= 0; i--) {
+			Animal a = animals.get(i);
+			if(isCollision(osprey, a)) {
+				osprey.interact(a);
+				if(a instanceof Fish) { animals.remove(i); }
+			}
+		}
+		for(GameObject p : plants) {
+			if(isCollision(osprey, p)) { osprey.interact(p); }
+		}
 	}
-	
-	public int getStage() { return this.stage; }
-	
-	public void setStage(int stage) { this.stage = stage; }
 
+	public int getStage() { return this.stage; }
+
+	public void setStage(int stage) { this.stage = stage; }
 }

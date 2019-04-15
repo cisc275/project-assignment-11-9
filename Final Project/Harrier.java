@@ -12,6 +12,7 @@ public class Harrier extends Animal {
 		super();
 		score = 0;
 		visionRadius = 5;
+		super.setYVel(10);
 	}
 	
 	public int getScore() { return this.score; }
