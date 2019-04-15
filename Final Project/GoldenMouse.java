@@ -6,5 +6,11 @@ package Project;
  * Public class GoldenMouse contains the behaviors and attributes of Golden Mice, the special power-up in the Harrier game.
  */
 public class GoldenMouse extends Mouse {
+	public GoldenMouse() {
+		super();
+		setXWidth(5);
+		setYWidth(5);
+	}
+	
 	
 }
