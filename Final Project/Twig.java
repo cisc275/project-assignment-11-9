@@ -6,7 +6,7 @@ package Project;
  * Public class Twig contains the behaviors and attributes of Twigs, the primary consumables in the Harrier game.
  */
 public class Twig extends GameObject {
-	Seaweed(){
+	Twig(){
 		super();
 		setXWidth(5);
 		setYWidth(5);
