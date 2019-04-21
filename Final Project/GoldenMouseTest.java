@@ -1,4 +1,4 @@
-
+package Project;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -6,17 +6,18 @@ import org.junit.Test;
 public class GoldenMouseTest {
 
 	@Test
-	void testInteractHarrier() {
+	public void testInteract() {
+		GoldenMouse gm = new GoldenMouse(0, 0);
 		Harrier h= new Harrier();
 		
-		GoldenMouse gm=new GoldenMouse(0, 0);
+		
 		
 		gm.interact(h);
 		
-		assertEquals(h.getScore(), 5);
+		assertEquals(h.getScore(), 100);
 		
 		
 		
-		fail("Not yet implemented");
+		
 	}
 }
