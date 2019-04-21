@@ -1,3 +1,4 @@
+package Project
 
 import static org.junit.Assert.*;
 
@@ -6,47 +7,51 @@ import org.junit.Test;
 public class HarrierModelTest {
 
 	@Test
-	void testIsEnd() {
+	public void testIsEnd() {
 		HarrierModel hm = new HarrierModel();
 		
 		assertEquals(hm.isEnd(), false);
-		
-		fail("Not yet implemented");
+		hm.setTime(100000000);
+		assertEquals(hm.isEnd(), true);
 	}
 
 	@Test
-	void testIsWin() {
+	public void testIsWin() {
 		HarrierModel hm = new HarrierModel();
 		
 		assertEquals(hm.isWin(), false);
-		
-		fail("Not yet implemented");
+	
 	}
 
 	@Test
-	void testUpdate() {
+	public void testUpdate() {
 		HarrierModel hm = new HarrierModel();
-		Harrier h = new Harrier();
 		Mouse m = new Mouse(0, 0);
 		Tree t = new Tree(10, 10);
 		
+		hm.objects.add(m);
+		hm.objects.add(t);
 		hm.update();
 		
-		assertEquals(m.getXPos(), -1);
-		assertEquals(h.getXPos(), 1);
+		assertEquals((int)m.getXPos(), 2);
+		assertEquals((int)hm.getHarrier().getXPos(), 0);
 		
-		
-		fail("Not yet implemented");
+	
 	}
 
 	@Test
-	void testCheckInteractions() {
+	public void testCheckInteractions() {
 		
 		HarrierModel hm = new HarrierModel();
 		
+		assertEquals(hm.getObjects().size(), 0);
+		
+		hm.initialize();
+		
+		assertEquals(hm.getObjects().size(), 6);
+		
 		hm.checkInteractions();
 
-		assertEquals(hm.equals(new HarrierModel()), true);
-		fail("Not yet implemented");
+		assertEquals(hm.getObjects().size(), 6);
 	}
 }
