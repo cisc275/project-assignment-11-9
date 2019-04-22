@@ -22,6 +22,7 @@ public class Seaweed extends GameObject implements OspreyAble {
 			o.setXVel(o.getXVel() - 2);
 		else
 			o.setXVel(4);
+		o.bounce();
 	}
 	
 }
