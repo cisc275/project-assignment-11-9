@@ -1,5 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-
+package Project;
 /* 
  * Public class Osprey contains the behaviors and attributes of Ospreys, one of the types of playable characters.
  */
@@ -28,28 +28,17 @@ public class Osprey extends Animal {
 
 	@Override
 	public void move() {
-		if (!isBouncing) {
-			setXPos(getXPos() + getXVel());
-			if (isRising) {
-				if (getYPos() + getYVel() >= maxHeight) {
-					setYPos(getYPos() + getYVel());
-				} else {
-					setYPos(maxHeight);
-					isRising = false;
-					setYVel(0);
-				}
-			} else {
+		setXPos(getXPos() + getXVel());
+		if (isRising) {
+			if (getYPos() + getYVel() >= maxHeight) {
 				setYPos(getYPos() + getYVel());
+			} else {
+				setYPos(maxHeight);
+				isRising = false;
+				setYVel(0);
 			}
-				
 		} else {
 			setYPos(getYPos() + getYVel());
-			setXPos(getXPos() + bouncingVel);
-			if (bouncingVel + 2 < getXVel()) {
-				bouncingVel += 2;
-			} else {
-				isBouncing = false;
-			}
 		}
 	}
 	/*
@@ -73,11 +62,6 @@ public class Osprey extends Animal {
 		updateDirection();
 	}
 	
-	public void bounce() {
-		isBouncing = true;
-		bouncingVel = -getXVel()*2;
-		rise();
-	}
 	
 	public boolean isRising() {
 		return isRising;

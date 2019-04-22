@@ -5,6 +5,8 @@ package Project;
  */
 public class Seaweed extends GameObject implements OspreyAble {
 	
+	boolean hasBeenHit = false;
+	
 	Seaweed(double x, double y){
 		setXPos(x);
 		setYPos(y);
@@ -18,11 +20,13 @@ public class Seaweed extends GameObject implements OspreyAble {
 	 * Processes an interaction between the Osprey and the Seaweed.
 	 */
 	public void interact(Osprey o) {
-		if (o.getXVel() > 4)
-			o.setXVel(o.getXVel() - 2);
-		else
-			o.setXVel(4);
-		o.bounce();
+		if (!hasBeenHit) {
+			if (o.getXVel() > 4)
+				o.setXVel(o.getXVel() - 2);
+			else
+				o.setXVel(4);
+			hasBeenHit = true;
+		}
 	}
 	
 }
