@@ -24,8 +24,6 @@ public class HarrierTest {
 		h.goSouth();
 		assertEquals(3,h.getYVel(), 0.01);
 		
-		
-
 	}
 	
 	@Test

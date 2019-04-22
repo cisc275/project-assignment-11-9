@@ -1,5 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-
+package Project;
 import java.lang.Math;
 
 /*
@@ -12,7 +12,9 @@ public abstract class Model {
 	
 	Model(){
 		time = 0;
-		quiz = new Quiz();
+		String[] questions = new String[1];
+		char[] answers = new char[1];
+		quiz = new Quiz(questions, answers);
 	}
 	
 	/* 

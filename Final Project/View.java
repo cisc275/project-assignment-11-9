@@ -1,5 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-
+package Project;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.image.BufferedImage;

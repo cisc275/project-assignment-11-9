@@ -1,4 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+package Project;
 /* 
  * Public interface OspreyAble requires that the GameObject be able to interact with an Osprey.
  */

@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-
 package Project;
-
 /* 
  * Public class Fox contains the behaviors and attributes of Foxes, the predators in the Harrier game.
  */

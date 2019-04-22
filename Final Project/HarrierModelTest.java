@@ -1,5 +1,5 @@
-package Project
 
+package Project;
 import static org.junit.Assert.*;
 
 import org.junit.Test;

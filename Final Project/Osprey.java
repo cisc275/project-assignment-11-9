@@ -1,5 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-
+package Project;
 /* 
  * Public class Osprey contains the behaviors and attributes of Ospreys, one of the types of playable characters.
  */
@@ -38,6 +38,6 @@ public class Osprey extends Animal {
 		updateDirection();
 	}
 	
-	public String toString() { return "Osprey @ (" + getXPos() + "," + getYPos() + ")"; } 
+	public String toString() { return "Osprey @ (" + (int)getXPos() + "," + (int)getYPos() + ")"; } 
 	
 }

@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-
 package Project;
-
 /*
  * Public abstract class Animal defines general behaviors and attributes for movable objects.
  */
