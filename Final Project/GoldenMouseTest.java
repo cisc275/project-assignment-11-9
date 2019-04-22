@@ -15,6 +15,7 @@ public class GoldenMouseTest {
 		gm.interact(h);
 		
 		assertEquals(h.getScore(), 100);
+		assertEquals(10, h.getVision(), 0.01);
 		
 		
 		

@@ -7,13 +7,44 @@ import org.junit.Test;
 public class HarrierTest {
 
 	@Test
-	public void testMove() {
+	public void testMoveNorth() {
 		
 		Harrier h = new Harrier();
 		h.goNorth();
+		assertEquals(-3,h.getYVel(), 0.01);
+		
+		
+
+	}
+	
+	@Test
+	public void testMoveSouth() {
+		
+		Harrier h = new Harrier();
 		h.goSouth();
+		assertEquals(3,h.getYVel(), 0.01);
+		
+		
+
+	}
+	
+	@Test
+	public void testMoveEast() {
+		
+		Harrier h = new Harrier();
 		h.goEast();
+		assertEquals(3,h.getXVel(), 0.01);
+		
+		
+
+	}
+	
+	@Test
+	public void testMoveWest() {
+		
+		Harrier h = new Harrier();
 		h.goWest();
+		assertEquals(-3,h.getXVel(), 0.01);
 		
 		
 
