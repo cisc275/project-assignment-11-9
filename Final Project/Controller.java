@@ -1,5 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-package Project;
+
 import java.util.*;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -79,7 +79,7 @@ public class Controller implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(num == 1) {
-			if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			if(e.getKeyCode() == KeyEvent.VK_SPACE && !om.getOsprey().isRising()) {
 				om.getOsprey().dive();
 			}
 		}

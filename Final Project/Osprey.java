@@ -1,5 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-package Project;
+
 /* 
  * Public class Osprey contains the behaviors and attributes of Ospreys, one of the types of playable characters.
  */
@@ -7,9 +7,11 @@ public class Osprey extends Animal {
 	static int STABLEYVEL = 0;
 	static int DIVINGYVEL = 5;
 	static int RISINGYVEL = -5;
+	boolean isRising;
 	boolean isBouncing;
 	double bouncingVel;
 	boolean justBounced;
+	double maxHeight;
 	
 	public Osprey(){
 		setXPos(0);
@@ -19,6 +21,7 @@ public class Osprey extends Animal {
 		setXVel(10);
 		setYVel(0);
 		updateDirection();
+		maxHeight = 0;
 		bouncingVel = 0;
 		justBounced = false;
 	}
@@ -26,12 +29,20 @@ public class Osprey extends Animal {
 	@Override
 	public void move() {
 		if (!isBouncing) {
-			super.move();
-		} else {
-			if (justBounced) {
-				bouncingVel = -getXVel()*2;
-				justBounced = false;
+			setXPos(getXPos() + getXVel());
+			if (isRising) {
+				if (getYPos() + getYVel() >= maxHeight) {
+					setYPos(getYPos() + getYVel());
+				} else {
+					setYPos(maxHeight);
+					isRising = false;
+					setYVel(0);
+				}
+			} else {
+				setYPos(getYPos() + getYVel());
 			}
+				
+		} else {
 			setYPos(getYPos() + getYVel());
 			setXPos(getXPos() + bouncingVel);
 			if (bouncingVel + 2 < getXVel()) {
@@ -57,15 +68,21 @@ public class Osprey extends Animal {
 	 * Makes the Osprey rise by decrementing its yVelocity.
 	 */
 	public void rise() {
+		isRising = true;
 		setYVel(RISINGYVEL);
 		updateDirection();
 	}
 	
 	public void bounce() {
 		isBouncing = true;
-		justBounced = true;
+		bouncingVel = -getXVel()*2;
 		rise();
 	}
+	
+	public boolean isRising() {
+		return isRising;
+	}
+	
 	public String toString() { return "Osprey @ (" + (int)getXPos() + "," + (int)getYPos() + ")"; } 
 	
 }
