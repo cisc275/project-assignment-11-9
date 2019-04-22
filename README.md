@@ -1,4 +1,4 @@
-Team Members: Vincent Beardsley, Brandon Raffa, Tyler Ballance, Suryanash Gupta
+Team Members: Vincent Beardsley, Brandon Raffa, Tyler Ballance, Suryansh Gupta
 
 Project Description:
 We are designing a simple 1 to 2-minute game about the Osprey and the Northern Harrier.

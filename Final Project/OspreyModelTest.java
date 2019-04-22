@@ -1,55 +1,57 @@
+package Project;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class OspreyModelTest {
+class OspreyModelTest {
 
 	@Test
-	void Updatetest() {
+	void testIsEnd() {
+		OspreyModel om= new OspreyModel();
 		
+		
+		assertEquals(om.isEnd(), false);
+
+	
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testIsWin() {
 		OspreyModel om = new OspreyModel();
-		Osprey o = new Osprey();
-		Fish f = new Fish(0, 0, 10);
-		Seaweed s = new Seaweed(3, 3);
 		
-		om.update();
+		assertEquals(om.isWin(), false);
 		
-		assertEquals(f.getXPos(), -1);
-		assertEquals(o.getXPos(), 1);
-		assertEquals(s.getXPos(), 0);
 		
 		
 		fail("Not yet implemented");
 	}
-	
-	@Test
-	void checkInteractionsTest() {
-		
-		OspreyModel om = new OspreyModel();
-		
-		om.checkInteractions();
 
-		assertEquals(om.equals(new OspreyModel()), true);
-	}
-	
 	@Test
-	void isEndTest() {
+	void testUpdate() {
 		
 		OspreyModel om = new OspreyModel();
+		Mouse m = new Mouse(0, 0);
+		Tree t = new Tree(10, 10);
 		
-		assertEquals(om.isEnd(), false);
+		om.objects.add((OspreyAble) m);
+		om.objects.add((OspreyAble) t);
+		om.update();
 		
+		assertEquals((int)m.getXPos(), 2);
+		assertEquals((int)om.getOsprey().getXPos(), 0);
+		
+		
+		
+		
+		
+		fail("Not yet implemented");
 	}
-	
+
 	@Test
-	void isWinTest() {
-		
-		OspreyModel om = new OspreyModel();
-		
-		
-		assertEquals(om.isWin(), false);
-		
+	void testCheckInteractions() {
+		fail("Not yet implemented");
 	}
 
 }

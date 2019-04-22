@@ -1,20 +1,35 @@
+package Project;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class TreeTest {
+class TreeTest {
 
 	@Test
-	void testInteract() {
+	void Interacttest() {
 		
 		Harrier h= new Harrier();
 		
-		Tree t = new Tree(0, 0);
-		/*
+		Tree t = new Tree(0,0);
+		
 		t.interact(h);
-		*/
-		assertEquals(h.getScore(),-1);
+		
+		
+		assertEquals((int) h.getXPos(), 0);
+		
+		assertEquals((int) h.getYPos(), 0);
+		
+		t.setXPos(5);
+		t.setYPos(5);
+		
+		assertEquals((int) t.getXPos(), 5);
+		
+		assertEquals((int) t.getYPos(), 5);
+		
+		t.interact(h);
+		
+		assertEquals(h.getScore(), -20);
 		
 		fail("Not yet implemented");
 	}

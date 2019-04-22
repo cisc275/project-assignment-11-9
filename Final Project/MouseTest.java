@@ -20,6 +20,7 @@ public class MouseTest {
 		m.interact(h);
 		
 		assertEquals(h.getScore(), 10);
+		assertEquals(1, h.getVision(), 0.01);
 		
 
 }
