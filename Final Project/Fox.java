@@ -1,5 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
+package Project;
+
 /* 
  * Public class Fox contains the behaviors and attributes of Foxes, the predators in the Harrier game.
  */
@@ -31,10 +33,12 @@ public class Fox extends Animal implements HarrierAble {
 	 * Makes the Fox chase the Harrier by incrementing the Fox's velocities to direct at the Harrier's position.
 	 */
 	public void chase(Harrier h) {
-		if(h.getXPos() > this.getXPos()) { setXVel(getXVel() + 5); }
-		else { setXVel(getXVel() - 5); }
-		if(h.getYPos() > this.getYPos()) { setYVel(getYVel() + 5); }
-		else { setXVel(getXVel() - 5); }
+		if(h.getXPos() > this.getXPos()) { setXVel(5); }
+		else if(h.getXPos() < this.getXPos()) { setXVel(-5); }
+		else { setXVel(0); }
+		if(h.getYPos() > this.getYPos()) { setYVel(5); }
+		else if(h.getYPos() < this.getYPos()) { setYVel(-5); }
+		else { setYVel(0); }
 	}
 	
 }

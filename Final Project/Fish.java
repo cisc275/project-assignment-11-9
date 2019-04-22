@@ -1,5 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
+package Project;
+
 /* 
  * Public class Fish contains the behaviors and attributes of Fish, the consumables in the Osprey game.
  */
@@ -29,10 +31,6 @@ public class Fish extends Animal implements OspreyAble {
 	 */
 	public void interact(Osprey o) {
 		o.setXVel(o.getXVel() + size);
-	}
-	
-	public String toString() {
-		return "Fish of size " + size + " @ " + "(" + getXPos() + "," + getYPos() + ")";
 	}
 	
 }

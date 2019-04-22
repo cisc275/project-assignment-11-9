@@ -1,3 +1,4 @@
+package Project;
 
 import static org.junit.Assert.*;
 
@@ -6,26 +7,25 @@ import org.junit.Test;
 public class FishTest {
 
 	@Test
-	void interactionTest() {
-		
+	public void testInteract() {
 		Osprey o = new Osprey();
-		Fish f = new Fish(0, 0, 20);
-		
+		Fish f = new Fish(0, 0, 1);
+		double xVel = o.getXVel();
+		double yVel = o.getYVel();
+		int size = f.getSize();
 		f.interact(o);
 		
-		assertEquals(o.getXVel(), 1);
+		assertEquals(o.getXVel(), xVel + size, .00001);
+		assertEquals(o.getYVel(), yVel, .00001);
 		
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	void moveTest() {
+		f.setSize(3);
+		xVel = o.getXVel();
+		yVel = o.getYVel();
+		size = f.getSize();
+		f.interact(o);
 		
-		Fish f = new Fish(0, 0, 20);
-		
-		f.move();
-		
-		assertEquals(f.getXPos(), -1);//moving to the left
+		assertEquals(o.getXVel(), xVel + size, .00001);
+		assertEquals(o.getYVel(), yVel, .00001);
 	}
 
 }
