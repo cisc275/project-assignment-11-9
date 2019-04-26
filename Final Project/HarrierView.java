@@ -1,37 +1,37 @@
-//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class HarrierView {
+public class HarrierView extends View{
 
-	private final int frameWidth = 1600;
-	private final int frameHeight = 900;
-	private final int drawDelay = 10;
-	private JFrame frame;
+	
+	
+	private JFrame frameH;
 	private HarrierHelper helper;
 
-	public int getDelay() { return drawDelay; }
+
 
 	public HarrierView() {
 		helper = new HarrierHelper();
-		frame = new JFrame();
-		frame.getContentPane().add(helper);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(frameWidth, frameHeight);
-		frame.setVisible(true);
-		frame.repaint();
+		frameH = new JFrame();
+		frameH.getContentPane().add(helper);
+		frameH.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frameH.setSize(FRAMEWIDTH, FRAMEHEIGHT);
+		frameH.setVisible(true);
+		frameH.repaint();
 	}
 
 	public void update(Harrier harrier, ArrayList<HarrierAble> objects) {
 		helper.setHarrier(harrier);
 		helper.setObjects(objects);
-		frame.repaint();
+		frameH.repaint();
 	}
 	
 	public void addListener(Controller c) {
-		frame.addKeyListener(c);
+		frameH.addKeyListener(c);
 	}
 
 	private class HarrierHelper extends JPanel {
@@ -49,18 +49,18 @@ public class HarrierView {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			g.fillRect(frameWidth / 2, frameHeight / 2, (int)harrier.getXWidth(), (int)harrier.getYWidth());
+			g.fillRect(FRAMEWIDTH / 2, FRAMEHEIGHT / 2, (int)harrier.getXWidth(), (int)harrier.getYWidth());
 			for(int i = 0; i < objects.size(); i++) {
 				HarrierAble go = objects.get(i);
-				int x = (int)(go.getXPos() - harrier.getXPos()) + frameWidth / 2;
-				int y = (int)(go.getYPos() - harrier.getYPos()) + frameHeight / 2;
-				if(x < frameWidth && x > 0 && y < frameHeight && y > 0) {
+				int x = (int)(go.getXPos() - harrier.getXPos()) + FRAMEWIDTH / 2;
+				int y = (int)(go.getYPos() - harrier.getYPos()) + FRAMEWIDTH / 2;
+				if(x < FRAMEWIDTH && x > 0 && y < FRAMEHEIGHT && y > 0) {
 					g.fillRect(x, y, (int)go.getXWidth(), (int)go.getYWidth());
 				}
 			}
 		}
 
-		public Dimension getPreferredSize() { return new Dimension(frameWidth, frameHeight); }
+		public Dimension getPreferredSize() { return new Dimension(FRAMEWIDTH, FRAMEHEIGHT); }
 
 		private void setHarrier(Harrier harrier) { this.harrier = harrier; }
 

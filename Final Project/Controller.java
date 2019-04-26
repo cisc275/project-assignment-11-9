@@ -1,15 +1,19 @@
+package Project;
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
 import java.util.*;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import java.awt.EventQueue;
 import java.awt.event.*;
 
 /* 
  * Public Controller class runs the game.
  */
-public class Controller implements KeyListener {
+public class Controller implements KeyListener, ActionListener {
 
 	int num;
 	private OspreyModel om;
@@ -18,49 +22,47 @@ public class Controller implements KeyListener {
 	private HarrierModel hm;
 	private HarrierView hv;
 	View view;
+	int gameMode;
+	final int OSPREYGAME = 1;
+	final int HARRIERGAME = 2;
+	boolean isMenu = true;
 
-	public void start(int num) {
-
-		this.num = num;
-
-		if(num == 1) {
-
-			om = new OspreyModel();
-			om.initialize();
-			ov = new OspreyView();
-
-			ov.addListener(this);
-
-			Timer timer = new Timer();
-			TimerTask timerTask = new TimerTask() {
-				@Override
-				public void run() {
-					om.update();
-					ov.update(om.getOsprey(), om.getObjects());
-				}
-			};
-			timer.schedule(timerTask, 0, 50);
-
-		}
-		else {
-
-			hm = new HarrierModel();
-			hm.initialize();
-			hv = new HarrierView();
-
-			hv.addListener(this);
-
-			Timer timer = new Timer();
-			TimerTask timerTask = new TimerTask() {
-				@Override
-				public void run() {
-					hm.update();
-					hv.update(hm.getHarrier(), hm.getObjects());
-				}
-			};
-			timer.schedule(timerTask, 0, 50);
-		}
+	public void start() {
+	
 	}
+	
+	public void gameOsprey() {
+		gameMode = OSPREYGAME;
+		om = new OspreyModel();
+		ov = new OspreyView();
+		ov.addListener(this);
+		Timer timer = new Timer(); TimerTask timerTask = new TimerTask() {
+			@Override public void run() { 
+				om.update(); ov.update(om.getOsprey(),om.getObjects()); } }; timer.schedule(timerTask, 0, 50);
+		}
+	
+	
+	public void gameHarrier() {
+		gameMode = HARRIERGAME;
+		hm = new HarrierModel();
+		hm.initialize();
+		hv = new HarrierView();
+		hv.addListener(this);
+		Timer timer = new Timer(); TimerTask timerTask = new TimerTask() {
+			@Override 
+			public void run() { 
+				hm.update(); 
+				hv.update(hm.getHarrier(),hm.getObjects()); 
+				} 
+			}; 
+			timer.schedule(timerTask, 0, 50); 
+		}
+			
+		
+
+
+	
+	
 
 
 
@@ -78,11 +80,13 @@ public class Controller implements KeyListener {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(num == 1) {
-			if(e.getKeyCode() == KeyEvent.VK_SPACE && !om.getOsprey().isRising()) {
+		if(gameMode == OSPREYGAME) {
+			if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 				om.getOsprey().dive();
+			
 			}
-		}
+			}
+		
 		else {
 			if(e.getKeyCode() == KeyEvent.VK_UP) { hm.getHarrier().goNorth(); }
 			if(e.getKeyCode() == KeyEvent.VK_DOWN) { hm.getHarrier().goSouth(); }
@@ -97,7 +101,7 @@ public class Controller implements KeyListener {
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(num == 1) {
+		if(gameMode == OSPREYGAME) {
 			if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 				om.getOsprey().rise();
 			}
@@ -107,14 +111,19 @@ public class Controller implements KeyListener {
 		}
 	}
 
-	public Controller() {
-		view = new View();
+
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		
+		
 	}
-	public void setNum(int i) {
-		num = i;
-	}
-	public int getNum() {
-		return num;
-	}
+
+
+
+	
+	
 
 }

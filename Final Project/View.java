@@ -1,31 +1,73 @@
-//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
 import java.io.File;
 import java.util.Scanner;
+import java.util.TimerTask;
 /*
  * public class View handles the UI, and defines the main method.
  */
-public class View {
-	public int getGame() {
-		Scanner scan = new Scanner(System.in);
-		String input = "";
-		while(!(input.equals("1") || input.equals("2"))) {
-			System.out.println("Enter 1 for Osprey, 2 for Harrier");
-			input = scan.nextLine();
-		}
-		int num = Integer.parseInt(input);
-		return num;
-	}
+public class View extends JFrame {
+
+	private JButton button1 = new JButton("OspreyGame");
+	private JButton button2 = new JButton("HarrierGame");
+	public static JPanel contentPanel = new JPanel();
+	private JPanel menu = new JPanel(); 
+	CardLayout c1 = new CardLayout();
+	final static int FRAMEWIDTH = 1600;
+	final static int FRAMEHEIGHT = 900;
+	private final int DRAWDELAY = 30;
+	OspreyModel om;
+	OspreyView ov;
+	static Controller c = new Controller();
 	
-	public static void main(String[] args) {
-		Controller c = new Controller();
-		c.setNum(c.view.getGame());
-		c.start(c.getNum());
+	
+
+	public View() {
+
+
+		super("Menu");
+		button1 = new JButton("OspreyGame");
+		button2 = new JButton("HarrierGame");
+		
+		menu.add(button1, BorderLayout.CENTER);
+		menu.add(button2);
+		
+		actionListener a1 = new actionListener();
+		
+		button1.addActionListener(a1);
+		button2.addActionListener(a1);
+		
+		
+		contentPanel.setLayout(c1);
+		contentPanel.add(menu, "menu");
+		this.setContentPane(contentPanel);
+		c1.first(contentPanel);
 	}
+
+	
+
+	
+
+	public static void main(String[] args) {
+		
+		View v = new View();
+		v.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		v.setSize(1600,900);
+		v.setVisible(true);
+	
+
+	}
+
+
+
+
+
+
 	/*
 	BufferedImage[] images;
 	int imageNum;
@@ -42,7 +84,7 @@ public class View {
 >>>>>>> aedce4deabd18a43f1e603839a6a76de455756cf
 	JFrame frame;
 	ViewHelper helper;
-	
+
 	/*
 	 * public method createImage
 	 * Takes no parameters, and returns nothing.
@@ -63,7 +105,7 @@ public class View {
 		frame.setVisible(true);
 		frame.repaint();
 	}
-	
+
 	void addListener(Controller c) {
 		frame.addKeyListener(c);
 	}
@@ -78,7 +120,7 @@ public class View {
 		g.fillRect(0, 0, mine.getWidth(), mine.getHeight());
 		return mine;
 	}
-	
+
 	/*
 	 * public method buildImages.
 	 * Takes no parameters, and returns nothing.
@@ -94,12 +136,12 @@ public class View {
 	public void buildImages() {
 >>>>>>> aedce4deabd18a43f1e603839a6a76de455756cf
 	}
-	
+
 	/*
-	 * public method update.
-	 * Takes no parameters, and returns nothing.
-	 * Updates the image displayed by the GUI.
-	 *//*
+	  * public method update.
+	  * Takes no parameters, and returns nothing.
+	  * Updates the image displayed by the GUI.
+	  *//*
 	public void update(int xloc[], int yloc[], Direction direction[]) {
 		for (int i = 0; i < xloc.length; i++) {
 			helper.setX(xloc[i], i);
@@ -113,14 +155,45 @@ public class View {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
-	 * public static method main.
-	 * Takes parameter args: String[]. Returns nothing.
-	 * Runs the code.
-	 *//*
+	   * public static method main.
+	   * Takes parameter args: String[]. Returns nothing.
+	   * Runs the code.
+	   *//*
 	public static void main(String args[]) {
 		Controller c = new Controller();
 		c.start();
 	}*/
+
+
+	public int getDRAWDELAY() {
+		return DRAWDELAY;
+	}
+
+
+
+
+
+
+	class actionListener implements ActionListener{
+		public void actionPerformed(ActionEvent event) {
+			JButton src = (JButton) event.getSource();
+
+			if(src.equals(button1)) {
+				setVisible(false);
+				c.gameOsprey();
+				
+				
+				
+			}
+			if(src.equals(button2)) {
+				setVisible(false);
+				c.gameHarrier();
+
+			}
+
+		}
+
+	}
 }
