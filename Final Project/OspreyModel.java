@@ -76,11 +76,12 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public void checkInteractions() {
-		for(int i = objects.size() - 1; i >= 0; i--) {
-			OspreyAble o = objects.get(i);
-			if(isCollision(osprey, (GameObject)o)) {
+		Iterator iter = objects.iterator();
+		while (iter.hasNext()) {
+			OspreyAble o = (OspreyAble) iter.next();
+			if (isCollision(osprey, (GameObject) o)) {
 				o.interact(osprey);
-				if(o.isFish()) { objects.remove(i); }
+				if (o.isFish()) {iter.remove(); }
 			}
 		}
 	}

@@ -56,14 +56,15 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public void update() {
+		int iterative = 0;
 		harrier.move();
-		for(int i = 0; i < objects.size(); i++) {
-			HarrierAble h = objects.get(i);
+		for(HarrierAble h : objects) {
 			if(h.isAnimal()) {
 				Animal a = (Animal)h;
 				a.move();
-				a.twitch(20, i);
+				a.twitch(20, iterative);
 			}
+			iterative ++;
 		}
 		checkInteractions();
 	}
@@ -75,11 +76,12 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public void checkInteractions() {
-		for(int i = objects.size() - 1; i >= 0; i--) {
-			HarrierAble h = objects.get(i);
+		Iterator iter = objects.iterator();
+		while (iter.hasNext()) {
+			HarrierAble h = (HarrierAble) iter.next();
 			if(isCollision(harrier, (GameObject)h)) {
 				h.interact(harrier);
-				if(h.isMouse() || h.isTwig()) { objects.remove(i); }
+				if(h.isMouse() || h.isTwig()) { iter.remove(); }
 			}
 		}
 	}
