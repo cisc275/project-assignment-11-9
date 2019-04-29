@@ -26,4 +26,11 @@ public abstract class GameObject {
 
 	public void setYWidth(double yWidth) { this.yWidth = yWidth; }
 	
+	
+	public double RandInt(int minRange, int maxRange) {
+		double randPosition; 
+		randPosition= Math.random() * ( maxRange - minRange ) + minRange;
+		return randPosition;
+	}
+	
 }
