@@ -12,6 +12,7 @@ public class Mouse extends Animal implements HarrierAble {
 		setYWidth(20);
 		setXVel(2);
 		setYVel(3);
+		setSpeedMod(3);
 		updateDirection();
 	}
 	

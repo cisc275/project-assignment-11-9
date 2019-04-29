@@ -7,6 +7,7 @@ public class GoldenMouse extends Mouse implements HarrierAble {
 	
 	public GoldenMouse(double x, double y) {
 		super(x, y);
+		setSpeedMod(10);
 	}
 	
 	/*

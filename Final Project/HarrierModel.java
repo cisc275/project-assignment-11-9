@@ -57,10 +57,12 @@ public class HarrierModel extends Model {
 	@Override
 	public void update() {
 		harrier.move();
-		for(HarrierAble h : objects) {
+		for(int i = 0; i < objects.size(); i++) {
+			HarrierAble h = objects.get(i);
 			if(h instanceof Animal) {
 				Animal a = (Animal)h;
 				a.move();
+				a.twitch(20, i);
 			}
 		}
 		checkInteractions();

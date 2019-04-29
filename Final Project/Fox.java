@@ -12,6 +12,7 @@ public class Fox extends Animal implements HarrierAble {
 		setYWidth(75);
 		setXVel(5);
 		setYVel(3);
+		setSpeedMod(5);
 		updateDirection();
 	}
 	

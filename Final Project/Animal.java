@@ -1,5 +1,6 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+import java.util.*;
 /*
  * Public abstract class Animal defines general behaviors and attributes for movable objects.
  */
@@ -7,6 +8,7 @@ public abstract class Animal extends GameObject {
 
 	private double xVelocity;
 	private double yVelocity;
+	private int speedMod;
 	private Direction direction;
 
 	public double getXVel() { return this.xVelocity; }
@@ -16,6 +18,10 @@ public abstract class Animal extends GameObject {
 	public double getYVel() { return this.yVelocity; }
 
 	public void setYVel(double yVel) { this.yVelocity = yVel; }
+	
+	public int getSpeedMod() { return this.speedMod; }
+	
+	public void setSpeedMod(int speedMod) { this.speedMod = speedMod; }
 	
 	public Direction getDirection() { return this.direction; }
 	
@@ -40,6 +46,19 @@ public abstract class Animal extends GameObject {
 	public void move() {
 		setXPos(getXPos() + xVelocity);
 		setYPos(getYPos() + yVelocity);
+	}
+	
+	/*
+	 * public method twitch.
+	 * Takes int as parameter and returns nothing.
+	 * Changes the velocities randomly on a random interval determined by chanceMod.
+	 */
+	public void twitch(int chanceMod, int seedMod) {
+		Random rand = new Random(System.currentTimeMillis() + seedMod * 1000);
+		if(rand.nextInt(chanceMod) % chanceMod == 0) {
+			xVelocity = rand.nextDouble() * 2 * speedMod - speedMod;
+			yVelocity = rand.nextDouble() * 2 * speedMod - speedMod;
+		}
 	}
 
 	/*

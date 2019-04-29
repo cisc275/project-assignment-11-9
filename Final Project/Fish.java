@@ -14,6 +14,7 @@ public class Fish extends Animal implements OspreyAble {
 		setYWidth(20 * size);
 		setXVel(2);
 		setYVel(0);
+		setSpeedMod(3);
 		updateDirection();
 		this.size = size;
 	}
