@@ -1,4 +1,4 @@
-package Project;
+
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 
 import java.util.*;
@@ -58,7 +58,10 @@ public class HarrierView extends View{
 				HarrierAble go = objects.get(i);
 				int x = (int)(go.getXPos() - harrier.getXPos()) + FRAMEWIDTH / 2;
 				int y = (int)(go.getYPos() - harrier.getYPos()) + FRAMEHEIGHT / 2;
-				if(x < harrier.getXPos() + harrier.getVision() && x > harrier.getXPos() - harrier.getVision() && y < harrier.getYPos() + harrier.getVision() && y > harrier.getYPos() - harrier.getVision()) {
+				if(go.getXPos() <= harrier.getXPos() + harrier.getVision() && 
+						go.getXPos() >= harrier.getXPos() - harrier.getVision() && 
+						go.getYPos() <= harrier.getYPos() + harrier.getVision() && 
+						go.getYPos() >= harrier.getYPos() - harrier.getVision()) {
 					g.fillRect(x, y, (int)go.getXWidth(), (int)go.getYWidth());
 				}
 			}
