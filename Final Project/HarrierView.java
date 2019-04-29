@@ -5,6 +5,10 @@ import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 
+import java.awt.geom.Ellipse2D;
+
+import java.awt.geom.Area;
+
 public class HarrierView extends View{
 
 	
@@ -53,8 +57,8 @@ public class HarrierView extends View{
 			for(int i = 0; i < objects.size(); i++) {
 				HarrierAble go = objects.get(i);
 				int x = (int)(go.getXPos() - harrier.getXPos()) + FRAMEWIDTH / 2;
-				int y = (int)(go.getYPos() - harrier.getYPos()) + FRAMEWIDTH / 2;
-				if(x < FRAMEWIDTH && x > 0 && y < FRAMEHEIGHT && y > 0) {
+				int y = (int)(go.getYPos() - harrier.getYPos()) + FRAMEHEIGHT / 2;
+				if(x < harrier.getXPos() + harrier.getVision() && x > harrier.getXPos() - harrier.getVision() && y < harrier.getYPos() + harrier.getVision() && y > harrier.getYPos() - harrier.getVision()) {
 					g.fillRect(x, y, (int)go.getXWidth(), (int)go.getYWidth());
 				}
 			}
