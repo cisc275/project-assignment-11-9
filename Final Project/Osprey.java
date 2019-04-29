@@ -69,4 +69,7 @@ public class Osprey extends Animal {
 	
 	public String toString() { return "Osprey @ (" + (int)getXPos() + "," + (int)getYPos() + ")"; } 
 	
+	public boolean isOsprey() {
+		return true;
+	}
 }

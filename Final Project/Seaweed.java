@@ -21,7 +21,7 @@ public class Seaweed extends GameObject implements OspreyAble {
 	 */
 	public void interact(Osprey o) {
 		if (!hasBeenHit) {
-			if (o.getXVel() > 4)
+			if (o.getXVel() - 2 > 4)
 				o.setXVel(o.getXVel() - 2);
 			else
 				o.setXVel(4);
@@ -29,4 +29,7 @@ public class Seaweed extends GameObject implements OspreyAble {
 		}
 	}
 	
+	public boolean isSeaweed() {
+		return true;
+	}
 }

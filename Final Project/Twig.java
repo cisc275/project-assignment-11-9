@@ -21,4 +21,9 @@ public class Twig extends GameObject implements HarrierAble {
 		h.setScore(h.getScore() + 20);
 	}
 	
+	@Override
+	public boolean isTwig() {
+		return true;
+	}
+	
 }

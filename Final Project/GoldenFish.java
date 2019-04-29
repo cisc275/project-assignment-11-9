@@ -18,4 +18,8 @@ public class GoldenFish extends Fish implements OspreyAble {
 		o.setXVel(o.getXVel() + 10);
 	}
 	
+	@Override
+	public boolean isGoldenFish() {
+		return true;
+	}
 }

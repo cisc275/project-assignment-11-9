@@ -83,4 +83,8 @@ public abstract class Animal extends GameObject {
 		}
 	}
 	
+	@Override
+	public boolean isAnimal() {
+		return true;
+	}
 }

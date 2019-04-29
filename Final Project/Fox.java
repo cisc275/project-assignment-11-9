@@ -40,4 +40,8 @@ public class Fox extends Animal implements HarrierAble {
 		else { setYVel(0); }
 	}
 	
+	@Override
+	public boolean isFox() {
+		return true;
+	}
 }

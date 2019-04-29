@@ -20,4 +20,8 @@ public class GoldenMouse extends Mouse implements HarrierAble {
 		h.setVision(h.getVision() + 10);
 	}
 	
+	@Override
+	public boolean isGoldenMouse() {
+		return true;
+	}
 }

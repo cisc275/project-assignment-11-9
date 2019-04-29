@@ -59,7 +59,7 @@ public class HarrierModel extends Model {
 		harrier.move();
 		for(int i = 0; i < objects.size(); i++) {
 			HarrierAble h = objects.get(i);
-			if(h instanceof Animal) {
+			if(h.isAnimal()) {
 				Animal a = (Animal)h;
 				a.move();
 				a.twitch(20, i);
@@ -79,7 +79,7 @@ public class HarrierModel extends Model {
 			HarrierAble h = objects.get(i);
 			if(isCollision(harrier, (GameObject)h)) {
 				h.interact(harrier);
-				if(h instanceof Mouse || h instanceof Twig) { objects.remove(i); }
+				if(h.isMouse() || h.isTwig()) { objects.remove(i); }
 			}
 		}
 	}

@@ -61,7 +61,7 @@ public class OspreyModel extends Model {
 	public void update() {
 		osprey.move();
 		for(OspreyAble o : objects) {
-			if(o instanceof Animal) {
+			if(o.isAnimal()) {
 				Animal a = (Animal)o;
 				a.move();
 			}
@@ -80,7 +80,7 @@ public class OspreyModel extends Model {
 			OspreyAble o = objects.get(i);
 			if(isCollision(osprey, (GameObject)o)) {
 				o.interact(osprey);
-				if(o instanceof Fish) { objects.remove(i); }
+				if(o.isFish()) { objects.remove(i); }
 			}
 		}
 	}

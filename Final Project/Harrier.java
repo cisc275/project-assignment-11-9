@@ -11,6 +11,7 @@ public class Harrier extends Animal {
 	static int GOINGWEST = -10;
 	static int GOINGEAST = 10;
 	static int GOINGSOUTH = 10;
+	static int INITIALVISION = 1000;
 
 	public Harrier() {
 		setXPos(0);
@@ -21,7 +22,7 @@ public class Harrier extends Animal {
 		setYVel(0);
 		updateDirection();
 		score = 0;
-		visionRadius = 5;
+		visionRadius = INITIALVISION;
 	}
 	
 	public void goNorth() { setYVel(GOINGNORTH); updateDirection(); }
@@ -42,4 +43,8 @@ public class Harrier extends Animal {
 
 	public void setVision(double visionRadius) { this.visionRadius = visionRadius; }
 
+	@Override
+	public boolean isHarrier() {
+		return true;
+	}
 }

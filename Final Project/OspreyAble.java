@@ -19,4 +19,9 @@ public interface OspreyAble {
 	public double getXWidth();
 
 	public double getYWidth();
+	
+	public boolean isAnimal();
+	public boolean isFish();
+	public boolean isGoldenFish();
+	public boolean isSeaweed();
 }

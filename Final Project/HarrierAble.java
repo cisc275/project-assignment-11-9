@@ -20,4 +20,12 @@ public interface HarrierAble {
 	public double getXWidth();
 	
 	public double getYWidth();
+	
+	public boolean isAnimal();
+	public boolean isFox();
+	public boolean isGoldenMouse();
+	public boolean isHarrier();
+	public boolean isMouse();
+	public boolean isTree();
+	public boolean isTwig();
 }

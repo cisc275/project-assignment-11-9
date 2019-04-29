@@ -32,4 +32,8 @@ public class Fish extends Animal implements OspreyAble {
 		o.setXVel(o.getXVel() + size);
 	}
 	
+	@Override
+	public boolean isFish() {
+		return true;
+	}
 }

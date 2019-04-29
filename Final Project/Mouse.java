@@ -26,4 +26,8 @@ public class Mouse extends Animal implements HarrierAble {
 		h.setVision(h.getVision() + 1);
 	}
 	
+	@Override
+	public boolean isMouse() {
+		return true;
+	}
 }

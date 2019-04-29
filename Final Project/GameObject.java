@@ -33,4 +33,47 @@ public abstract class GameObject {
 		return randPosition;
 	}
 	
+	public boolean isAnimal() {
+		return false;
+	}
+	
+	public boolean isFish() {
+		return false;
+	}
+	
+	public boolean isFox() {
+		return false;
+	}
+	
+	public boolean isGoldenFish() {
+		return false;
+	}
+	
+	public boolean isGoldenMouse() {
+		return false;
+	}
+	
+	public boolean isHarrier() {
+		return false;
+	}
+	
+	public boolean isMouse() {
+		return false;
+	}
+	
+	public boolean isOsprey() {
+		return false;
+	}
+	
+	public boolean isSeaweed() {
+		return false;
+	}
+	
+	public boolean isTree() {
+		return false;
+	}
+	
+	public boolean isTwig() {
+		return false;
+	}
 }
