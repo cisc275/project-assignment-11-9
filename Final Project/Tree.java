@@ -1,26 +1,15 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-package Project;
+
 
 /* 
  * Public class Tree contains the behaviors and attributes of Trees, the obstacles in the Harrier game.
  */
 import java.util.concurrent.TimeUnit;
+package Project;
 import java.io.*;
 public class Tree extends GameObject implements HarrierAble {
 	
 	long lastTime;
-	
-	public Tree() {
-		double randPositionX= Math.random() * ( 500 - 0 ) + 0;
-		double randPositionY= Math.random() * ( 500 - 0 ) + 0;
-		setXPos(randPositionX);
-		setYPos(randPositionY);
-		setXWidth(120);
-		setYWidth(120);
-		lastTime = System.nanoTime();	
-	}
-	
-	
 	
 	public Tree(double x, double y) {
 		setXPos(x);
@@ -42,8 +31,6 @@ public class Tree extends GameObject implements HarrierAble {
 			h.setVision(h.getVision() - 1);
 			lastTime = newTime;
 		}
-		h.setXVel(0);
-		h.setYVel(0);
 		h.setXPos(h.getXPos() - h.getXVel());
 		h.setYPos(h.getYPos() - h.getYVel());
 	}

@@ -1,5 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-
+package Project;
 /* 
  * Public class Harrier contains the behaviors and attributes of Harriers, one of the types of playable characters.
  */
@@ -13,7 +13,7 @@ public class Harrier extends Animal {
 	static int GOINGSOUTH = 10;
 	static int INITIALVISION = 500;
 	static int STARTPOS = 0;
-	static int STARTVEL = 0;
+	static int STARTVEL = 5;
 	static int SIZE = 60;
 
 	public Harrier() {
@@ -22,19 +22,92 @@ public class Harrier extends Animal {
 		setXWidth(SIZE);
 		setYWidth(SIZE);
 		setXVel(STARTVEL);
-		setYVel(STARTVEL);
+		setYVel(0);
 		updateDirection();
 		score = 0;
 		visionRadius = INITIALVISION;
 	}
 	
-	public void goNorth() { setYVel(GOINGNORTH); updateDirection(); }
+	public void goNorth() {
+		if (goingSouth()) {
+			if (goingWest()) {
+				goWest();
+			} else if (goingEast()) {
+				goEast();
+			} else {
+				goEast();
+			}
+		} else { //yVelocity is negative
+			if (goingWest()) { //xVelocity is negative
+				setXVel(getXVel() + 1);
+				setYVel(getYVel() - 1);
+			} else if (goingEast()) {
+				setXVel(getXVel() - 1);
+				setYVel(getYVel() - 1);
+			}
+		}
+	}
 	
-	public void goSouth() { setYVel(GOINGSOUTH); updateDirection(); }
+	public void goSouth() {
+		if (goingNorth()) {
+			if (goingWest()) {
+				goWest();
+			} else if (goingEast()) {
+				goEast();
+			} else {
+				goWest();
+			}
+		} else {
+			if (goingWest()) {
+				setXVel(getXVel() + 1);
+				setYVel(getYVel() + 1);
+			} else if (goingEast()) {
+				setXVel(getXVel() - 1);
+				setYVel(getYVel() + 1);
+			}
+		}
+	}
 	
-	public void goEast() { setXVel(GOINGEAST); updateDirection(); }
+	public void goEast() {
+		if (goingWest()) {
+			if (goingNorth()) {
+				goNorth();
+			} else if (goingSouth()) {
+				goSouth();
+			} else {
+				goSouth();
+			}
+		} else {
+			if (goingNorth()) {
+				setXVel(getXVel() + 1);
+				setYVel(getYVel() + 1);
+			} else if (goingSouth()) {
+				setXVel(getXVel() + 1);
+				setYVel(getYVel() - 1);
+			}
+		}
+	}
 	
-	public void goWest() { setXVel(GOINGWEST); updateDirection(); }
+	public void goWest() {
+		if (goingEast()) {
+			if (goingNorth()) {
+				goNorth();
+			} else if (goingSouth()) {
+				goSouth();
+			} else {
+				goNorth();
+			}
+		} else {
+			if (goingNorth()) {
+				setXVel(getXVel() - 1);
+				setYVel(getYVel() + 1);
+			} else if (goingSouth()) {
+				setXVel(getXVel() - 1);
+				setYVel(getYVel() - 1);
+				
+			}
+		}
+	}
 	
 	
 	
@@ -56,5 +129,21 @@ public class Harrier extends Animal {
 	@Override
 	public boolean isHarrier() {
 		return true;
+	}
+	
+	public boolean goingSouth() {
+		return (getYVel() > 0);
+	}
+	
+	public boolean goingNorth() {
+		return (getYVel() < 0);
+	}
+	
+	public boolean goingWest() {
+		return (getXVel() < 0);
+	}
+	
+	public boolean goingEast() {
+		return (getXVel() > 0);
 	}
 }
