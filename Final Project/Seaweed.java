@@ -7,6 +7,15 @@ public class Seaweed extends GameObject implements OspreyAble {
 	
 	boolean hasBeenHit = false;
 	
+	public Seaweed() {
+		double randPositionX= Math.random() * ( 1500 - 0 ) + 0;
+		double randPositionY= Math.random() * ( 1500 - 0 ) + 0;
+		setXPos(randPositionX);
+		setYPos(randPositionY);
+		setXWidth(50);
+		setYWidth(80);
+	}
+	
 	Seaweed(double x, double y){
 		setXPos(x);
 		setYPos(y);
