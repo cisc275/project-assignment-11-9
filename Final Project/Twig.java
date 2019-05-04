@@ -5,6 +5,16 @@ package Project;
  */
 public class Twig extends GameObject implements HarrierAble {
 	
+	public Twig() {
+		double randPositionX= Math.random() * ( 500 - 0 ) + 0;
+		double randPositionY= Math.random() * ( 500 - 0 ) + 0;
+		setXPos(randPositionX);
+		setYPos(randPositionY);
+		setXWidth(15);
+		setYWidth(30);
+	}
+	
+	
 	public Twig(double x, double y) {
 		setXPos(x);
 		setYPos(y);
