@@ -5,6 +5,20 @@ package Project;
  */
 public class Fox extends Animal implements HarrierAble {
 	
+	public Fox() { 
+		double randPositionX= Math.random() * ( 500 - 0 ) + 0;
+		double randPositionY= Math.random() * ( 500 - 0 ) + 0;
+		setXPos(randPositionX);
+		setYPos(randPositionY);
+		setXWidth(75);
+		setYWidth(75);
+		setXVel(5);
+		setYVel(3);
+		setSpeedMod(5);
+		updateDirection();
+	}
+	
+	
 	public Fox(double x, double y) {
 		setXPos(x);
 		setYPos(y);
