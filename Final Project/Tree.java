@@ -10,6 +10,18 @@ public class Tree extends GameObject implements HarrierAble {
 	
 	long lastTime;
 	
+	public Tree() {
+		double randPositionX= Math.random() * ( 500 - 0 ) + 0;
+		double randPositionY= Math.random() * ( 500 - 0 ) + 0;
+		setXPos(randPositionX);
+		setYPos(randPositionY);
+		setXWidth(120);
+		setYWidth(120);
+		lastTime = System.nanoTime();	
+	}
+	
+	
+	
 	public Tree(double x, double y) {
 		setXPos(x);
 		setYPos(y);
