@@ -23,12 +23,12 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public void initialize() {
-		objects.add(new Mouse(100, 100));
-		objects.add(new Mouse(-300, -300));
-		objects.add(new Fox(-500, -500));
-		objects.add(new Tree(-500, 0));
-		objects.add(new Tree(370, -280));
-		objects.add(new Twig(100, 100));
+		objects.add(new Mouse());
+		objects.add(new Mouse());
+		objects.add(new Fox());
+		objects.add(new Tree());
+		objects.add(new Tree());
+		objects.add(new Twig());
 	}
 
 	/* 
@@ -67,6 +67,8 @@ public class HarrierModel extends Model {
 			iterative ++;
 		}
 		checkInteractions();
+		randGen();
+		
 	}
 
 	/*
@@ -89,5 +91,16 @@ public class HarrierModel extends Model {
 	public Harrier getHarrier() { return this.harrier; }
 
 	public ArrayList<HarrierAble> getObjects() { return this.objects; }
+	
+	public void randGen() {
+		int randAnimal= (int) ((Math.random() * (4) + 0));
+		switch(randAnimal) {
+		case 1:
+			objects.add(new Mouse());
+		case 2:
+			objects.add(new Twig());
+		}
+		
+	}
 
 }
