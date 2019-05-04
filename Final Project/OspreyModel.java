@@ -26,13 +26,14 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public void initialize() {
-		objects.add(new Fish(500, 250, 1));
+		objects.add(new Fish(1));
 		objects.add(new Fish(700, 450, 2));
-		objects.add(new Fish(1600, 360, 3));
+		objects.add(new Fish(3));
 		objects.add(new Fish(1000, 270, 2));
 		objects.add(new Fish(2000, 535, 2));
-		objects.add(new Seaweed(1500, 200));
+		objects.add(new Seaweed());
 	}
+
 
 	/* 
 	 * Public method isEnd.
@@ -93,5 +94,16 @@ public class OspreyModel extends Model {
 	public Osprey getOsprey() { return this.osprey; }
 	
 	public ArrayList<OspreyAble> getObjects() { return this.objects; }
+	
+	public void randGen() {
+		int randAnimal= (int) ((Math.random() * (4) + 0));
+		switch(randAnimal) {
+		case 1:
+			objects.add(new Seaweed());
+		case 2:
+			objects.add(new Fish(4));
+		}
+		
+	}
 	
 }
