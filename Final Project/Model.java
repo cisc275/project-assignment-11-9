@@ -1,5 +1,6 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+import java.util.*;
 import java.lang.Math;
 
 /*
@@ -9,21 +10,16 @@ public abstract class Model {
 
 	private int time;
 	private Quiz quiz;
-	
-	Model(){
-		time = 0;
-		String[] questions = new String[1];
-		char[] answers = new char[1];
-		quiz = new Quiz(questions, answers);
-	}
-	
-	/* 
-	 * Public abstract method initialize.
-	 * Takes no parameters and returns nothing.
-	 * Adds relevant GameObjects to model.
-	 */
-	public abstract void initialize();
-	
+	public static Random rand = new Random(System.currentTimeMillis());
+
+	public int getTime() { return this.time; }
+
+	public void setTime(int time) { this.time = time; }
+
+	public Quiz getQuiz() { return this.quiz; }
+
+	public void setQuiz(Quiz quiz) { this.quiz = quiz; }
+
 	/* 
 	 * Public abstract method isEnd.
 	 * Takes no parameters, returns a boolean signifying if the game has achieved the end state.
@@ -36,10 +32,17 @@ public abstract class Model {
 	 */
 	public abstract boolean isWin();
 	
+	/* 
+	 * Public abstract method generate.
+	 * Takes no parameters and returns nothing.
+	 * Adds relevant GameObjects to the model.
+	 */
+	public abstract void generate();
+	
 	/*
 	 * Public abstract method update.
 	 * Takes no parameters, returns nothing.
-	 * Updates model variables.
+	 * Changes model variables on each tick.
 	 */
 	public abstract void update();
 	
@@ -56,16 +59,17 @@ public abstract class Model {
 	 * Checks if the hit-boxes of the two objects are in contact.
 	 */
 	public boolean isCollision(GameObject g1, GameObject g2) {
-		return Math.abs(g1.getXPos() - g2.getXPos()) <= g1.getXWidth() / 2 + g2.getXWidth() / 2
-			&& Math.abs(g1.getYPos() - g2.getYPos()) <= g1.getYWidth() / 2 + g2.getYWidth() / 2;
+		//Widths of GameObjects are divided by 2 to convert diameters to radii.
+		double xDist = Math.abs(g1.getXPos() - g2.getXPos());
+		double xWidth = g1.getXWidth() / 2 + g2.getXWidth() / 2;
+		double yDist = Math.abs(g1.getYPos() - g2.getYPos());
+		double yWidth = g1.getYWidth() / 2 + g2.getYWidth() / 2;
+		return xDist <= xWidth && yDist <= yWidth;
+	}
+	
+	public static int randomSign() {
+		if(Model.rand.nextBoolean()) { return 1; }
+		else { return -1; }
 	}
 
-	public int getTime() { return this.time; }
-
-	public void setTime(int time) { this.time = time; }
-
-	public Quiz getQuiz() { return this.quiz; }
-
-	public void setQuiz(Quiz quiz) { this.quiz = quiz; }
-	
 }

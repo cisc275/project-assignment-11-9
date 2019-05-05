@@ -7,41 +7,46 @@ import java.util.*;
  */
 public class OspreyModel extends Model {
 	
-	ArrayList<OspreyAble> objects;
-	Osprey osprey;
-	int stage;
+	private Osprey osprey;
+	private ArrayList<Fish> fish;
+	private ArrayList<Seaweed> seaweed;
+	private int stage;
+	private final static double WATER_HEIGHT = 400;
+	private final static int MAX_FISH = 10;
+	private final static int MAX_SEAWEED = 5;
+	private final static int GOLD_CHANCE_MOD = 50;
 
-	OspreyModel(){
+	public OspreyModel(){
 		super();
 		osprey = new Osprey();
-		objects = new ArrayList<>();
-		stage = 0;
-		initialize();
+		fish = new ArrayList<>();
+		seaweed = new ArrayList<>();
+		generate();
 	}
 
-	/* 
-	 * Public method initialize.
-	 * Takes no parameters and returns nothing.
-	 * Adds relevant GameObjects to objects.
-	 */
-	@Override
-	public void initialize() {
-		objects.add(new Fish(1));
-		objects.add(new Fish(700, 450, 2));
-		objects.add(new Fish(3));
-		objects.add(new Fish(1000, 270, 2));
-		objects.add(new Fish(2000, 535, 2));
-		objects.add(new Seaweed());
-	}
-
-
+	public Osprey getOsprey() { return this.osprey; }
+	
+	public void setOsprey(Osprey osprey) { this.osprey = osprey; }
+	
+	public ArrayList<Fish> getFish() { return this.fish; }
+	
+	public void setFish(ArrayList<Fish> fish) { this.fish = fish; }
+	
+	public ArrayList<Seaweed> getSeaweed() { return this.seaweed; }
+	
+	public void setSeaweed(ArrayList<Seaweed> seaweed) { this.seaweed = seaweed; }
+	
+	public int getStage() { return this.stage; }
+	
+	public void setStage(int stage) { this.stage = stage; }
+	
 	/* 
 	 * Public method isEnd.
 	 * Takes no parameters, returns a boolean signifying if the game is over.
 	 */
 	@Override
 	public boolean isEnd() {
-		return isWin() || osprey.getXVel() < 0;
+		return osprey.getXVel() <= 0 || isWin();
 	}
 
 	/*
@@ -50,9 +55,53 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public boolean isWin() {
-		return osprey.getXPos() > 100000;
+		return osprey.getXPos() >= 100000;
 	}
 
+	/* 
+	 * Public method generate.
+	 * Takes no parameters and returns nothing.
+	 * Adds relevant GameObjects to the model.
+	 */
+	@Override
+	public void generate() {
+		while(fish.size() < MAX_FISH) {
+			if(rand.nextInt(GOLD_CHANCE_MOD) % GOLD_CHANCE_MOD == 0) {
+				fish.add(
+						new GoldenFish(Model.rand.nextDouble() * TitleView.FRAME_WIDTH + TitleView.FRAME_WIDTH + osprey.getXPos(), 
+								 Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - WATER_HEIGHT) / 2 + WATER_HEIGHT));
+			}
+			else {
+				fish.add(
+						new Fish(Model.rand.nextDouble() * TitleView.FRAME_WIDTH + TitleView.FRAME_WIDTH + osprey.getXPos(), 
+								 Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - WATER_HEIGHT) / 2 + WATER_HEIGHT, 
+								 Model.rand.nextInt(3) + 2));
+			}
+		}
+		while(seaweed.size() < MAX_SEAWEED) {
+			seaweed.add(
+					new Seaweed(Model.rand.nextDouble() * TitleView.FRAME_WIDTH + TitleView.FRAME_WIDTH + osprey.getXPos(), 
+							 	Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - WATER_HEIGHT) / 2 + WATER_HEIGHT));
+		}
+	}
+	
+	public void destroy() {
+		Iterator<Fish> fIter = fish.iterator();
+		while(fIter.hasNext()) {
+			Fish f = fIter.next();
+			if(f.getXPos() < osprey.getXPos() - 2 * OspreyView.X_OFFSET) {
+				fIter.remove();
+			}
+		}
+		Iterator<Seaweed> sIter = seaweed.iterator();
+		while(sIter.hasNext()) {
+			Seaweed s = sIter.next();
+			if(s.getXPos() < osprey.getXPos() - 2 * OspreyView.X_OFFSET) {
+				sIter.remove();
+			}
+		}
+	}
+	
 	/*
 	 * Public method update.
 	 * Takes no parameters, returns nothing.
@@ -60,16 +109,14 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public void update() {
+		setTime(getTime() + 1);
 		osprey.move();
-		for(OspreyAble o : objects) {
-			if(o.isAnimal()) {
-				Animal a = (Animal)o;
-				a.move();
-			}
-		}
+		for(Fish f : fish) { f.move(); }
 		checkInteractions();
+		destroy();
+		generate();
 	}
-
+	
 	/*
 	 * Public method checkInteractions.
 	 * Takes no parameters, returns nothing.
@@ -77,33 +124,15 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public void checkInteractions() {
-		Iterator iter = objects.iterator();
-		while (iter.hasNext()) {
-			OspreyAble o = (OspreyAble) iter.next();
-			if (isCollision(osprey, (GameObject) o)) {
-				o.interact(osprey);
-				if (o.isFish()) {iter.remove(); }
+		Iterator<Fish> fIter = fish.iterator();
+		while(fIter.hasNext()) {
+			Fish f = fIter.next();
+			if(isCollision(osprey, f)) {
+				f.interact(osprey);
+				fIter.remove();
 			}
 		}
+		for(Seaweed s : seaweed) { if(isCollision(osprey, s)) { s.interact(osprey); }}
 	}
 
-	public int getStage() { return this.stage; }
-
-	public void setStage(int stage) { this.stage = stage; }
-	
-	public Osprey getOsprey() { return this.osprey; }
-	
-	public ArrayList<OspreyAble> getObjects() { return this.objects; }
-	
-	public void randGen() {
-		int randAnimal= (int) ((Math.random() * (4) + 0));
-		switch(randAnimal) {
-		case 1:
-			objects.add(new Seaweed());
-		case 2:
-			objects.add(new Fish(4));
-		}
-		
-	}
-	
 }

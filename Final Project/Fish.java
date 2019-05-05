@@ -1,32 +1,19 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+
 /* 
  * Public class Fish contains the behaviors and attributes of Fish, the consumables in the Osprey game.
  */
-public class Fish extends Animal implements OspreyAble {
+public class Fish extends Animal {
 
 	private int size;
-	
-	public Fish(int size) {
-		double randPositionX= Math.random() * ( 500 - 0 ) + 0;
-		double randPositionY= Math.random() * ( 500 - 0 ) + 0;
-		setXPos(randPositionX);
-		setYPos(randPositionY);
-		setXWidth(20 * size);
-		setYWidth(20 * size);
-		setXVel(2);
-		setYVel(0);
-		setSpeedMod(3);
-		updateDirection();
-		this.size = size;	
-	}
-	
+
 	public Fish(double x, double y, int size) {
 		setXPos(x);
 		setYPos(y);
-		setXWidth(20 * size);
-		setYWidth(20 * size);
-		setXVel(2);
+		setXWidth(15 * size);
+		setYWidth(15 * size);
+		setXVel(0);
 		setYVel(0);
 		setSpeedMod(3);
 		updateDirection();
@@ -46,8 +33,4 @@ public class Fish extends Animal implements OspreyAble {
 		o.setXVel(o.getXVel() + size);
 	}
 	
-	@Override
-	public boolean isFish() {
-		return true;
-	}
 }

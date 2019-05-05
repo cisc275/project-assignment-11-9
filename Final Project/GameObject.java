@@ -1,5 +1,6 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+
 /* 
  * Public abstract class GameObject outlines general behavior and attributes shared by all of the objects in the game.
  */
@@ -25,55 +26,5 @@ public abstract class GameObject {
 	public double getYWidth() { return this.yWidth; }
 
 	public void setYWidth(double yWidth) { this.yWidth = yWidth; }
-	
-	
-	public double RandInt(int minRange, int maxRange) {
-		double randPosition; 
-		randPosition= Math.random() * ( maxRange - minRange ) + minRange;
-		return randPosition;
-	}
-	
-	public boolean isAnimal() {
-		return false;
-	}
-	
-	public boolean isFish() {
-		return false;
-	}
-	
-	public boolean isFox() {
-		return false;
-	}
-	
-	public boolean isGoldenFish() {
-		return false;
-	}
-	
-	public boolean isGoldenMouse() {
-		return false;
-	}
-	
-	public boolean isHarrier() {
-		return false;
-	}
-	
-	public boolean isMouse() {
-		return false;
-	}
-	
-	public boolean isOsprey() {
-		return false;
-	}
-	
-	public boolean isSeaweed() {
-		return false;
-	}
-	
-	public boolean isTree() {
-		return false;
-	}
-	
-	public boolean isTwig() {
-		return false;
-	}
+
 }

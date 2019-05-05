@@ -1,4 +1,5 @@
 package Project;
+
 public enum Direction {
 
 	NORTH("north"),

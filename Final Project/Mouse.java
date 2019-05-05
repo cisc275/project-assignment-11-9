@@ -1,30 +1,18 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+
 /* 
  * Public class Mouse contains the behaviors and attributes of Mice, the primary consumables in the Harrier game.
  */
-public class Mouse extends Animal implements HarrierAble {
-	
-	public Mouse() { 
-		double randPositionX= Math.random() * ( 500 - 0 ) + 0;
-		double randPositionY= Math.random() * ( 500 - 0 ) + 0;
-		setXPos(randPositionX);
-		setYPos(randPositionY);
-		setXWidth(20);
-		setYWidth(20);
-		setXVel(2);
-		setYVel(3);
-		setSpeedMod(3);
-		updateDirection();
-	}
-	
+public class Mouse extends Animal {
+
 	public Mouse(double x, double y) {
 		setXPos(x);
 		setYPos(y);
 		setXWidth(20);
 		setYWidth(20);
-		setXVel(2);
-		setYVel(3);
+		setXVel(3);
+		setYVel(2);
 		setSpeedMod(3);
 		updateDirection();
 	}
@@ -39,8 +27,4 @@ public class Mouse extends Animal implements HarrierAble {
 		h.setVision(h.getVision() + 1);
 	}
 	
-	@Override
-	public boolean isMouse() {
-		return true;
-	}
 }

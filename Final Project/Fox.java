@@ -1,23 +1,10 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+
 /* 
  * Public class Fox contains the behaviors and attributes of Foxes, the predators in the Harrier game.
  */
-public class Fox extends Animal implements HarrierAble {
-	
-	public Fox() { 
-		double randPositionX= Math.random() * ( 500 - 0 ) + 0;
-		double randPositionY= Math.random() * ( 500 - 0 ) + 0;
-		setXPos(randPositionX);
-		setYPos(randPositionY);
-		setXWidth(75);
-		setYWidth(75);
-		setXVel(5);
-		setYVel(3);
-		setSpeedMod(5);
-		updateDirection();
-	}
-	
+public class Fox extends Animal {
 	
 	public Fox(double x, double y) {
 		setXPos(x);
@@ -38,6 +25,7 @@ public class Fox extends Animal implements HarrierAble {
 	public void interact(Harrier h) {
 		h.setScore(h.getScore() - 30);
 		h.setVision(h.getVision() - 3);
+		h.die();
 	}
 	
 	/*
@@ -54,8 +42,4 @@ public class Fox extends Animal implements HarrierAble {
 		else { setYVel(0); }
 	}
 	
-	@Override
-	public boolean isFox() {
-		return true;
-	}
 }

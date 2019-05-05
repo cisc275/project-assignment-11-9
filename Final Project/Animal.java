@@ -1,6 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 import java.util.*;
+
 /*
  * Public abstract class Animal defines general behaviors and attributes for movable objects.
  */
@@ -82,9 +83,5 @@ public abstract class Animal extends GameObject {
 			else { direction = Direction.SOUTH; }
 		}
 	}
-	
-	@Override
-	public boolean isAnimal() {
-		return true;
-	}
+
 }

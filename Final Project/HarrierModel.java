@@ -7,37 +7,53 @@ import java.util.*;
  */
 public class HarrierModel extends Model {
 
-	ArrayList<HarrierAble> objects;
-	Harrier harrier;
+	private Harrier harrier;
+	private ArrayList<Fox> foxes;
+	private ArrayList<Mouse> mice;
+	private ArrayList<Twig> twigs;
+	private ArrayList<Tree> trees;
+	private final static int MAX_FOXES = 3;
+	private final static int MAX_MICE = 20;
+	private final static int MAX_TWIGS = 20;
+	private final static int MAX_TREES = 10;
 
-	HarrierModel(){
+	public HarrierModel(){
 		super();
 		harrier = new Harrier();
-		objects = new ArrayList<>();
+		foxes = new ArrayList<>();
+		mice = new ArrayList<>();
+		twigs = new ArrayList<>();
+		trees = new ArrayList<>();
+		generate();
 	}
 
-	/* 
-	 * Public method initialize.
-	 * Takes no parameters and returns nothing.
-	 * Adds relevant GameObjects to objects.
-	 */
-	@Override
-	public void initialize() {
-		objects.add(new Mouse());
-		objects.add(new Mouse());
-		objects.add(new Fox());
-		objects.add(new Tree());
-		objects.add(new Tree());
-		objects.add(new Twig());
-	}
-
+	public Harrier getHarrier() { return this.harrier; }
+	
+	public void setHarrier(Harrier harrier) { this.harrier = harrier; }
+	
+	public ArrayList<Fox> getFoxes() { return this.foxes; }
+	
+	public void setFoxes(ArrayList<Fox> foxes) { this.foxes = foxes; }
+	
+	public ArrayList<Mouse> getMice() { return this.mice; }
+	
+	public void setMice(ArrayList<Mouse> mice) { this.mice = mice; }
+	
+	public ArrayList<Twig> getTwigs() { return this.twigs; }
+	
+	public void setTwigs(ArrayList<Twig> twigs) {this.twigs = twigs; }
+	
+	public ArrayList<Tree> getTrees() { return this.trees; }
+	
+	public void setTrees(ArrayList<Tree> trees) { this.trees = trees; }
+	
 	/* 
 	 * Public method isEnd.
 	 * Takes no parameters, returns a boolean signifying if the game is over.
 	 */
 	@Override
 	public boolean isEnd() {
-		return isWin() || harrier.getVision() < 1;
+		return harrier.getVision() <= 0 || isWin();
 	}
 
 	/*
@@ -46,9 +62,38 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public boolean isWin() {
-		return getTime() > 100000;
+		return getTime() >= 100000;
 	}
 
+	/* 
+	 * Public method generate.
+	 * Takes no parameters and returns nothing.
+	 * Adds relevant GameObjects to the model.
+	 */
+	@Override
+	public void generate() {
+		while(foxes.size() < MAX_FOXES) {
+			foxes.add(
+					new Fox(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision()),
+							Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision())));
+		}
+		while(mice.size() < MAX_MICE) {
+			mice.add(
+					new Mouse(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision()),
+							  Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision())));
+		}
+		while(twigs.size() < MAX_TWIGS) {
+			twigs.add(
+					new Twig(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision()),
+							 Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision())));
+		}
+		while(trees.size() < MAX_TREES) {
+			trees.add(
+					new Tree(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision()),
+							 Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision())));
+		}
+	}
+	
 	/*
 	 * Public method update.
 	 * Takes no parameters, returns nothing.
@@ -56,19 +101,12 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public void update() {
-		int iterative = 0;
+		setTime(getTime() + 1);
 		harrier.move();
-		for(HarrierAble h : objects) {
-			if(h.isAnimal()) {
-				Animal a = (Animal)h;
-				a.move();
-				a.twitch(20, iterative);
-			}
-			iterative ++;
-		}
+		for(Fox f : foxes) { f.move(); f.twitch(30, rand.nextInt()); }
+		for(Mouse m : mice) { m.move(); m.twitch(20, rand.nextInt()); }
 		checkInteractions();
-		randGen();
-		
+		generate();
 	}
 
 	/*
@@ -78,29 +116,24 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public void checkInteractions() {
-		Iterator iter = objects.iterator();
-		while (iter.hasNext()) {
-			HarrierAble h = (HarrierAble) iter.next();
-			if(isCollision(harrier, (GameObject)h)) {
-				h.interact(harrier);
-				if(h.isMouse() || h.isTwig()) { iter.remove(); }
+		for(Fox f : foxes) { if(isCollision(harrier, f)) { f.interact(harrier); }}
+		Iterator<Mouse> mIter = mice.iterator();
+		while(mIter.hasNext()) {
+			Mouse m = mIter.next();
+			if(isCollision(harrier, m)) {
+				m.interact(harrier);
+				mIter.remove();
 			}
 		}
-	}
-
-	public Harrier getHarrier() { return this.harrier; }
-
-	public ArrayList<HarrierAble> getObjects() { return this.objects; }
-	
-	public void randGen() {
-		int randAnimal= (int) ((Math.random() * (4) + 0));
-		switch(randAnimal) {
-		case 1:
-			objects.add(new Mouse());
-		case 2:
-			objects.add(new Twig());
+		Iterator<Twig> twIter = twigs.iterator();
+		while(twIter.hasNext()) {
+			Twig tw = twIter.next();
+			if(isCollision(harrier, tw)) {
+				tw.interact(harrier);
+				twIter.remove();
+			}
 		}
-		
+		for(Tree tr : trees) { if(isCollision(harrier, tr)) { tr.interact(harrier); }}
 	}
 
 }

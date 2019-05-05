@@ -1,9 +1,10 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+
 /* 
  * Public class GoldenFish contains the behaviors and attributes of Golden Fish, the special power-up in the Osprey game.
  */
-public class GoldenFish extends Fish implements OspreyAble {
+public class GoldenFish extends Fish {
 	
 	public GoldenFish(double x, double y) {
 		super(x, y, 1);
@@ -18,8 +19,4 @@ public class GoldenFish extends Fish implements OspreyAble {
 		o.setXVel(o.getXVel() + 10);
 	}
 	
-	@Override
-	public boolean isGoldenFish() {
-		return true;
-	}
 }
