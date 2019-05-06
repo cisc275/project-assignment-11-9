@@ -1,4 +1,4 @@
- //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 import java.util.*;
 import java.awt.*;
@@ -123,8 +123,14 @@ public class Controller implements ActionListener, KeyListener {
 	}
 
 	public static void main(String[] args) {
-		Controller c = new Controller();
-		c.start();
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				Controller c = new Controller();
+				c.start();
+			}
+		});
+		
 	}
 
 }

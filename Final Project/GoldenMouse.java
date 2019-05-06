@@ -5,7 +5,8 @@ package Project;
  * Public class GoldenMouse contains the behaviors and attributes of Golden Mice, the special power-up in the Harrier game.
  */
 public class GoldenMouse extends Mouse {
-	
+	String answer = "1";
+	String correct = "2";
 	public GoldenMouse(double x, double y) {
 		super(x, y);
 		setSpeedMod(10);
@@ -17,8 +18,11 @@ public class GoldenMouse extends Mouse {
 	 * Processes an interaction between the Harrier and the GoldenMouse.
 	 */
 	public void interact(Harrier h) {
-		h.setScore(h.getScore() + 100);
-		h.setVision(h.getVision() + 250);
+		Quiz quiz = new Quiz(this);
+		if (answer.equals(correct)) {
+			h.setScore(h.getScore() + 100);
+			h.setVision(h.getVision() + 250);
+		}
 	}
 	
 }

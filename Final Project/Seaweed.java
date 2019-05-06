@@ -22,8 +22,8 @@ public class Seaweed extends GameObject {
 	public void interact(Osprey o) {
 		if (!hasBeenHit) {
 			hasBeenHit = true;
-			if (o.getXVel() - 2 > OspreyModel.MIN_SPEED) {
-				o.setXVel(o.getXVel() - 2);
+			if (o.getXVel() - 20 > OspreyModel.MIN_SPEED) {
+				o.setXVel(o.getXVel() - 20);
 			} else {
 				o.setXVel(OspreyModel.MIN_SPEED);
 			}
