@@ -66,6 +66,12 @@ public class OspreyView extends GameView{
 				g.fillRect(x, y, (int)s.getXWidth(), (int)s.getYWidth());
 				//g.drawImage(createBufferedImage("seaweed.png"), x, y, (int)s.getXWidth(), (int)s.getYWidth(), this);
 			}
+			g.setColor(Color.BLACK);
+			g.fillRect(10, 10, 100, 50);
+			g.setColor(Color.GREEN);
+			g.fillRect(108, 10, 2, 50);
+			g.setColor(Color.RED);
+			g.fillRect((int) (osprey.getXPos()/500 % 100) + 10, 35, 2, 2);
 		}
 		
 		/*@Override
