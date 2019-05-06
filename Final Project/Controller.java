@@ -20,7 +20,7 @@ public class Controller implements ActionListener, KeyListener {
 	private HarrierModel hm;
 	private HarrierView hv;
 	private boolean paused;
-	final static int TICK_TIME = 50;
+	final static int TICK_TIME = 60;
 
 	public Controller() { paused = false; }
 	
@@ -87,15 +87,20 @@ public class Controller implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		if (gs == GameState.OSPREY) {
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) { om.getOsprey().dive(); }
-			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { paused = !paused; gs = GameState.TITLE; ov.frame.dispose(); start(); }
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { 
+				if(paused == true) {paused = !paused;} gs = GameState.TITLE; ov.frame.dispose(); start(); }
 		}
 		else if(gs == GameState.HARRIER) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) { hm.getHarrier().goNorth(); }
 			if (e.getKeyCode() == KeyEvent.VK_DOWN) { hm.getHarrier().goSouth(); }
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) { hm.getHarrier().goWest(); }
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) { hm.getHarrier().goEast(); }
-			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { paused = !paused; gs = GameState.TITLE; hv.frame.dispose(); start(); }
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { 
+				if(paused == true) {paused = !paused;} gs = GameState.TITLE; hv.frame.dispose(); start(); }
 		}
+		//else if (gs == GameState.TITLE) {
+		//	if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {tv.dispose();}
+		//}
 		if (e.getKeyCode() == KeyEvent.VK_P) { paused = !paused; }
 	}
 
