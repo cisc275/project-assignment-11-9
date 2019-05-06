@@ -1,6 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-
 /* 
  * Public class Seaweed contains the behaviors and attributes of Seaweed, the obstacles in the Osprey game.
  */
@@ -23,7 +22,11 @@ public class Seaweed extends GameObject {
 	public void interact(Osprey o) {
 		if (!hasBeenHit) {
 			hasBeenHit = true;
-			o.setXVel(o.getXVel() - 2);
+			if (o.getXVel() - 2 > OspreyModel.MIN_SPEED) {
+				o.setXVel(o.getXVel() - 2);
+			} else {
+				o.setXVel(OspreyModel.MIN_SPEED);
+			}
 		}
 	}
 

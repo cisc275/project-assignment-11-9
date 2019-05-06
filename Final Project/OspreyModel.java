@@ -12,9 +12,11 @@ public class OspreyModel extends Model {
 	private ArrayList<Seaweed> seaweed;
 	private int stage;
 	private final static double WATER_HEIGHT = TitleView.FRAME_HEIGHT / 2;
-	private final static int MAX_FISH = 10;
-	private final static int MAX_SEAWEED = 5;
+	private final static int MAX_FISH = 3;
+	private final static int MAX_SEAWEED = 2;
 	private final static int GOLD_CHANCE_MOD = 50;
+	public static final double MAX_SPEED = 100;
+	public static final double MIN_SPEED = 10;
 
 	public OspreyModel(){
 		super();

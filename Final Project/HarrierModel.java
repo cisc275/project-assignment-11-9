@@ -17,6 +17,8 @@ public class HarrierModel extends Model {
 	private final static int MAX_TWIGS = 20;
 	private final static int MAX_TREES = 30;
 	private final static int GOLD_CHANCE_MOD = 100;
+	public final static double MIN_VISION = 1;
+	public final static double MAX_VISION = Harrier.INITIALVISION;
 
 	public HarrierModel(){
 		super();

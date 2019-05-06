@@ -1,6 +1,6 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-package Project;
 
+package Project;
 /* 
  * Public class Tree contains the behaviors and attributes of Trees, the obstacles in the Harrier game.
  */
@@ -24,7 +24,11 @@ public class Tree extends GameObject {
 		long newTime = System.nanoTime();
 		if ((newTime - lastTime) / 1000000000 > 1) {
 			h.setScore(h.getScore() - 10);
-			h.setVision(h.getVision() - 25);
+			if (h.getVision() - 25 > HarrierModel.MIN_VISION) {
+				h.setVision(h.getVision() - 25);
+			} else {
+				h.setVision(HarrierModel.MIN_VISION);
+			}
 			lastTime = newTime;
 		}
 		h.setXVel(0);
