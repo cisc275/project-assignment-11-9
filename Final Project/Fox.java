@@ -24,7 +24,7 @@ public class Fox extends Animal {
 	 */
 	public void interact(Harrier h) {
 		h.setScore(h.getScore() - 30);
-		h.setVision(h.getVision() - 3);
+		h.setVision(h.getVision() - 75);
 		h.die();
 	}
 	

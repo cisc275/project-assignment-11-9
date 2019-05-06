@@ -11,7 +11,7 @@ public class OspreyModel extends Model {
 	private ArrayList<Fish> fish;
 	private ArrayList<Seaweed> seaweed;
 	private int stage;
-	private final static double WATER_HEIGHT = 400;
+	private final static double WATER_HEIGHT = TitleView.FRAME_HEIGHT / 2;
 	private final static int MAX_FISH = 10;
 	private final static int MAX_SEAWEED = 5;
 	private final static int GOLD_CHANCE_MOD = 50;
@@ -66,7 +66,7 @@ public class OspreyModel extends Model {
 	@Override
 	public void generate() {
 		while(fish.size() < MAX_FISH) {
-			if(rand.nextInt(GOLD_CHANCE_MOD) % GOLD_CHANCE_MOD == 0) {
+			if(Model.rand.nextInt(GOLD_CHANCE_MOD) % GOLD_CHANCE_MOD == 0) {
 				fish.add(
 						new GoldenFish(Model.rand.nextDouble() * TitleView.FRAME_WIDTH + TitleView.FRAME_WIDTH + osprey.getXPos(), 
 								 Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - WATER_HEIGHT) / 2 + WATER_HEIGHT));

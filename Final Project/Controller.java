@@ -1,4 +1,4 @@
-//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+ //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 import java.util.*;
 import java.awt.*;
@@ -19,13 +19,19 @@ public class Controller implements ActionListener, KeyListener {
 	private OspreyView ov;
 	private HarrierModel hm;
 	private HarrierView hv;
-	private boolean Paused = false; 
+	private boolean paused;
 	final static int TICK_TIME = 50;
 
+	public Controller() { paused = false; }
+	
 	public void start() {
 		gs = GameState.TITLE;
 		tv = new TitleView();
 		tv.addListener(this);
+		om = null;
+		ov = null;
+		hm = null;
+		hv = null;
 	}
 
 	public void startOsprey() {
@@ -38,17 +44,13 @@ public class Controller implements ActionListener, KeyListener {
 		TimerTask timerTask = new TimerTask() {
 			@Override
 			public void run() {
-				if(!Paused) {
+				if(!paused) {
 					om.update();
 					ov.update(om.getOsprey(), om.getFish(), om.getSeaweed());
 				}
 				else {
-					try {
-						Thread.sleep(1);
-					}
-					catch(InterruptedException e1) {
-						e1.printStackTrace();
-					}
+					try { Thread.sleep(TICK_TIME); }
+					catch(InterruptedException e) { e.printStackTrace(); }
 				}
 			}
 		};
@@ -65,17 +67,13 @@ public class Controller implements ActionListener, KeyListener {
 		TimerTask timerTask = new TimerTask() {
 			@Override
 			public void run() {
-				if(!Paused) {
+				if(!paused) {
 					hm.update();
 					hv.update(hm.getHarrier(), hm.getFoxes(), hm.getMice(), hm.getTwigs(), hm.getTrees());
 				}
 				else {
-					try {
-						Thread.sleep(1);
-					}
-					catch(InterruptedException e1) {
-						e1.printStackTrace();
-					}
+					try { Thread.sleep(TICK_TIME); }
+					catch(InterruptedException e) { e.printStackTrace(); }
 				}
 			}
 		};
@@ -89,17 +87,16 @@ public class Controller implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		if (gs == GameState.OSPREY) {
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) { om.getOsprey().dive(); }
-			if (e.getKeyCode() == KeyEvent.VK_P) { Paused = !Paused;}
-			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { gs = GameState.TITLE; ov.frame.dispose(); start();}
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { paused = !paused; gs = GameState.TITLE; ov.frame.dispose(); start(); }
 		}
 		else if(gs == GameState.HARRIER) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) { hm.getHarrier().goNorth(); }
 			if (e.getKeyCode() == KeyEvent.VK_DOWN) { hm.getHarrier().goSouth(); }
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) { hm.getHarrier().goWest(); }
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) { hm.getHarrier().goEast(); }
-			if (e.getKeyCode() == KeyEvent.VK_P) { Paused = !Paused;}
-			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {gs = GameState.TITLE; hv.frame.dispose(); start();}
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { paused = !paused; gs = GameState.TITLE; hv.frame.dispose(); start(); }
 		}
+		if (e.getKeyCode() == KeyEvent.VK_P) { paused = !paused; }
 	}
 
 	/* 

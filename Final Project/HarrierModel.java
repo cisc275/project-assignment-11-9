@@ -15,7 +15,8 @@ public class HarrierModel extends Model {
 	private final static int MAX_FOXES = 3;
 	private final static int MAX_MICE = 20;
 	private final static int MAX_TWIGS = 20;
-	private final static int MAX_TREES = 10;
+	private final static int MAX_TREES = 30;
+	private final static int GOLD_CHANCE_MOD = 100;
 
 	public HarrierModel(){
 		super();
@@ -73,24 +74,35 @@ public class HarrierModel extends Model {
 	@Override
 	public void generate() {
 		while(foxes.size() < MAX_FOXES) {
+			double angle = Model.rand.nextDouble() * Math.PI / 2;
 			foxes.add(
-					new Fox(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision()),
-							Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision())));
+					new Fox(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision() * Math.cos(angle)),
+							Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision() * Math.sin(angle))));
 		}
 		while(mice.size() < MAX_MICE) {
-			mice.add(
-					new Mouse(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision()),
-							  Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision())));
+			double angle = Model.rand.nextDouble() * Math.PI / 2;
+			if(Model.rand.nextInt(GOLD_CHANCE_MOD) % GOLD_CHANCE_MOD == 0) {
+				mice.add(
+						new GoldenMouse(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision() * Math.cos(angle)),
+										Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision() * Math.sin(angle))));
+			}
+			else {
+				mice.add(
+						new Mouse(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision() * Math.cos(angle)),
+								  Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision() * Math.sin(angle))));
+			}
 		}
 		while(twigs.size() < MAX_TWIGS) {
+			double angle = Model.rand.nextDouble() * Math.PI / 2;
 			twigs.add(
-					new Twig(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision()),
-							 Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision())));
+					new Twig(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision() * Math.cos(angle)),
+							 Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision() * Math.sin(angle))));
 		}
 		while(trees.size() < MAX_TREES) {
+			double angle = Model.rand.nextDouble() * Math.PI / 2;
 			trees.add(
-					new Tree(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision()),
-							 Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision())));
+					new Tree(Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision() * Math.cos(angle)),
+							 Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision() * Math.sin(angle))));
 		}
 	}
 	
@@ -134,6 +146,62 @@ public class HarrierModel extends Model {
 			}
 		}
 		for(Tree tr : trees) { if(isCollision(harrier, tr)) { tr.interact(harrier); }}
+		
+		/*for(Fox f : foxes) {
+			for(GameObject m : mice) {
+				if(isCollision(f, m)) { f.interact(m); }
+			}
+			for(GameObject tr : trees) {
+				if(isCollision(f, tr)) { f.interact(tr); }
+			}
+		}
+		for(Mouse m : mice) {
+			for(GameObject f : foxes) {
+				if(isCollision(m, f)) { m.interact(f); }
+			}
+			for(GameObject tr : trees) {
+				if(isCollision(m, tr)) { m.interact(tr); }
+			}
+		}
+		
+		for(int i = 0; i < foxes.size(); i++) {
+			for(int j = 0; j < foxes.size(); j++) {
+				if(i != j) {
+					Animal interacter = foxes.get(i);
+					GameObject interacted = foxes.get(j);
+					if(isCollision(interacter, interacted)) { interacter.interact(interacted); }
+				}
+			}
+		}
+		for(int i = 0; i < mice.size(); i++) {
+			for(int j = 0; j < mice.size(); j++) {
+				if(i != j) {
+					Animal interacter = mice.get(i);
+					GameObject interacted = mice.get(j);
+					if(isCollision(interacter, interacted)) { interacter.interact(interacted); }
+				}
+			}
+		}*/
 	}
+	
+	/*private void interactOthers(ArrayList<Animal> interacters, ArrayList<GameObject> interacteds) {
+		for(Animal irs : interacters) {
+			for(GameObject ids : interacteds) {
+				if(isCollision(irs, ids)) { irs.interact(ids); }
+			}
+		}
+	}
+	
+	private void interactSelf(ArrayList<Animal> interactees) {
+		for(int i = 0; i < interactees.size(); i++) {
+			for(int j = 0; i < interactees.size(); j++) {
+				if(i != j) {
+					Animal interacter = interactees.get(i);
+					GameObject interacted = interactees.get(j);
+					if(isCollision(interacter, interacted)) { interacter.interact(interacted); }
+				}
+			}
+		}
+	}*/
 
 }

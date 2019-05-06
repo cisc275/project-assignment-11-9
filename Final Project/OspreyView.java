@@ -1,11 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class OspreyView extends GameView{
@@ -42,7 +38,6 @@ public class OspreyView extends GameView{
 			seaweed = new ArrayList<>();
 		}
 		
-	
 		public void setOsprey(Osprey osprey) { this.osprey = osprey; }
 		
 		public void setFish(ArrayList<Fish> fish) { this.fish = fish; }
@@ -51,37 +46,44 @@ public class OspreyView extends GameView{
 		
 		public Dimension getPreferredSize() { return new Dimension(TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT); }
 		
-		public Image ImagePanel(String file) {
-	        try {   
-	        	String path = "src/images/";
-	    		path += file;
-	           Image image = ImageIO.read(new File(path));
-	           return image;
-	        } catch (IOException ex) {
-	             // handle exception...
-	        }
-			return null;
-	     }
-		
-		
-		
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			g.drawImage(ImagePanel("OspreyBackground3.png"), 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, null);
-			g.drawImage(ImagePanel("OspreyFlying.png"), X_OFFSET, (int)osprey.getYPos() + Y_OFFSET, (int)osprey.getXWidth(), (int)osprey.getYWidth(), this);
-			//g.fillRect(X_OFFSET, (int)osprey.getYPos() + Y_OFFSET, (int)osprey.getXWidth(), (int)osprey.getYWidth());
+			g.drawImage(createBufferedImage("OspreyBackground3.png"), 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, null);
+			g.drawImage(createBufferedImage("OspreyFlying.png"), 
+						X_OFFSET - (int)(osprey.getXWidth() / 2), 
+						(int)osprey.getYPos() + Y_OFFSET - (int)(osprey.getYWidth() / 2), 
+						(int)osprey.getXWidth(), (int)osprey.getYWidth(), this);
 			for(Fish f : fish) {
-				int x = (int)(f.getXPos() - osprey.getXPos()) + X_OFFSET;
-				int y = (int)f.getYPos() + Y_OFFSET;
-				g.drawImage(ImagePanel("fish.png"), x, y, (int)f.getXWidth(), (int)f.getYWidth(), this);
+				int x = (int)(f.getXPos() - osprey.getXPos()) + X_OFFSET - (int)(f.getXWidth() / 2);
+				int y = (int)f.getYPos() + Y_OFFSET - (int)(f.getYWidth() / 2);
+				g.fillRect(x, y, (int)f.getXWidth(), (int)f.getYWidth());
+				//g.drawImage(createBufferedImage("fish.png"), x, y, (int)f.getXWidth(), (int)f.getYWidth(), this);
 			}
 			for(Seaweed s : seaweed) {
-				int x = (int)(s.getXPos() - osprey.getXPos()) + X_OFFSET;
-				int y = (int)s.getYPos() + Y_OFFSET;
-				g.drawImage(ImagePanel("seaweed.png"), x, y, (int)s.getXWidth(), (int)s.getYWidth(), this);
+				int x = (int)(s.getXPos() - osprey.getXPos()) + X_OFFSET - (int)(s.getXWidth() / 2);
+				int y = (int)s.getYPos() + Y_OFFSET - (int)(s.getYWidth() / 2);
+				g.fillRect(x, y, (int)s.getXWidth(), (int)s.getYWidth());
+				//g.drawImage(createBufferedImage("seaweed.png"), x, y, (int)s.getXWidth(), (int)s.getYWidth(), this);
 			}
 		}
+		
+		/*@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(createBufferedImage("OspreyBackground3.png"), 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, null);
+			g.fillRect(X_OFFSET - (int)(osprey.getXWidth() / 2), (int)osprey.getYPos() + Y_OFFSET - (int)(osprey.getYWidth() / 2), (int)osprey.getXWidth(), (int)osprey.getYWidth());
+			for(Fish f : fish) {
+				int x = (int)(f.getXPos() - osprey.getXPos()) + X_OFFSET - (int)(f.getXWidth() / 2);
+				int y = (int)f.getYPos() + Y_OFFSET - (int)(f.getYWidth() / 2);
+				g.fillRect(x, y, (int)f.getXWidth(), (int)f.getYWidth());
+			}
+			for(Seaweed s : seaweed) {
+				int x = (int)(s.getXPos() - osprey.getXPos()) + X_OFFSET - (int)(s.getXWidth() / 2);
+				int y = (int)s.getYPos() + Y_OFFSET - (int)(s.getYWidth() / 2);
+				g.fillRect(x, y, (int)s.getXWidth(), (int)s.getYWidth());
+			}
+		}*/
 
 	}
 	

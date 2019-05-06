@@ -20,6 +20,7 @@ public class Twig extends GameObject {
 	 */
 	public void interact(Harrier h) {
 		h.setScore(h.getScore() + 20);
+		h.setVision(h.getVision() + 12.5);
 	}
 	
 }

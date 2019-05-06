@@ -24,7 +24,7 @@ public class Tree extends GameObject {
 		long newTime = System.nanoTime();
 		if ((newTime - lastTime) / 1000000000 > 1) {
 			h.setScore(h.getScore() - 10);
-			h.setVision(h.getVision() - 1);
+			h.setVision(h.getVision() - 25);
 			lastTime = newTime;
 		}
 		h.setXVel(0);

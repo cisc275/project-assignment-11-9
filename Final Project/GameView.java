@@ -1,6 +1,9 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+import java.io.*;
+import javax.imageio.*;
 import javax.swing.*;
+import java.awt.image.*;
 
 public abstract class GameView {
 	
@@ -15,6 +18,19 @@ public abstract class GameView {
 	
 	public void addListener(Controller c) {
 		frame.addKeyListener(c);
+	}
+	
+	public BufferedImage createBufferedImage(String fileName) {
+    	BufferedImage bufferedImage;
+    	try {
+    		String path = "src/images/";
+    		path += fileName;
+    		bufferedImage = ImageIO.read(new File(path));
+    		return bufferedImage;
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	return null;
 	}
 
 }

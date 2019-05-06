@@ -18,7 +18,7 @@ public class GoldenMouse extends Mouse {
 	 */
 	public void interact(Harrier h) {
 		h.setScore(h.getScore() + 100);
-		h.setVision(h.getVision() + 10);
+		h.setVision(h.getVision() + 250);
 	}
 	
 }

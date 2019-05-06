@@ -24,7 +24,7 @@ public class Mouse extends Animal {
 	 */
 	public void interact(Harrier h) {
 		h.setScore(h.getScore() + 10);
-		h.setVision(h.getVision() + 1);
+		h.setVision(h.getVision() + 25);
 	}
 	
 }

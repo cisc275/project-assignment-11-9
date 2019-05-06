@@ -55,10 +55,9 @@ public abstract class Animal extends GameObject {
 	 * Changes the velocities randomly on a random interval determined by chanceMod.
 	 */
 	public void twitch(int chanceMod, int seedMod) {
-		Random rand = new Random(System.currentTimeMillis() + seedMod * 1000);
-		if(rand.nextInt(chanceMod) % chanceMod == 0) {
-			xVelocity = rand.nextDouble() * 2 * speedMod - speedMod;
-			yVelocity = rand.nextDouble() * 2 * speedMod - speedMod;
+		if(Model.rand.nextInt(chanceMod) % chanceMod == 0) {
+			xVelocity = Model.rand.nextDouble() * 2 * speedMod - speedMod;
+			yVelocity = Model.rand.nextDouble() * 2 * speedMod - speedMod;
 		}
 	}
 
