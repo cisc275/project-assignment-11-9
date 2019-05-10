@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class OspreyModel extends Model {
 	
-	private Osprey osprey;
+	private static Osprey osprey;
 	private ArrayList<Fish> fish;
 	private ArrayList<Seaweed> seaweed;
 	private int stage;
@@ -26,9 +26,9 @@ public class OspreyModel extends Model {
 		generate();
 	}
 
-	public Osprey getOsprey() { return this.osprey; }
+	public static Osprey getOsprey() { return OspreyModel.osprey; }
 	
-	public void setOsprey(Osprey osprey) { this.osprey = osprey; }
+	public void setOsprey(Osprey osprey) { OspreyModel.osprey = osprey; }
 	
 	public ArrayList<Fish> getFish() { return this.fish; }
 	

@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class HarrierModel extends Model {
 
-	private Harrier harrier;
+	private static Harrier harrier;
 	private ArrayList<Fox> foxes;
 	private ArrayList<Mouse> mice;
 	private ArrayList<Twig> twigs;
@@ -30,9 +30,9 @@ public class HarrierModel extends Model {
 		generate();
 	}
 
-	public Harrier getHarrier() { return this.harrier; }
+	public static Harrier getHarrier() { return HarrierModel.harrier; }
 	
-	public void setHarrier(Harrier harrier) { this.harrier = harrier; }
+	public void setHarrier(Harrier harrier) { HarrierModel.harrier = harrier; }
 	
 	public ArrayList<Fox> getFoxes() { return this.foxes; }
 	
