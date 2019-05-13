@@ -1,16 +1,8 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 import java.util.*;
-
-import static org.junit.Assert.fail;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -31,10 +23,14 @@ public class Controller implements ActionListener, KeyListener {
 	private static String game;
 	private Action ospreyAction;
 	private Action harrierAction;
+	private Timer timerOsprey, timerHarrier;
 	final static int TICK_TIME = 60;
-	private boolean canSaveLoad = false;
 
 	public Controller() { 
+	
+		tv = new TitleView();
+		om = new OspreyModel();
+		tv.addListener(this);
 		paused = false; 
 		ospreyAction = new AbstractAction() {
 			@Override
@@ -55,7 +51,7 @@ public class Controller implements ActionListener, KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!paused) {
 					hm.update();
-					tv.harrierUpdate(HarrierModel.getHarrier(), hm.getFoxes(), hm.getMice(), hm.getTwigs(), hm.getTrees(), hm.tutorialState);
+					tv.harrierUpdate(HarrierModel.getHarrier(), hm.getFoxes(), hm.getMice(), hm.getTwigs(), hm.getTrees());
 				}
 				else {
 					try { Thread.sleep(TICK_TIME); }
@@ -67,29 +63,42 @@ public class Controller implements ActionListener, KeyListener {
 		};
 
 	}
-
+	
+	/*
+	 * This public method sets the string for game to menu, loads the main menu that holds both games
+	 * Takes no parameters
+	 * Returns nothing
+	 */
 	public void start() {
 		game = "Title";
-		tv = new TitleView();
-		tv.addListener(this);
 		om = null;
 		ov = null;
 		hm = null;
 		hv = null;
 	}
-
-	public void startOsprey() {
+	
+	/*
+	 * This private method sets the string for the game to osprey, starts the timer to run the game
+	 * Takes no parameters
+	 * Returns nothing
+	 */
+	private void startOsprey() {
 		game = "Osprey";
 		om = new OspreyModel();
-		Timer timer = new Timer(TICK_TIME, ospreyAction);
-		timer.start();
+		timerOsprey = new Timer(TICK_TIME, ospreyAction);
+		timerOsprey.start();
 	}
 
-	public void startHarrier() {
+	/*
+	 * This private method sets the string for the game to harrier, starts the timer to run the game
+	 * Takes no parameters
+	 * Returns nothing
+	 */
+	private void startHarrier() {
 		game = "Harrier";
 		hm = new HarrierModel();
-		Timer timer = new Timer(TICK_TIME, harrierAction);
-		timer.start();
+		timerHarrier = new Timer(TICK_TIME, harrierAction);
+		timerHarrier.start();
 	}
 
 	/* 
@@ -100,6 +109,11 @@ public class Controller implements ActionListener, KeyListener {
 		if (Controller.game.equals("Osprey")) {
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) { OspreyModel.getOsprey().dive(); }
 			if(e.getKeyCode() == KeyEvent.VK_P) { Controller.paused = !paused;}
+			if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				tv.c1.show(tv.contentPanel, "m");
+				timerOsprey.stop();
+				start();
+			}
 		}
 
 		else if(Controller.game.contentEquals("Harrier")) {
@@ -108,8 +122,20 @@ public class Controller implements ActionListener, KeyListener {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) { HarrierModel.getHarrier().goWest(); }
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) { HarrierModel.getHarrier().goEast(); }
 				if(e.getKeyCode() == KeyEvent.VK_P) { Controller.paused = !paused;}
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					tv.c1.show(tv.contentPanel, "m");
+					timerHarrier.stop();
+					start();
+				}
 			}
-		
+		else if(Controller.game.contentEquals("Title")) {
+			if(e.getKeyCode() == KeyEvent.VK_1) {
+				tv.game1.doClick();
+			}
+			if(e.getKeyCode() == KeyEvent.VK_2) {
+				tv.game2.doClick();
+			}
+		}
 		
 			
 		}
@@ -122,80 +148,33 @@ public class Controller implements ActionListener, KeyListener {
 			if (Controller.game.equals("Osprey")) {
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) { OspreyModel.getOsprey().rise(); }
 			}
-			if (e.getKeyCode() == KeyEvent.VK_A) {
-				canSaveLoad = !canSaveLoad;
-				System.out.println("a");
-			} else if (canSaveLoad) {
-				System.out.println("b");
-				if (e.getKeyCode() == KeyEvent.VK_S) {
-					save();
-				} else if (e.getKeyCode() == KeyEvent.VK_L) {
-					load();
-				}
-			}
 		}
 
 		/*
 		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
 		 */
 		@Override
-		public void keyTyped(KeyEvent e) {
-			
-		}
+		public void keyTyped(KeyEvent e) {}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton src = (JButton) e.getSource();
-			if (src.equals(tv.game1)) { tv.c1.show(tv.contentPanel, "o"); startOsprey(); }
+			if (src.equals(tv.game1)) {  tv.c1.show(tv.contentPanel, "o"); startOsprey(); }
 			else if (src.equals(tv.game2)) { tv.c1.show(tv.contentPanel, "h"); startHarrier(); }
 		}
 		
-		public void save() {
-			try {
-				FileOutputStream fos;
-				if (game.equals("Osprey")) {
-					fos = new FileOutputStream("ospreyfile.ser");
-					ObjectOutputStream oos = new ObjectOutputStream(fos);
-					oos.writeObject(om);
-					oos.close();
-					System.out.println(om.getSeaweed().size());
-				} else {
-					fos = new FileOutputStream("harrierfile.ser");
-					ObjectOutputStream oos = new ObjectOutputStream(fos);
-					oos.writeObject(hm);
-					oos.close();
-				}		
-			}
-			catch (Exception ex)
-			{
-				fail("Exception thrown during test: " + ex.toString());
-			}
-		}
-		
-		public void load() {
-			try {
-				FileInputStream fis;
-				if (game.equals("Osprey")) {
-					paused = true;
-					fis = new FileInputStream("ospreyfile.ser");
-					ObjectInputStream ois = new ObjectInputStream(fis);
-					om = (OspreyModel) ois.readObject();
-					ois.close();
-					paused = false;
-					System.out.println(om.getSeaweed().size());
-				} else {
-					paused = true;
-					fis = new FileInputStream("harrierfile.ser");
-					ObjectInputStream ois = new ObjectInputStream(fis);
-					hm = (HarrierModel) ois.readObject();
-					ois.close();
-					paused = false;
-				}		
-			}
-			catch (Exception ex)
-			{
-				fail("Exception thrown during test: " + ex.toString());
-			}
+		/*
+		 * Starts the program
+		 */
+		public static void main(String[] args) {
+			EventQueue.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					Controller c = new Controller();
+					c.start();
+				}
+			});
+
 		}
 
 	}
