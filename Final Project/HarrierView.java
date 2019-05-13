@@ -18,7 +18,8 @@ public class HarrierView extends JPanel {
 	private ArrayList<Mouse> mice;
 	private ArrayList<Twig> twigs;
 	private ArrayList<Tree> trees;
-	private Image background, harrierfly, fox, mouse, twig, tree, vision;
+	private Image background, harrierfly, fox, mouse, twig, tree, vision, tutorial;
+	public boolean isTutorialBeginning;
 
 	public HarrierView() {
 		harrier = new Harrier();
@@ -28,6 +29,7 @@ public class HarrierView extends JPanel {
 		trees = new ArrayList<>();
 		
 		try {
+			tutorial = ImageIO.read(new File("src/images/twig.png"));
 			background = ImageIO.read(new File("src/images/HarrierBackground.png"));
 			harrierfly = ImageIO.read(new File("src/images/Harrier Overtop.png"));
 			fox = ImageIO.read(new File("src/images/fox.png"));
@@ -36,6 +38,7 @@ public class HarrierView extends JPanel {
 			tree = ImageIO.read(new File("src/images/tree.png"));
 			twig = ImageIO.read(new File("src/images/twig.png"));
 			vision = ImageIO.read(new File("src/images/vision.png"));
+			
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
@@ -90,6 +93,9 @@ public class HarrierView extends JPanel {
 						(int) (0 - harrier.getVision()*20), (int) (0 - harrier.getVision()*20),
 						(int) (TitleView.FRAME_WIDTH + harrier.getVision()*20), (int) (TitleView.FRAME_HEIGHT + harrier.getVision()*20),
 						0, 0, vision.getWidth(this), vision.getHeight(this), this);
+			if (isTutorialBeginning) {
+				g.drawImage(tutorial, 40, 40, 80, 80, this);
+			}
 		}
 		
 		/*@Override
@@ -121,5 +127,4 @@ public class HarrierView extends JPanel {
 		}*/
 		
 	}
-
 

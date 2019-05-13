@@ -4,7 +4,7 @@ package Project;
 /* 
  * Public class Mouse contains the behaviors and attributes of Mice, the primary consumables in the Harrier game.
  */
-public class Mouse extends Animal {
+public class Mouse extends Animal implements java.io.Serializable {
 
 	public Mouse(double x, double y) {
 		setXPos(x);
@@ -23,6 +23,7 @@ public class Mouse extends Animal {
 	 * Processes an interaction between the Harrier and the Mouse.
 	 */
 	public void interact(Harrier h) {
+		h.mouseHit = true;
 		h.setScore(h.getScore() + 10);
 		if (h.getVision() + 25 < HarrierModel.MAX_VISION) {
 			h.setVision(h.getVision() + 25);

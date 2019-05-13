@@ -4,7 +4,7 @@ package Project;
 /* 
  * Public class GoldenMouse contains the behaviors and attributes of Golden Mice, the special power-up in the Harrier game.
  */
-public class GoldenMouse extends Mouse {
+public class GoldenMouse extends Mouse implements java.io.Serializable {
 	String answer = "1";
 	String correct = "2";
 	public GoldenMouse(double x, double y) {

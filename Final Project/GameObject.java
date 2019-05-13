@@ -1,10 +1,10 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-package Project;
 
+package Project;
 /* 
  * Public abstract class GameObject outlines general behavior and attributes shared by all of the objects in the game.
  */
-public abstract class GameObject {
+public abstract class GameObject implements java.io.Serializable {
 
 	private double xPosition;
 	private double yPosition;

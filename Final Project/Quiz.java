@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 /*
  * Public class Quiz defines the behavior and attributes of the Quizzes in both games.
  */
-public class Quiz extends JDialog {
+public class Quiz extends JDialog implements java.io.Serializable {
 	
 	private JPanel panel;
 	

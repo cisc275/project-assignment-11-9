@@ -89,12 +89,17 @@ public class TitleView extends JFrame {
 		frame.repaint();
 	}
 	
-	public void harrierUpdate(Harrier harrier, ArrayList<Fox> foxes, ArrayList<Mouse> mice, ArrayList<Twig> twigs, ArrayList<Tree> trees) {
+	public void harrierUpdate(Harrier harrier, ArrayList<Fox> foxes, ArrayList<Mouse> mice, ArrayList<Twig> twigs, ArrayList<Tree> trees, HarrierModel.Tutorial tutState) {
 		harrierPane.setHarrier(harrier);
 		harrierPane.setFoxes(foxes);
 		harrierPane.setMice(mice);
 		harrierPane.setTwigs(twigs);
 		harrierPane.setTrees(trees);
+		if (tutState == HarrierModel.Tutorial.ONE) {
+			harrierPane.isTutorialBeginning = true;
+		} else {
+			harrierPane.isTutorialBeginning = false;
+		}
 		frame.repaint();
 	}
 	
@@ -104,6 +109,16 @@ public class TitleView extends JFrame {
 		game2.addActionListener(c);
 	}
 
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				Controller c = new Controller();
+				c.start();
+			}
+		});
+
+	}
 //	public BufferedImage createBufferedImage(String fileName) {
 //    	BufferedImage bufferedImage;
 //    	try {

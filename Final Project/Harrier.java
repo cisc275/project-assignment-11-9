@@ -1,10 +1,10 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-
 package Project;
+
 /* 
  * Public class Harrier contains the behaviors and attributes of Harriers, one of the types of playable characters.
  */
-public class Harrier extends Animal {
+public class Harrier extends Animal implements java.io.Serializable {
 
 	private int score;
 	private double visionRadius;
@@ -15,6 +15,14 @@ public class Harrier extends Animal {
 	final static double MAX_SPEED = 10;
 	final static int SPEED_STEP = 3;
 	final static double ACCELERATION = MAX_SPEED / SPEED_STEP;
+	public boolean goneNorth = false;
+	public boolean goneSouth = false;
+	public boolean goneWest = false;
+	public boolean goneEast = false;
+	public boolean mouseHit = false;
+	public boolean twigHit = false;
+	public boolean treeHit = false;
+	public boolean foxHit = false;
 
 	public Harrier() {
 		setXPos(STARTPOS);
@@ -37,6 +45,7 @@ public class Harrier extends Animal {
 	public void setVision(double visionRadius) { this.visionRadius = visionRadius; }
 	
 	public void goNorth() {
+		goneNorth = true;
 		if(getYVel() > -MAX_SPEED) {
 			setYVel(getYVel() - ACCELERATION);
 			updateDirection();
@@ -44,6 +53,7 @@ public class Harrier extends Animal {
 	}
 	
 	public void goSouth() {
+		goneSouth = true;
 		if(getYVel() < MAX_SPEED) {
 			setYVel(getYVel() + ACCELERATION);
 			updateDirection();
@@ -51,6 +61,7 @@ public class Harrier extends Animal {
 	}
 	
 	public void goEast() {
+		goneEast = true;
 		if(getXVel() < MAX_SPEED) {
 			setXVel(getXVel() + ACCELERATION);
 			updateDirection();
@@ -58,6 +69,7 @@ public class Harrier extends Animal {
 	}
 	
 	public void goWest() {
+		goneWest = true;
 		if(getXVel() > -MAX_SPEED) {
 			setXVel(getXVel() - ACCELERATION);
 			updateDirection();

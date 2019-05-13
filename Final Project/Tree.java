@@ -4,7 +4,7 @@ package Project;
 /* 
  * Public class Tree contains the behaviors and attributes of Trees, the obstacles in the Harrier game.
  */
-public class Tree extends GameObject {
+public class Tree extends GameObject implements java.io.Serializable {
 	
 	long lastTime;
 	
@@ -21,6 +21,7 @@ public class Tree extends GameObject {
 	 * Processes an interaction between the Harrier and the Tree.
 	 */
 	public void interact(Harrier h) {
+		h.treeHit = true;
 		long newTime = System.nanoTime();
 		if ((newTime - lastTime) / 1000000000 > 1) {
 			h.setScore(h.getScore() - 10);

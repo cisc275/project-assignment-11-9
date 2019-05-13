@@ -1,10 +1,10 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-package Project;
 
+package Project;
 /* 
  * Public class Osprey contains the behaviors and attributes of Ospreys, one of the types of playable characters.
  */
-public class Osprey extends Animal {
+public class Osprey extends Animal implements java.io.Serializable {
 	
 	private final static double MIN_HEIGHT = 0;
 	private final static double FLYING_SPEED = 25;
@@ -45,5 +45,6 @@ public class Osprey extends Animal {
 		setYVel(-FLYING_SPEED);
 		updateDirection();
 	}
+	
 
 }

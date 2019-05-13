@@ -1,10 +1,10 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-
 package Project;
+
 /* 
  * Public class Twig contains the behaviors and attributes of Twigs, the primary consumables in the Harrier game.
  */
-public class Twig extends GameObject {
+public class Twig extends GameObject implements java.io.Serializable {
 	
 	public Twig(double x, double y) {
 		setXPos(x);
@@ -19,6 +19,7 @@ public class Twig extends GameObject {
 	 * Processes an interaction between the Harrier and the Twig.
 	 */
 	public void interact(Harrier h) {
+		h.twigHit = true;
 		h.setScore(h.getScore() + 20);
 		if (h.getVision() + 12.5 < HarrierModel.MAX_VISION) {
 			h.setVision(h.getVision() + 12.5);

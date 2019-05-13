@@ -5,7 +5,7 @@ import java.util.*;
 /*
  * Public class HarrierModel contains all the world information about the Harrier game.
  */
-public class HarrierModel extends Model {
+public class HarrierModel extends Model implements java.io.Serializable {
 
 	private static Harrier harrier;
 	private ArrayList<Fox> foxes;
@@ -19,7 +19,16 @@ public class HarrierModel extends Model {
 	private final static int GOLD_CHANCE_MOD = 100;
 	public final static double MIN_VISION = 1;
 	public final static double MAX_VISION = Harrier.INITIALVISION;
-
+	public boolean tutorial = true;
+	public boolean tutorial1 = false;
+	public boolean tutorial2 = false;
+	public boolean tutorial3 = false;
+	public boolean tutorial4 = false;
+	public Tutorial tutorialState = Tutorial.ONE;
+	
+	public enum Tutorial {
+		ONE, TWO, THREE, FOUR, NONE;
+	}
 	public HarrierModel(){
 		super();
 		harrier = new Harrier();
@@ -27,7 +36,7 @@ public class HarrierModel extends Model {
 		mice = new ArrayList<>();
 		twigs = new ArrayList<>();
 		trees = new ArrayList<>();
-		generate();
+		//generate();
 	}
 
 	public static Harrier getHarrier() { return HarrierModel.harrier; }
@@ -115,12 +124,73 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public void update() {
-		setTime(getTime() + 1);
 		harrier.move();
 		for(Fox f : foxes) { f.move(); f.twitch(30, rand.nextInt()); }
 		for(Mouse m : mice) { m.move(); m.twitch(20, rand.nextInt()); }
 		checkInteractions();
-		generate();
+		if (tutorial) { 
+			Tree tree = new Tree(100, 100);
+			Twig twig = new Twig(100, 150);
+			Mouse mouse = new Mouse(100, 100);
+			Fox fox1 = new Fox(-150, 75);
+			Fox fox2 = new Fox(-150, -75);
+			Fox fox3 = new Fox(150, 75);
+			Fox fox4 = new Fox(150, -75);
+			if (!tutorial1) {
+				if (harrier.goneNorth && harrier.goneSouth && harrier.goneEast && harrier.goneWest) {
+					tutorial1 = true;
+					harrier.setXVel(0);
+					harrier.setYVel(0);
+					harrier.setYPos(0);
+					harrier.setXPos(0);
+					trees.add(tree);
+					tutorialState = Tutorial.TWO;
+				}
+			} else if (!tutorial2) {
+				if (harrier.treeHit) {
+					tutorial2 = true;
+					trees.remove(0);
+					twigs.add(twig);
+					mice.add(mouse);
+					harrier.setXVel(0);
+					harrier.setYVel(0);
+					harrier.setYPos(0);
+					harrier.setXPos(0);
+					tutorialState = Tutorial.THREE;
+				}
+			} else if (!tutorial3) {
+				if (harrier.twigHit && harrier.mouseHit) {
+					harrier.setVision(harrier.INITIALVISION);
+					foxes.add(fox1);
+					foxes.add(fox2);
+					foxes.add(fox3);
+					foxes.add(fox4);
+					tutorial3 = true;
+					harrier.setXVel(0);
+					harrier.setYVel(0);
+					harrier.setYPos(0);
+					harrier.setXPos(0);
+					tutorialState = Tutorial.FOUR;
+				}
+			} else if (!tutorial4) {
+				if (harrier.foxHit) {
+					tutorial4 = true;
+					tutorial = false;
+					foxes.remove(0);
+					foxes.remove(0);
+					foxes.remove(0);
+					foxes.remove(0);
+					harrier.setXVel(0);
+					harrier.setYVel(0);
+					harrier.setYPos(0);
+					harrier.setXPos(0);
+					tutorialState = Tutorial.NONE;
+				}
+			}
+		} else {
+			setTime(getTime() + 1);
+			generate();
+		}
 	}
 
 	/*

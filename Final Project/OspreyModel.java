@@ -5,7 +5,7 @@ import java.util.*;
 /*
  * Public class OspreyModel contains all the world information about the Osprey game.
  */
-public class OspreyModel extends Model {
+public class OspreyModel extends Model implements java.io.Serializable {
 	
 	private static Osprey osprey;
 	private ArrayList<Fish> fish;

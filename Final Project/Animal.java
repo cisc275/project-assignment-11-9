@@ -5,7 +5,7 @@ import java.util.*;
 /*
  * Public abstract class Animal defines general behaviors and attributes for movable objects.
  */
-public abstract class Animal extends GameObject {
+public abstract class Animal extends GameObject implements java.io.Serializable {
 
 	private double xVelocity;
 	private double yVelocity;

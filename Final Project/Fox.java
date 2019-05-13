@@ -4,7 +4,7 @@ package Project;
 /* 
  * Public class Fox contains the behaviors and attributes of Foxes, the predators in the Harrier game.
  */
-public class Fox extends Animal {
+public class Fox extends Animal implements java.io.Serializable {
 	
 	public Fox(double x, double y) {
 		setXPos(x);
@@ -23,6 +23,7 @@ public class Fox extends Animal {
 	 * Processes an interaction between the Harrier and the Fox.
 	 */
 	public void interact(Harrier h) {
+		h.foxHit = true;
 		h.setScore(h.getScore() - 30);
 		h.die();
 		if (h.getVision() - 75 > HarrierModel.MIN_VISION) {
