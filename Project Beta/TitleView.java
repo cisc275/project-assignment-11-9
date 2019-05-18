@@ -7,36 +7,26 @@ import javax.swing.*;
 /*
  * Public class TitleView handles the UI, and defines the main method.
  */
-public class TitleView extends JFrame {
+public class TitleView extends JPanel {
 
 	private JButton buttonO;
 	private JButton buttonH;
-	private JPanel menu;
-	public static JPanel contentPanel;
-	private CardLayout layout;
-	final static int FRAME_WIDTH = 1600;
-	final static int FRAME_HEIGHT = 900;
+	public final static int FRAME_WIDTH = 1600;
+	public final static int FRAME_HEIGHT = 900;
 
 	public TitleView() {
-		super("Menu");
 		buttonO = new JButton("Osprey");
 		buttonH = new JButton("Harrier");
-		menu = new JPanel();
-		
-		contentPanel = new JPanel();
-		layout = new CardLayout();
-
-		menu.add(buttonO, BorderLayout.CENTER);
-		menu.add(buttonH);
-
-		contentPanel.setLayout(layout);
-		contentPanel.add(menu, "menu");
-		this.setContentPane(contentPanel);
-		layout.first(contentPanel);
-		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		setVisible(true);
+		add(buttonO);
+		add(buttonH);
+		setLayout(null);
+		int buttonWidth = FRAME_WIDTH / 3;
+		int buttonHeight = FRAME_HEIGHT / 5;
+		buttonO.setBounds(FRAME_WIDTH / 4 - buttonWidth / 2, FRAME_HEIGHT / 2 - buttonHeight / 2, buttonWidth, buttonHeight);
+		buttonH.setBounds(FRAME_WIDTH * 74 / 100 - buttonWidth / 2, FRAME_HEIGHT / 2 - buttonHeight / 2, buttonWidth, buttonHeight);
+		buttonO.setFont(new Font(Font.SERIF, Font.PLAIN, 50));
+		buttonH.setFont(new Font(Font.SERIF, Font.PLAIN, 50));
+		setBackground(Color.CYAN);
 	}
 	
 	public JButton getButtonO() { return buttonO; }

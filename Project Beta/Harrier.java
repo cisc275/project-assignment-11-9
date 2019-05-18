@@ -15,8 +15,8 @@ public class Harrier extends Animal {
 	public final static double MIN_VISION = 0;
 	public final static double MAX_VISION = 2 * INITIAL_VISION;
 	private final static double MAX_SPEED = 5;
-	private final static double ACCELERATION = MAX_SPEED / 5;
-	private final static double TURN_ANGLE = Math.PI / 50;
+	private final static double ACCELERATION = MAX_SPEED / 3;
+	private final static double TURN_ANGLE = Math.PI / 12;
 
 	public Harrier() {
 		setXPos(STARTPOS);

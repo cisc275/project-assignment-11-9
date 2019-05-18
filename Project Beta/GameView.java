@@ -5,33 +5,15 @@ import javax.imageio.*;
 import javax.swing.*;
 import java.awt.image.*;
 
-public abstract class GameView {
-	
-	protected JFrame frame;
+public abstract class GameView extends JPanel {
+
 	protected boolean isDebug;
 	protected BufferedImage[] images;
 	protected BufferedImage[] animationFrames;
 	
-	public GameView() {
-		frame = new JFrame();
-		frame.setSize(TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-		isDebug = false;
-	}
-	
 	public boolean getIsDebug() { return isDebug; }
 	
 	public void setIsDebug(boolean isDebug) { this.isDebug = isDebug; }
-	
-	/*
-	 * public method addListener.
-	 * Takes Controller as parameter and returns nothing.
-	 * Allows the controller to listen to the input in the frame.
-	 */
-	public void addListener(Controller c) {
-		frame.addKeyListener(c);
-	}
 	
 	/*
 	 * public method createBufferedImage.
