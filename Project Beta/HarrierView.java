@@ -1,6 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.util.*;
 import java.awt.image.*;
@@ -45,7 +46,7 @@ public class HarrierView extends GameView {
 	 * Reads the images into the images array.
 	 */
 	private void initializeImages() {
-		images = new BufferedImage[28];
+		images = new BufferedImage[36];
 		images[0] = createBufferedImage("Harrier Background.png");
 		initializeImageSet("Harrier", 1);
 		initializeImageSet("Fox", 9);
@@ -53,9 +54,32 @@ public class HarrierView extends GameView {
 		images[25] = createBufferedImage("Twig.png");
 		images[26] = createBufferedImage("Tree.png");
 		images[27] = createBufferedImage("Vision.png");
+		images[28] = createBufferedImage("EnemySound.png");
+		images[29] = createBufferedImage("EnemySound.png");
+		images[30] = createBufferedImage("EnemySound.png");
+		images[31] = createBufferedImage("EnemySound.png");
+		AffineTransform tx1 = new AffineTransform();
+		tx1.rotate(Math.PI/2, images[28].getWidth()/2, images[28].getHeight()/2);
+		AffineTransform tx2 = new AffineTransform();
+		tx2.rotate(Math.PI, images[28].getWidth()/2, images[28].getHeight()/2);
+		AffineTransform tx3 = new AffineTransform();
+		tx3.rotate(Math.PI*3/2, images[28].getWidth()/2, images[28].getHeight()/2);
+		AffineTransformOp op1 = new AffineTransformOp(tx1, AffineTransformOp.TYPE_BILINEAR);
+		AffineTransformOp op2 = new AffineTransformOp(tx2, AffineTransformOp.TYPE_BILINEAR);
+		AffineTransformOp op3 = new AffineTransformOp(tx3, AffineTransformOp.TYPE_BILINEAR);
+		images[29] = op1.filter(images[29], null);
+		images[30] = op2.filter(images[30], null);
+		images[31] = op3.filter(images[31], null);
+		images[32] = createBufferedImage("PreySound.png");
+		images[33] = createBufferedImage("PreySound.png");
+		images[34] = createBufferedImage("PreySound.png");
+		images[35] = createBufferedImage("PreySound.png");
+		images[33] = op1.filter(images[33], null);
+		images[34] = op2.filter(images[34], null);
+		images[35] = op3.filter(images[35], null);
 		makeFrames();
 	}
-
+	
 	/*
 	 * private method initializeImageSet.
 	 * Takes no parameter and returns nothing.
@@ -126,23 +150,29 @@ public class HarrierView extends GameView {
 				switch(f.getApproximateDirection(harrier.getYPos(), harrier.getXPos())) {
 				case NORTH:
 					if (harrier.getVision() < TitleView.FRAME_HEIGHT / 2) {
-						g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT / 2 - (int)harrier.getVision(), 20, 20);
+						g.drawImage(images[29], TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT / 2 - (int) harrier.getVision(), 30, 30, this);
+						//g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT / 2 - (int)harrier.getVision(), 20, 20);
 					} else {
-						g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, 0, 20, 20);
+						g.drawImage(images[29], TitleView.FRAME_WIDTH / 2 - 30, 0, 30, 30, this);
+						//g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, 0, 20, 20);
 					}
 					break;
 				case SOUTH:
 					if (harrier.getVision() < TitleView.FRAME_HEIGHT / 2) {
-						g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT / 2 + (int)harrier.getVision() - 20, 20, 20);
+						g.drawImage(images[31], TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT / 2 + (int) harrier.getVision() - 30, 30, 30, this);
+						//g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT / 2 + (int)harrier.getVision() - 20, 20, 20);
 					} else {
-						g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT - 20, 20, 20);
+						g.drawImage(images[31], TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT - 30, 30, 30, this);
+						//g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT - 20, 20, 20);
 					}
 					break;
 				case WEST:
-					g.fillOval(TitleView.FRAME_WIDTH / 2 - (int)harrier.getVision(), TitleView.FRAME_HEIGHT / 2 - 30, 20, 20);
+					g.drawImage(images[28], TitleView.FRAME_WIDTH / 2 - (int)harrier.getVision(), TitleView.FRAME_HEIGHT / 2 - 30, 30, 30, this);
+					//g.fillOval(TitleView.FRAME_WIDTH / 2 - (int)harrier.getVision(), TitleView.FRAME_HEIGHT / 2 - 30, 20, 20);
 					break;
 				case EAST:
-					g.fillOval(TitleView.FRAME_WIDTH / 2 + (int)harrier.getVision() - 20, TitleView.FRAME_HEIGHT / 2 + 10, 20, 20);
+					g.drawImage(images[30], TitleView.FRAME_WIDTH / 2 + (int)harrier.getVision() - 30, TitleView.FRAME_HEIGHT / 2 + 10, 30, 30, this);
+					//g.fillOval(TitleView.FRAME_WIDTH / 2 + (int)harrier.getVision() - 20, TitleView.FRAME_HEIGHT / 2 + 10, 20, 20);
 					break;
 				}
 			}
@@ -158,23 +188,29 @@ public class HarrierView extends GameView {
 				switch(m.getApproximateDirection(harrier.getYPos(), harrier.getXPos())) {
 				case NORTH:
 					if (harrier.getVision() < TitleView.FRAME_HEIGHT / 2) {
-						g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT / 2 - (int)harrier.getVision(), 20, 20);
+						g.drawImage(images[33], TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT / 2 - (int) harrier.getVision(), 30, 30, this);
+						//g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT / 2 - (int)harrier.getVision(), 20, 20);
 					} else {
-						g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, 0, 20, 20);
+						g.drawImage(images[33], TitleView.FRAME_WIDTH / 2 + 10, 0, 30, 30, this);
+						//g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, 0, 20, 20);
 					}
 					break;
 				case SOUTH:
 					if (harrier.getVision() < TitleView.FRAME_HEIGHT / 2) {
-						g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT / 2 + (int)harrier.getVision() - 20, 20, 20);
+						g.drawImage(images[35], TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT / 2 + (int) harrier.getVision() - 30, 30, 30, this);
+						//g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT / 2 + (int)harrier.getVision() - 20, 20, 20);
 					} else {
-						g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT - 20, 20, 20);
+						g.drawImage(images[35], TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT - 30, 30, 30, this);
+						//g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT - 20, 20, 20);
 					}
 					break;
 				case WEST:
-					g.fillOval(TitleView.FRAME_WIDTH / 2 - (int)harrier.getVision(), TitleView.FRAME_HEIGHT / 2 + 10, 20, 20);
+					g.drawImage(images[32], TitleView.FRAME_WIDTH / 2 - (int)harrier.getVision(), TitleView.FRAME_HEIGHT / 2 + 10, 30, 30, this);
+					//g.fillOval(TitleView.FRAME_WIDTH / 2 - (int)harrier.getVision(), TitleView.FRAME_HEIGHT / 2 + 10, 20, 20);
 					break;
 				case EAST:
-					g.fillOval(TitleView.FRAME_WIDTH / 2 + (int)harrier.getVision() - 20, TitleView.FRAME_HEIGHT / 2 - 30, 20, 20);
+					g.drawImage(images[34], TitleView.FRAME_WIDTH / 2 + (int)harrier.getVision() - 30, TitleView.FRAME_HEIGHT / 2 - 30, 30, 30, this);
+					//g.fillOval(TitleView.FRAME_WIDTH / 2 + (int)harrier.getVision() - 20, TitleView.FRAME_HEIGHT / 2 - 30, 20, 20);
 					break;
 				}
 			}
