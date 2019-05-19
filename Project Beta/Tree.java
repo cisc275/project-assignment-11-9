@@ -21,6 +21,8 @@ public class Tree extends GameObject {
 	 * Processes an interaction between the Harrier and the Tree if a second has elapsed since last hit.
 	 */
 	public void interact(Harrier h) {
+		h.setXPos(h.getXPos() - h.getXVel());
+		h.setYPos(h.getYPos() - h.getYVel());
 		long newTime = System.nanoTime();
 		if ((newTime - lastTime) / 1000000000 > 1) {
 			h.setScore(h.getScore() - 10);

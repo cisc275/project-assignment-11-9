@@ -1,6 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.util.*;
 import java.awt.image.*;
 import javax.swing.*;
@@ -105,6 +106,9 @@ public class HarrierView extends GameView {
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
+		Ellipse2D.Double ellipse = new Ellipse2D.Double(TitleView.FRAME_WIDTH / 2 - harrier.getVision(),
+				TitleView.FRAME_HEIGHT / 2 - harrier.getVision(), harrier.getVision() * 2, harrier.getVision()*2);
+		g.setClip(ellipse);
 		super.paintComponent(g);
 		g.drawImage(images[0], 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, null);
 		int hx = TitleView.FRAME_WIDTH / 2 - (int)(harrier.getXWidth() / 2);
@@ -142,4 +146,3 @@ public class HarrierView extends GameView {
 	}
 
 }
-
