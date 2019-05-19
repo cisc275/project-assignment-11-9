@@ -17,7 +17,12 @@ public class OspreyModel extends Model {
 	private final static int GOLD_CHANCE_MOD = 25;
 	private final static double AIR_DRAG = .0001;
 	private final static double WATER_DRAG = .001;
+	Tutorial state = Tutorial.ONE;
 
+	public enum Tutorial {
+		ONE, TWO, THREE, FOUR, NONE;
+	}
+	
 	public OspreyModel(){
 		super();
 		osprey = new Osprey();
@@ -136,14 +141,101 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public void update() {
-		setTime(getTime() + 1);
 		if(osprey.getYPos() <= Osprey.MIN_HEIGHT) { osprey.setIsRecovering(false); }
 		osprey.move(); osprey.incrementAnimation();
 		for(Fish f : fish) { f.move(); f.incrementAnimation(); }
-		applyResistance();
 		checkInteractions();
 		destroy();
-		generate();
+		switch(state) {
+		case ONE:
+			if (osprey.getYPos() < WATER_HEIGHT) {
+				state = Tutorial.TWO;
+				double[] coords = genCoords();
+				Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH,TitleView.FRAME_HEIGHT - 300, 3);
+				fish.add(f);
+			}
+			break;
+		case TWO:
+			if (osprey.getXVel() > osprey.START_SPEED) {
+				state = Tutorial.THREE;
+				Seaweed s1 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 160);
+				seaweed.add(s1);
+				Seaweed s2 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 240);
+				seaweed.add(s2);
+				Seaweed s3 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 320);
+				seaweed.add(s3);
+				Seaweed s4 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 400);
+				seaweed.add(s4);
+				Seaweed s5 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 480);
+				seaweed.add(s5);
+				Seaweed s6 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH + 100, TitleView.FRAME_HEIGHT - 480);
+				seaweed.add(s6);
+				Seaweed s7 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH + 200, TitleView.FRAME_HEIGHT - 480);
+				seaweed.add(s7);
+				Seaweed s8 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH + 300, TitleView.FRAME_HEIGHT - 480);
+				seaweed.add(s8);
+				Seaweed s9 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH + 400, TitleView.FRAME_HEIGHT - 160);
+				seaweed.add(s9);
+				Seaweed s10 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH + 400, TitleView.FRAME_HEIGHT - 240);
+				seaweed.add(s10);
+				Seaweed s11 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH + 400, TitleView.FRAME_HEIGHT - 320);
+				seaweed.add(s11);
+				Seaweed s12 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH + 400, TitleView.FRAME_HEIGHT - 400);
+				seaweed.add(s12);
+				Seaweed s13 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH + 400, TitleView.FRAME_HEIGHT - 480);
+				seaweed.add(s13);
+				Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH + 200, TitleView.FRAME_HEIGHT - 300,2);
+				fish.add(f);
+			} else {
+				if (fish.size() < 1) {
+					Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH,TitleView.FRAME_HEIGHT - 300, 3);
+					fish.add(f);
+				}
+			}
+			break;
+		case THREE:
+			if (osprey.getXVel() < osprey.START_SPEED + 1) {
+				state = Tutorial.FOUR;
+				GoldenFish f = new GoldenFish(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 320);
+				fish.add(f);
+			} else {
+				if (seaweed.size() == 8) {
+					Seaweed s1 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 160);
+					seaweed.add(s1);
+					Seaweed s2 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 240);
+					seaweed.add(s2);
+					Seaweed s3 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 320);
+					seaweed.add(s3);
+					Seaweed s4 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 400);
+					seaweed.add(s4);
+					Seaweed s5 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 480);
+					seaweed.add(s5);
+				} else if (seaweed.size() < 13) {
+					Seaweed s6 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 480);
+					seaweed.add(s6);
+				}
+				if (fish.size() < 1) {
+					Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH,TitleView.FRAME_HEIGHT - 300, 3);
+					fish.add(f);
+				}
+			}
+			break;
+		case FOUR:
+			if (osprey.getXVel() > osprey.START_SPEED + 1) {
+				state = Tutorial.NONE;
+			} else {
+				if (fish.size() < 1) {
+					GoldenFish f = new GoldenFish(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 320);
+					fish.add(f);
+				}
+			}
+			break;
+		case NONE:
+			applyResistance();
+			setTime(getTime() + 1);
+			generate();
+			break;
+		}
 	}
 	
 	public void applyResistance() {

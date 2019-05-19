@@ -97,6 +97,7 @@ public abstract class Animal extends GameObject {
 	public void interact(GameObject g) {
 		xVelocity *= -1;
 		yVelocity *= -1;
+		move();
 		updateDirection();
 	}
 	

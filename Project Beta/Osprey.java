@@ -12,13 +12,14 @@ public class Osprey extends Animal {
 	public final static double MIN_SPEED = 0;
 	public final static double MAX_SPEED = 40;
 	public final static double FLYING_SPEED = 15;
+	public final static double START_SPEED = 5;
 	
 	public Osprey(){
 		setXPos(0);
 		setYPos(0);
 		setXWidth(100);
 		setYWidth(50);
-		setXVel(5);
+		setXVel(START_SPEED);
 		setYVel(0);
 		isRecovering = false;
 	}
