@@ -44,7 +44,7 @@ public class OspreyView extends GameView {
 		images[1] = createBufferedImage("Osprey.png");
 		images[2] = createBufferedImage("FishEast.png");
 		images[3] = createBufferedImage("FishWest.png");
-		images[4] = createBufferedImage("Seaweed.png");
+		images[4] = createBufferedImage("newseaweed.png");
 		makeFrames();
 	}
 
