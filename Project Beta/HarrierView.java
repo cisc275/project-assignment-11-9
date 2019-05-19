@@ -115,17 +115,69 @@ public class HarrierView extends GameView {
 		int hy = TitleView.FRAME_HEIGHT / 2 - (int)(harrier.getYWidth() / 2);
 		g.drawImage(animationFrames[harrier.getAnimation() + 4 * directionConverter(harrier.getDirection())], hx, hy, (int)harrier.getXWidth(), (int)harrier.getYWidth(), this);
 		if(isDebug) { g.drawRect(hx, hy, (int)harrier.getXWidth(), (int)harrier.getYWidth()); }
+		g.setColor(Color.RED);
 		for(Fox f : foxes) {
 			int x = (int)(f.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(f.getXWidth() / 2);
 			int y = (int)(f.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(f.getYWidth() / 2);
 			g.drawImage(animationFrames[f.getAnimation() + 32 + 4 * directionConverter(f.getDirection())], x, y, (int)f.getXWidth(), (int)f.getYWidth(), this);
 			if(isDebug) { g.drawRect(x, y, (int)f.getXWidth(), (int)f.getYWidth()); }
+			double myRadius = f.radius(harrier.getYPos(), harrier.getXPos());
+			if (myRadius + 10 >= harrier.getVision()) {
+				switch(f.getApproximateDirection(harrier.getYPos(), harrier.getXPos())) {
+				case NORTH:
+					if (harrier.getVision() < TitleView.FRAME_HEIGHT / 2) {
+						g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT / 2 - (int)harrier.getVision(), 20, 20);
+					} else {
+						g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, 0, 20, 20);
+					}
+					break;
+				case SOUTH:
+					if (harrier.getVision() < TitleView.FRAME_HEIGHT / 2) {
+						g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT / 2 + (int)harrier.getVision() - 20, 20, 20);
+					} else {
+						g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT - 20, 20, 20);
+					}
+					break;
+				case WEST:
+					g.fillOval(TitleView.FRAME_WIDTH / 2 - (int)harrier.getVision(), TitleView.FRAME_HEIGHT / 2 - 30, 20, 20);
+					break;
+				case EAST:
+					g.fillOval(TitleView.FRAME_WIDTH / 2 + (int)harrier.getVision() - 20, TitleView.FRAME_HEIGHT / 2 + 10, 20, 20);
+					break;
+				}
+			}
 		}
+		g.setColor(Color.GREEN);
 		for(Mouse m : mice) {
 			int x = (int)(m.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(m.getXWidth() / 2);
 			int y = (int)(m.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(m.getYWidth() / 2);
 			g.drawImage(images[17 + directionConverter(m.getDirection())], x, y, (int)m.getXWidth(), (int)m.getYWidth(), this);
 			if(isDebug) { g.drawRect(x, y, (int)m.getXWidth(), (int)m.getYWidth()); }
+			double myRadius = m.radius(harrier.getYPos(), harrier.getXPos());
+			if (myRadius + 10 >= harrier.getVision()) {
+				switch(m.getApproximateDirection(harrier.getYPos(), harrier.getXPos())) {
+				case NORTH:
+					if (harrier.getVision() < TitleView.FRAME_HEIGHT / 2) {
+						g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT / 2 - (int)harrier.getVision(), 20, 20);
+					} else {
+						g.fillOval(TitleView.FRAME_WIDTH / 2 + 10, 0, 20, 20);
+					}
+					break;
+				case SOUTH:
+					if (harrier.getVision() < TitleView.FRAME_HEIGHT / 2) {
+						g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT / 2 + (int)harrier.getVision() - 20, 20, 20);
+					} else {
+						g.fillOval(TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT - 20, 20, 20);
+					}
+					break;
+				case WEST:
+					g.fillOval(TitleView.FRAME_WIDTH / 2 - (int)harrier.getVision(), TitleView.FRAME_HEIGHT / 2 + 10, 20, 20);
+					break;
+				case EAST:
+					g.fillOval(TitleView.FRAME_WIDTH / 2 + (int)harrier.getVision() - 20, TitleView.FRAME_HEIGHT / 2 - 30, 20, 20);
+					break;
+				}
+			}
 		}
 		for(Twig tw : twigs) {
 			int x = (int)(tw.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(tw.getXWidth() / 2);
@@ -133,6 +185,7 @@ public class HarrierView extends GameView {
 			g.drawImage(images[25], x, y, (int)tw.getXWidth(), (int)tw.getYWidth(), this);
 			if(isDebug) { g.drawRect(x, y, (int)tw.getXWidth(), (int)tw.getYWidth()); }
 		}
+		g.setColor(Color.RED);
 		for(Tree tr : trees) {
 			int x = (int)(tr.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(tr.getXWidth() / 2);
 			int y = (int)(tr.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(tr.getYWidth() / 2);

@@ -26,5 +26,26 @@ public abstract class GameObject {
 	public double getYWidth() { return this.yWidth; }
 
 	public void setYWidth(double yWidth) { this.yWidth = yWidth; }
-
+	
+	public double radius(double objectY, double objectX) { 
+		double x = Math.abs(objectX) - Math.abs(this.getXPos());
+		double y = Math.abs(objectY) - Math.abs(this.getYPos());
+		return Math.sqrt(y*y + x*x);
+	}
+	
+	public Direction getApproximateDirection(double objectY, double objectX) {
+		if (Math.abs(objectX - this.getXPos()) > Math.abs(objectY - this.getYPos())) {
+			if (this.getXPos() < objectX) {
+				return Direction.WEST;
+			} else {
+				return Direction.EAST;
+			}
+		} else {
+			if (this.getYPos() < objectY) {
+				return Direction.NORTH;
+			} else {
+				return Direction.SOUTH;
+			}
+		}
+	}
 }
