@@ -52,30 +52,30 @@ public class Quiz extends JDialog implements java.io.Serializable {
 			}
 			orderedAnswers = questionInfo.getAnswers();
 			switch(rand.nextInt(6)) {
-			case 1:
+			case 0:
 				answers = questionInfo.getAnswers();
 				break;
-			case 2:
+			case 1:
 				answers[0] = orderedAnswers[0];
 				answers[1] = orderedAnswers[2];
 				answers[2] = orderedAnswers[1];
 				break;
-			case 3:
+			case 2:
 				answers[0] = orderedAnswers[1];
 				answers[1] = orderedAnswers[0];
 				answers[2] = orderedAnswers[2];
 				break;
-			case 4:
+			case 3:
 				answers[0] = orderedAnswers[1];
 				answers[1] = orderedAnswers[2];
 				answers[2] = orderedAnswers[0];
 				break;
-			case 5:
+			case 4:
 				answers[0] = orderedAnswers[2];
 				answers[1] = orderedAnswers[0];
 				answers[2] = orderedAnswers[1];
 				break;
-			case 6:
+			case 5:
 				answers[0] = orderedAnswers[2];
 				answers[1] = orderedAnswers[1];
 				answers[2] = orderedAnswers[0];
@@ -152,45 +152,45 @@ public class Quiz extends JDialog implements java.io.Serializable {
 			orderedAnswers = questionInfo.getAnswers();
 		} else {
 			switch(rand.nextInt(4)) {
-			case 1:
+			case 0:
 				questionInfo = HarrierQuestion.ONE;
 				break;
-			case 2:
+			case 1:
 				questionInfo = HarrierQuestion.TWO;
 				break;
-			case 3:
+			case 2:
 				questionInfo = HarrierQuestion.THREE;
 				break;
-			case 4:
+			case 3:
 				questionInfo = HarrierQuestion.FOUR;
 				break;
 			}
 			orderedAnswers = questionInfo.getAnswers();
 			switch(rand.nextInt(6)) {
-			case 1:
+			case 0:
 				answers = questionInfo.getAnswers();
 				break;
-			case 2:
+			case 1:
 				answers[0] = orderedAnswers[0];
 				answers[1] = orderedAnswers[2];
 				answers[2] = orderedAnswers[1];
 				break;
-			case 3:
+			case 2:
 				answers[0] = orderedAnswers[1];
 				answers[1] = orderedAnswers[0];
 				answers[2] = orderedAnswers[2];
 				break;
-			case 4:
+			case 3:
 				answers[0] = orderedAnswers[1];
 				answers[1] = orderedAnswers[2];
 				answers[2] = orderedAnswers[0];
 				break;
-			case 5:
+			case 4:
 				answers[0] = orderedAnswers[2];
 				answers[1] = orderedAnswers[0];
 				answers[2] = orderedAnswers[1];
 				break;
-			case 6:
+			case 5:
 				answers[0] = orderedAnswers[2];
 				answers[1] = orderedAnswers[1];
 				answers[2] = orderedAnswers[0];

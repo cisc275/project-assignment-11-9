@@ -15,20 +15,19 @@ public class HarrierModel extends Model {
 	private final static int MAX_FOXES = 3;
 	private final static int MAX_MICE = 20;
 	private final static int MAX_TWIGS = 20;
-	private final static int MAX_TREES = 50;
+	private final static int MAX_TREES = 125;
 	private final static int GOLD_CHANCE_MOD = 25;
 	public final static double EXCLUSION_RADIUS = 150;
 	Tutorial stage = Tutorial.ONE;
 
-	
-	public Tutorial getTutorial() {
-		return stage;
-	}
-	
 	public enum Tutorial {
 		ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, NONE;
 	}
 	
+	public Tutorial getTutorial() {
+		return stage;
+	}
+
 	public HarrierModel(){
 		super();
 		harrier = new Harrier();
@@ -64,7 +63,7 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public boolean isEnd() {
-		return harrier.getVision() <= Harrier.MIN_VISION || isWin();
+		return harrier.getVision() <= Harrier.MIN_VISION;
 	}
 
 	/*
@@ -73,7 +72,7 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public boolean isWin() {
-		return getTime() >= 100000;
+		return getTime() >= 3628;
 	}
 
 	/* 
@@ -84,30 +83,30 @@ public class HarrierModel extends Model {
 	@Override
 	public void generate() {
 		while(foxes.size() < MAX_FOXES) {
-			double[] coords = genCoords();
+			double[] coords = genCoords(1);
 			Fox f = new Fox(coords[0],coords[1]);
-			if(generationHelper(f)) { foxes.add(f); }
+			if(generationHelper(f, true)) { foxes.add(f); }
 		}
 		while(mice.size() < MAX_MICE) {
-			double[] coords = genCoords();
+			double[] coords = genCoords(1);
 			if(Model.rand.nextInt(GOLD_CHANCE_MOD) % GOLD_CHANCE_MOD == 0) {
 				GoldenMouse gm = new GoldenMouse(coords[0],coords[1]);
-				if(generationHelper(gm)) { mice.add(gm); }
+				if(generationHelper(gm, true)) { mice.add(gm); }
 			}
 			else {
 				Mouse m = new Mouse(coords[0],coords[1]);
-				if(generationHelper(m)) { mice.add(m); }
+				if(generationHelper(m, true)) { mice.add(m); }
 			}
 		}
 		while(twigs.size() < MAX_TWIGS) {
-			double[] coords = genCoords();
+			double[] coords = genCoords(1);
 			Twig tw = new Twig(coords[0],coords[1]);
-			if(generationHelper(tw)) { twigs.add(tw); }
+			if(generationHelper(tw, true)) { twigs.add(tw); }
 		}
 		while(trees.size() < MAX_TREES) {
-			double[] coords = genCoords();
-			Tree tr = new Tree(coords[0],coords[1]);
-			if(generationHelper(tr)) { trees.add(tr); }
+			double[] coords = genCoords(1.4);
+			Tree tr = new Tree(coords[0], coords[1]);
+			if(generationHelper(tr, false)) { trees.add(tr); }
 		}
 	}
 	
@@ -116,10 +115,12 @@ public class HarrierModel extends Model {
 	 * Takes no parameters, returns double[].
 	 * Generates a pair of coordinates for the harrier game.
 	 */
-	private double[] genCoords() {
+	private double[] genCoords(double scalar) {
 		double angle = Model.rand.nextDouble() * Math.PI / 2;
-		double[] coords = {Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_WIDTH - harrier.getVision()) + harrier.getVision() * Math.cos(angle)) + harrier.getXPos(),
-				   		   Model.randomSign() * (Model.rand.nextDouble() * (TitleView.FRAME_HEIGHT - harrier.getVision()) + harrier.getVision() * Math.sin(angle)) + harrier.getYPos()};
+		double[] coords = {Model.randomSign() * (Model.rand.nextDouble() * (scalar * TitleView.FRAME_WIDTH - harrier.getVision()) + 
+						   harrier.getVision() * Math.cos(angle)) + harrier.getXPos(),
+				   		   Model.randomSign() * (Model.rand.nextDouble() * (scalar * TitleView.FRAME_HEIGHT - harrier.getVision()) +
+				   		   harrier.getVision() * Math.sin(angle)) + harrier.getYPos()};
 		return coords;
 	}
 	
@@ -128,12 +129,14 @@ public class HarrierModel extends Model {
 	 * Takes GameObject as parameter, and returns boolean.
 	 * Checks if the GameObject will be in contact with other GameObjects.
 	 */
-	private boolean generationHelper(GameObject go) {
+	private boolean generationHelper(GameObject go, boolean boundCheck) {
 		boolean flag = true;
 		for(Fox f : foxes) { if(isCollision(go,f)) { flag = false; }}
 		for(Mouse m : mice) { if(isCollision(go, m)) { flag = false; }}
 		for(Twig tw : twigs) { if(isCollision(go,tw)) { flag = false; }}
 		for(Tree tr : trees) { if(isCollision(go,tr)) { flag = false; }}
+		if(boundCheck && (go.getXPos() >= TitleView.FRAME_WIDTH || go.getXPos() <= -TitleView.FRAME_WIDTH ||
+		   go.getYPos() >= TitleView.FRAME_HEIGHT || go.getYPos() <= -TitleView.FRAME_HEIGHT)) { flag = false; }
 		return flag;
 	}
 	
@@ -271,7 +274,7 @@ public class HarrierModel extends Model {
 	@Override
 	public void checkInteractions() {
 		for(Fox f : foxes) {
-			if(isCollision(harrier, f)) {f.interact(harrier); }
+			if(isCollision(harrier, f) && harrier.calcDist() > EXCLUSION_RADIUS) { f.interact(harrier); }
 		}
 		Iterator<Mouse> mIter = mice.iterator();
 		while(mIter.hasNext()) {

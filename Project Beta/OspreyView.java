@@ -2,15 +2,9 @@
 package Project;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 import javax.swing.*;
-
+import java.io.*;
 
 public class OspreyView extends GameView {
 
@@ -18,16 +12,15 @@ public class OspreyView extends GameView {
 	private ArrayList<Fish> fish;
 	private ArrayList<Seaweed> seaweed;
 	OspreyModel.Tutorial state;
+	private FileReader readFile;
+	private BufferedReader reader;
+	private String fastTime;
 	final static int X_OFFSET = 100;
 	final static int Y_OFFSET = 100;
-	private FileReader readFile = null;
-	private BufferedReader reader = null;
-	private String fastTime;
 
 	public OspreyView() {
 		setOpaque(true);
 		setBackground(Color.blue);
-		fastTime = "";
 		osprey = new Osprey();
 		fish = new ArrayList<>();
 		seaweed = new ArrayList<>();
@@ -45,48 +38,7 @@ public class OspreyView extends GameView {
 		this.seaweed = seaweed;
 		this.state = state;
 	}
-
-	/*
-	 * private method initializeImages.
-	 * Takes no parameter and returns nothing.
-	 * Reads the images into the images array.
-	 */
-	private void initializeImages() {
-		images = new BufferedImage[7];
-		images[0] = createBufferedImage("Osprey Background.png");
-		images[1] = createBufferedImage("Osprey.png");
-		images[2] = createBufferedImage("FishEast.png");
-		images[3] = createBufferedImage("FishWest.png");
-		images[4] = createBufferedImage("Seaweed.png");
-		images[5] = createBufferedImage("GreenArrow.png");
-		images[6] = createBufferedImage("SpaceBar.png");
-		makeFrames();
-	}
-
-	/*
-	 * private method makeFrames.
-	 * Takes no parameter and returns nothing.
-	 * Splits those images into their respective frames for animation.
-	 */
-	private void makeFrames() {
-		animationFrames = new BufferedImage[12];
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 4; j++){
-				animationFrames[j + 4*i] = images[1 + i].getSubimage(165*j, 0, 165, 140);
-			}
-		}
-	}
-
-	/*
-	 * public method directionConverter.
-	 * Takes Direction as parameter and returns int.
-	 * Interprets the direction into an index.
-	 */
-	public int directionConverter(Direction d) {
-		if(d == Direction.EAST) { return 0; }
-		else { return 1; }
-	}
-
+	
 	/*
 	 * Reads the file for fastestTime and assigns the string fastTime to that line
 	 * No Parameters
@@ -154,9 +106,48 @@ public class OspreyView extends GameView {
 			}
 		}
 	}
-	
 
-	
+	/*
+	 * private method initializeImages.
+	 * Takes no parameter and returns nothing.
+	 * Reads the images into the images array.
+	 */
+	private void initializeImages() {
+		images = new BufferedImage[7];
+		images[0] = createBufferedImage("Osprey Background.png");
+		images[1] = createBufferedImage("Osprey.png");
+		images[2] = createBufferedImage("FishEast.png");
+		images[3] = createBufferedImage("FishWest.png");
+		images[4] = createBufferedImage("Seaweed.png");
+		images[5] = createBufferedImage("GreenArrow.png");
+		images[6] = createBufferedImage("SpaceBar.png");
+		makeFrames();
+	}
+
+	/*
+	 * private method makeFrames.
+	 * Takes no parameter and returns nothing.
+	 * Splits those images into their respective frames for animation.
+	 */
+	private void makeFrames() {
+		animationFrames = new BufferedImage[12];
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 4; j++){
+				animationFrames[j + 4*i] = images[1 + i].getSubimage(165*j, 0, 165, 140);
+			}
+		}
+	}
+
+	/*
+	 * public method directionConverter.
+	 * Takes Direction as parameter and returns int.
+	 * Interprets the direction into an index.
+	 */
+	public int directionConverter(Direction d) {
+		if(d == Direction.EAST) { return 0; }
+		else { return 1; }
+	}
+
 	/*
 	 * public method paintComponent.
 	 * Takes Graphics as parameter and returns nothing.
@@ -171,12 +162,14 @@ public class OspreyView extends GameView {
 		}
 		int ox = X_OFFSET - (int)(osprey.getXWidth() / 2);
 		int oy = (int)osprey.getYPos() + Y_OFFSET - (int)(osprey.getYWidth() / 2);
-		g.drawImage(animationFrames[osprey.getAnimation()], ox, oy, (int)osprey.getXWidth(), (int)osprey.getYWidth(), this);
+		g.drawImage(animationFrames[osprey.getAnimation()],
+					ox - (int)(osprey.getXWidth() / 2), oy - (int)(osprey.getYWidth() / 2), (int)(osprey.getXWidth() * 2), (int)(osprey.getYWidth() * 2), this);
 		if(isDebug) { g.drawRect(ox, oy, (int)osprey.getXWidth(), (int)osprey.getYWidth()); }
 		for(Fish f : fish) {
 			int x = (int)(f.getXPos() - osprey.getXPos()) + X_OFFSET - (int)(f.getXWidth() / 2);
 			int y = (int)f.getYPos() + Y_OFFSET - (int)(f.getYWidth() / 2);
-			g.drawImage(animationFrames[f.getAnimation() + 4 + 4* directionConverter(f.getDirection())], x, y, (int)f.getXWidth(), (int)f.getYWidth(), this);
+			g.drawImage(animationFrames[f.getAnimation() + 4 + 4* directionConverter(f.getDirection())],
+						x - (int)(f.getXWidth()), y - (int)(f.getYWidth() * 1.5), (int)(f.getXWidth() * 3), (int)(f.getYWidth() * 4), this);
 			if(isDebug) { g.drawRect(x, y, (int)f.getXWidth(), (int)f.getYWidth()); }
 			if (state != OspreyModel.Tutorial.NONE) {
 				g.drawImage(images[5], x, y - 80, 40, 40, this);
@@ -185,7 +178,7 @@ public class OspreyView extends GameView {
 		for(Seaweed s : seaweed) {
 			int x = (int)(s.getXPos() - osprey.getXPos()) + X_OFFSET - (int)(s.getXWidth() / 2);
 			int y = (int)s.getYPos() + Y_OFFSET - (int)(s.getYWidth() / 2);
-			g.drawImage(images[4], x, y, (int)s.getXWidth(), (int)s.getYWidth(), this);
+			g.drawImage(images[4], x - (int)(s.getXWidth() / 8), y - (int)(s.getYWidth() / 8), (int)(s.getXWidth() * 1.25), (int)(s.getYWidth() * 1.25), this);
 			if(isDebug) { g.drawRect(x, y, (int)s.getXWidth(), (int)s.getYWidth()); }
 		}
 		g.drawString("Time: " + osprey.gameTimer + "s", 1450, 20);

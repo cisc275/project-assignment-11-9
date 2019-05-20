@@ -10,23 +10,22 @@ public class OspreyModel extends Model {
 	private Osprey osprey;
 	private ArrayList<Fish> fish;
 	private ArrayList<Seaweed> seaweed;
-	private int stage;
 	private final static double WATER_HEIGHT = TitleView.FRAME_HEIGHT / 2;
 	private final static int MAX_FISH = 5;
 	private final static int MAX_SEAWEED = 8;
 	private final static int GOLD_CHANCE_MOD = 25;
 	private final static double AIR_DRAG = .0001;
 	private final static double WATER_DRAG = .001;
-	Tutorial state = Tutorial.ONE;
+	Tutorial stage = Tutorial.NONE;
 
 	public enum Tutorial {
 		ONE, TWO, THREE, FOUR, NONE;
 	}
 	
 	public Tutorial getTutorial() {
-		return state;
+		return stage;
 	}
-	
+
 	public OspreyModel(){
 		super();
 		osprey = new Osprey();
@@ -45,10 +44,6 @@ public class OspreyModel extends Model {
 	public ArrayList<Seaweed> getSeaweed() { return this.seaweed; }
 	
 	public void setSeaweed(ArrayList<Seaweed> seaweed) { this.seaweed = seaweed; }
-	
-	public int getStage() { return this.stage; }
-	
-	public void setStage(int stage) { this.stage = stage; }
 	
 	/* 
 	 * Public method isEnd.
@@ -150,18 +145,18 @@ public class OspreyModel extends Model {
 		for(Fish f : fish) { f.move(); f.incrementAnimation(); }
 		checkInteractions();
 		destroy();
-		switch(state) {
+		switch (stage) {
 		case ONE:
 			if (osprey.getYPos() > WATER_HEIGHT) {
-				state = Tutorial.TWO;
+				stage = Tutorial.TWO;
 				double[] coords = genCoords();
-				Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH,TitleView.FRAME_HEIGHT - 300, 3);
+				Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 300, 3);
 				fish.add(f);
 			}
 			break;
 		case TWO:
 			if (osprey.getXVel() > osprey.START_SPEED) {
-				state = Tutorial.THREE;
+				stage = Tutorial.THREE;
 				Seaweed s1 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 160);
 				seaweed.add(s1);
 				Seaweed s2 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 240);
@@ -188,18 +183,18 @@ public class OspreyModel extends Model {
 				seaweed.add(s12);
 				Seaweed s13 = new Seaweed(osprey.getXPos() + TitleView.FRAME_WIDTH + 400, TitleView.FRAME_HEIGHT - 480);
 				seaweed.add(s13);
-				Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH + 200, TitleView.FRAME_HEIGHT - 300,2);
+				Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH + 200, TitleView.FRAME_HEIGHT - 300, 2);
 				fish.add(f);
 			} else {
 				if (fish.size() < 1) {
-					Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH,TitleView.FRAME_HEIGHT - 300, 3);
+					Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 300, 3);
 					fish.add(f);
 				}
 			}
 			break;
 		case THREE:
 			if (osprey.getXVel() < osprey.START_SPEED + 1) {
-				state = Tutorial.FOUR;
+				stage = Tutorial.FOUR;
 				GoldenFish f = new GoldenFish(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 320, true);
 				fish.add(f);
 			} else {
@@ -219,17 +214,18 @@ public class OspreyModel extends Model {
 					seaweed.add(s6);
 				}
 				if (fish.size() < 1) {
-					Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH,TitleView.FRAME_HEIGHT - 300, 3);
+					Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 300, 3);
 					fish.add(f);
 				}
 			}
 			break;
 		case FOUR:
 			if (osprey.getXVel() > osprey.START_SPEED + 1) {
-				state = Tutorial.NONE;
+				stage = Tutorial.NONE;
 			} else {
 				if (fish.size() < 1) {
-					GoldenFish f = new GoldenFish(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 320);
+					GoldenFish f = new GoldenFish(osprey.getXPos() + TitleView.FRAME_WIDTH,
+							TitleView.FRAME_HEIGHT - 320);
 					fish.add(f);
 				}
 			}
@@ -246,17 +242,6 @@ public class OspreyModel extends Model {
 	public void applyResistance() {
 		if(osprey.getYPos() < WATER_HEIGHT) { osprey.setXVel(osprey.getXVel() * (1 - AIR_DRAG)); }
 		else { osprey.setXVel(osprey.getXVel() * (1 - WATER_DRAG)); }
-	}
-	
-	/*
-	 * Runs a game clock during the game in seconds
-	 * No Parameters
-	 * Void method, returns nothing
-	 */
-	public void gameClock() {
-		if(getTime()%50 == 0) {
-			osprey.gameTimer += 1;
-		}
 	}
 	
 	/*
@@ -277,6 +262,17 @@ public class OspreyModel extends Model {
 			}
 		}
 		for(Seaweed s : seaweed) { if(isCollision(osprey, s)) { s.interact(osprey); }}
+	}
+	
+	/*
+	 * Runs a game clock during the game in seconds
+	 * No Parameters
+	 * Void method, returns nothing
+	 */
+	public void gameClock() {
+		if(getTime()%50 == 0) {
+			osprey.gameTimer += 1;
+		}
 	}
 
 }

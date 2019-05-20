@@ -8,15 +8,14 @@ import java.awt.image.*;
 public abstract class GameView extends JPanel {
 
 	protected boolean isDebug;
-	protected String list[] = {"CUM", "SEX", "COK", "COC", "ASS", "VAG", "FUK", "FUC", "JIZ", "PEE", "POO", "HIV", "GUN","NIG"};
 	protected BufferedImage[] images;
 	protected BufferedImage[] animationFrames;
+	protected String list[] = {"CUM", "SEX", "COK", "COC", "ASS", "VAG", "FUK", "FUC", "JIZ", "PEE", "POO", "HIV", "GUN","NIG"};
 	
-
 	public boolean getIsDebug() { return isDebug; }
-
+	
 	public void setIsDebug(boolean isDebug) { this.isDebug = isDebug; }
-
+	
 	/*
 	 * This public method checks for inappropriate words and for only letters
 	 * Takes in user inputed name
@@ -34,25 +33,22 @@ public abstract class GameView extends JPanel {
 		return "no";
 	}
 	
-
 	/*
 	 * public method createBufferedImage.
 	 * Takes String as parameter and returns nothing.
 	 * Reads and creates a BufferedImage object of the image with the given filename.
 	 */
 	public BufferedImage createBufferedImage(String fileName) {
-		BufferedImage bufferedImage;
-		try {
-			String path = "src/images/";
-			path += fileName;
-			bufferedImage = ImageIO.read(new File(path));
-			return bufferedImage;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+    	BufferedImage bufferedImage;
+    	try {
+    		String path = "src/images/";
+    		path += fileName;
+    		bufferedImage = ImageIO.read(new File(path));
+    		return bufferedImage;
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	return null;
 	}
-	
-	
 
 }

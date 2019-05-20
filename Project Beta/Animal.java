@@ -18,11 +18,11 @@ public abstract class Animal extends GameObject {
 
 	public double getXVel() { return this.xVelocity; }
 
-	public void setXVel(double xVel) { this.xVelocity = xVel; updateDirection(); }
+	public void setXVel(double xVel) { this.xVelocity = xVel; }
 
 	public double getYVel() { return this.yVelocity; }
 
-	public void setYVel(double yVel) { this.yVelocity = yVel; updateDirection(); }
+	public void setYVel(double yVel) { this.yVelocity = yVel; }
 	
 	public double getAngle() { return this.velAngle; }
 	
@@ -118,7 +118,6 @@ public abstract class Animal extends GameObject {
 	public void interact(GameObject g) {
 		xVelocity *= -1;
 		yVelocity *= -1;
-		move();
 		updateDirection();
 	}
 	
@@ -129,7 +128,7 @@ public abstract class Animal extends GameObject {
 	 */
 	public double calcSpeed() { return Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity); }
 	
-	private void updateAngle() {
+	public void updateAngle() {
 		velAngle = Math.atan(-getYVel()/getXVel());
 		if(getXVel() >= 0 && getYVel() > 0) { velAngle += 2 * Math.PI; }
 		else if(getXVel() < 0 || getYVel() > 0) { velAngle += Math.PI; }

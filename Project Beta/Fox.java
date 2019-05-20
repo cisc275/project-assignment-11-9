@@ -42,7 +42,6 @@ public class Fox extends Animal {
 		setYVel( getSpeedMod() * Math.sin(chaseAngle));
 		updateDirection();
 	}
-
 	
 	/*
 	 * public method roam.

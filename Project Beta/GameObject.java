@@ -34,25 +34,25 @@ public abstract class GameObject {
 	 */
 	public double calcDist() { return Math.sqrt(xPosition * xPosition + yPosition * yPosition); }
 	
-	public double radius(double objectY, double objectX) { 
-		double x = Math.abs(objectX) - Math.abs(this.getXPos());
-		double y = Math.abs(objectY) - Math.abs(this.getYPos());
-		return Math.sqrt(y*y + x*x);
+	/*
+	 * public method calcDist.
+	 * Takes GameObject as parameter and returns double.
+	 * Calculates the distance between the GameObjects.
+	 */
+	public double calcDist(GameObject go) {
+		double dx = this.xPosition - go.xPosition;
+		double dy = this.yPosition - go.yPosition;
+		return Math.sqrt(dx * dx + dy * dy);
 	}
 	
-	public Direction getApproximateDirection(double objectY, double objectX) {
-		if (Math.abs(objectX - this.getXPos()) > Math.abs(objectY - this.getYPos())) {
-			if (this.getXPos() < objectX) {
-				return Direction.WEST;
-			} else {
-				return Direction.EAST;
-			}
+	public Direction getApproximateDirection(GameObject go) {
+		if (Math.abs(go.xPosition - this.xPosition) > Math.abs(go.yPosition - this.yPosition)) {
+			if (this.xPosition < go.xPosition) { return Direction.WEST; } 
+			else { return Direction.EAST; }
 		} else {
-			if (this.getYPos() < objectY) {
-				return Direction.NORTH;
-			} else {
-				return Direction.SOUTH;
-			}
+			if (this.yPosition < go.yPosition) { return Direction.NORTH; }
+			else { return Direction.SOUTH; }
 		}
 	}
+
 }

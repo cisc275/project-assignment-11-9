@@ -14,7 +14,6 @@ public class GameOverView extends GameView {
 	private Image background;
 	
 	public GameOverView() {
-		
 		try{
 			background = ImageIO.read(new File("src/images/Game_Over.1 (2).png"));
 		} catch (IOException e) {

@@ -1,20 +1,15 @@
-//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+ //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-import static org.junit.Assert.fail;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import javax.swing.*;
+import java.io.*;
+import static org.junit.Assert.fail;
 
 /* 
  * Public Controller class runs the game.
  */
-public class Controller implements ActionListener, KeyListener, java.io.Serializable {
+public class Controller implements KeyListener, java.io.Serializable {
 
 	private GameState gs;
 	private Model model;
@@ -23,8 +18,8 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 	private CardLayout layout;
 	private Timer timerO, timerH;
 	private boolean paused;
+	private boolean canSaveLoad;
 	public final static int TICK_TIME = 20;
-	private boolean canSaveLoad = false;
 	
 	public Controller() {
 		view = new JPanel();
@@ -41,27 +36,27 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT);
+		frame.setBackground(Color.BLACK);
 		frame.add(view);
 		frame.setVisible(true);
 		frame.addKeyListener(this);
-		((TitleView)view.getComponent(GameState.TITLE.getNum())).addListener(this);
 		
 		timerO = new Timer(TICK_TIME, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				if(!paused) {
-					OspreyModel om = (OspreyModel)model;
-					OspreyView ov = (OspreyView)view.getComponent(gs.getNum());
-					if(om.isWin()) {
+				if (!paused) {
+					OspreyModel om = (OspreyModel) model;
+					OspreyView ov = (OspreyView) view.getComponent(gs.getNum());
+					if (om.isWin()) {
 						ov.checkTime();
 						endOsprey();
 					} else if (om.isEnd()) {
 						gameOver();
-					}
-					else {
-					om.update();
-					ov.update(om.getOsprey(), om.getFish(), om.getSeaweed(), om.getTutorial());
-					frame.repaint();
+					} else {
+						om.update();
+						om.gameClock();
+						ov.update(om.getOsprey(), om.getFish(), om.getSeaweed(), om.getTutorial());
+						frame.repaint();
 					}
 				}
 				else {
@@ -73,24 +68,24 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 		timerH = new Timer(TICK_TIME, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				if(!paused) {
-					HarrierModel hm = (HarrierModel)model;
-					HarrierView hv = (HarrierView)view.getComponent(gs.getNum());
-					if(hm.isWin()) {
+				if (!paused) {
+					HarrierModel hm = (HarrierModel) model;
+					HarrierView hv = (HarrierView) view.getComponent(gs.getNum());
+					if (hm.isWin()) {
 						hv.checkScore();
 						endHarrier();
 					} else if (hm.isEnd()) {
 						gameOver();
-					}
-					else {
-					hm.update();
-					hv.update(hm.getHarrier(), hm.getFoxes(), hm.getMice(), hm.getTwigs(), hm.getTrees(), hm.getTutorial());
-					frame.repaint();
+					} else {
+						hm.update();
+						hv.update(hm.getHarrier(), hm.getFoxes(), hm.getMice(), hm.getTwigs(), hm.getTrees(),
+								hm.getTutorial());
+						frame.repaint();
 					}
 				}
 				else {
 					try { Thread.sleep(TICK_TIME); }
-					catch(InterruptedException e) { e.printStackTrace(); }
+					catch (InterruptedException e) { e.printStackTrace(); }
 				}
 			}
 		});
@@ -134,38 +129,6 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 		timerH.start();
 	}
 
-	private void endOsprey() {
-		gs = GameState.END;
-		layout.show(view, "oe");
-		frame.requestFocus();
-		timerO.stop();
-		
-	}
-	
-	private void endHarrier() {
-		gs = GameState.END;
-		layout.show(view, "he");
-		frame.requestFocus();
-		timerH.stop();
-	}
-	
-	private void gameOver() {
-		if(gs == GameState.OSPREY) {
-		gs = GameState.END;
-		layout.show(view, "go");
-		frame.requestFocus();
-		timerO.stop();
-		}
-		else if (gs == GameState.HARRIER) {
-			gs = GameState.END;
-			layout.show(view, "go");
-			frame.requestFocus();
-			timerH.stop();
-		}
-	}
-	
-
-
 	/* 
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
@@ -196,6 +159,10 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 			if (e.getKeyCode() == KeyEvent.VK_P) { paused = !paused; }
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { start(); }
 		}
+		else {
+			if(e.getKeyCode() == KeyEvent.VK_O) { startOsprey(); }
+			else if(e.getKeyCode() == KeyEvent.VK_H) { startHarrier(); }
+		}
 	}
 
 	/* 
@@ -214,18 +181,37 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 	 */
 	@Override
 	public void keyTyped(KeyEvent e) {}
+	
+	private void endOsprey() {
+		gs = GameState.END;
+		layout.show(view, "oe");
+		frame.requestFocus();
+		timerO.stop();
 
-	/*
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JButton src = (JButton) e.getSource();
-		TitleView tv = (TitleView)view.getComponent(GameState.TITLE.getNum());
-		if (src.equals(tv.getButtonO())) { startOsprey(); }
-		else if (src.equals(tv.getButtonH())) { startHarrier(); }
 	}
 
+	private void endHarrier() {
+		gs = GameState.END;
+		layout.show(view, "he");
+		frame.requestFocus();
+		timerH.stop();
+	}
+
+	private void gameOver() {
+		if(gs == GameState.OSPREY) {
+		gs = GameState.END;
+		layout.show(view, "go");
+		frame.requestFocus();
+		timerO.stop();
+		}
+		else if (gs == GameState.HARRIER) {
+			gs = GameState.END;
+			layout.show(view, "go");
+			frame.requestFocus();
+			timerH.stop();
+		}
+	}
+	
 	public void save() {
 		try {
 			FileOutputStream fos;
@@ -234,7 +220,6 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
 				oos.writeObject(model);
 				oos.close();
-				//om.testing = 0;
 				canSaveLoad = false;
 			} else if (gs == GameState.HARRIER){
 				fos = new FileOutputStream("harrierfile.ser");
@@ -249,7 +234,7 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 			fail("Exception thrown during test: " + ex.toString());
 		}
 	}
-	
+
 	public void load() {
 		try {
 			FileInputStream fis;
@@ -276,11 +261,10 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 			fail("Exception thrown during test: " + ex.toString());
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		Controller c = new Controller();
 		c.start();
 	}
-	
-	
+
 }
