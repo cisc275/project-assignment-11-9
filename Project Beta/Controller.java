@@ -1,5 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+
+
 import static org.junit.Assert.fail;
 
 import java.awt.*;
@@ -35,6 +37,9 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 		view.add(new TitleView(), "tv", GameState.TITLE.getNum());
 		view.add(new OspreyView(), "ov", GameState.OSPREY.getNum());
 		view.add(new HarrierView(), "hv", GameState.HARRIER.getNum());
+		view.add(new GameOverView(), "go", GameState.END.getNum());
+		view.add(new OspreyEnding(), "oe", GameState.END.getNum());
+		view.add(new HarrierEnding(), "he", GameState.END.getNum());
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT);
@@ -58,7 +63,6 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 					}
 					else {
 					om.update();
-					om.gameClock();
 					ov.update(om.getOsprey(), om.getFish(), om.getSeaweed(), om.getTutorial());
 					frame.repaint();
 					}
@@ -162,6 +166,7 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 			frame.requestFocus();
 			timerH.stop();
 		}
+	}
 	
 
 	/* 
@@ -192,6 +197,7 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 			}
 			if (e.getKeyCode() == KeyEvent.VK_CONTROL) { GameView gv = (GameView)view.getComponent(gs.getNum()); gv.setIsDebug(!gv.getIsDebug()); }
 			if (e.getKeyCode() == KeyEvent.VK_P) { paused = !paused; }
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { start(); }
 		}
 	}
 

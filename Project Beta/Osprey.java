@@ -9,7 +9,7 @@ public class Osprey extends Animal {
 	private boolean isRecovering;
 	public final static double MIN_HEIGHT = 0;
 	public final static double MAX_HEIGHT = TitleView.FRAME_HEIGHT - 2 * OspreyView.Y_OFFSET;
-	public final static double MIN_SPEED = 0;
+	public final static double MIN_SPEED = 4;
 	public final static double MAX_SPEED = 40;
 	public final static double FLYING_SPEED = 15;
 	public final static double START_SPEED = 5;
@@ -22,6 +22,7 @@ public class Osprey extends Animal {
 		setYWidth(35);
 		setXVel(5);
 		setYVel(0);
+		gameTimer = 0;
 		isRecovering = false;
 	}
 	
@@ -58,5 +59,6 @@ public class Osprey extends Animal {
 	public void rise() {
 		setYVel(-FLYING_SPEED);
 	}
+	
 
 }

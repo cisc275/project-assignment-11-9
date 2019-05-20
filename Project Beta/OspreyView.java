@@ -188,6 +188,9 @@ public class OspreyView extends GameView {
 			g.drawImage(images[4], x, y, (int)s.getXWidth(), (int)s.getYWidth(), this);
 			if(isDebug) { g.drawRect(x, y, (int)s.getXWidth(), (int)s.getYWidth()); }
 		}
+		g.drawString("Time: " + osprey.gameTimer + "s", 1450, 20);
+		g.drawString("Press P to pause",  1410, 40);
+		g.drawString("Press ESC to return to menu",  1350,  60);
 	}
 
 }

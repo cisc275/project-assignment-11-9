@@ -56,7 +56,7 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public boolean isEnd() {
-		return osprey.getXVel() <= Osprey.MIN_SPEED || isWin();
+		return osprey.getXVel() <= Osprey.MIN_SPEED;
 	}
 
 	/*
@@ -65,7 +65,7 @@ public class OspreyModel extends Model {
 	 */
 	@Override
 	public boolean isWin() {
-		return osprey.getXPos() >= 100000;
+		return osprey.getXPos() >= 45000;
 	}
 
 	/* 
@@ -235,8 +235,10 @@ public class OspreyModel extends Model {
 			}
 			break;
 		case NONE:
+			System.out.println(osprey.getXVel());
 			applyResistance();
 			setTime(getTime() + 1);
+			gameClock();
 			generate();
 			break;
 		}
@@ -253,7 +255,7 @@ public class OspreyModel extends Model {
 	 * Void method, returns nothing
 	 */
 	public void gameClock() {
-		if(getTime()%30 == 0) {
+		if(getTime()%50 == 0) {
 			osprey.gameTimer += 1;
 		}
 	}
