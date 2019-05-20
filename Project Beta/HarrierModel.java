@@ -17,8 +17,16 @@ public class HarrierModel extends Model {
 	private final static int MAX_TWIGS = 20;
 	private final static int MAX_TREES = 125;
 	private final static int GOLD_CHANCE_MOD = 25;
+<<<<<<< HEAD
 	public final static double EXCLUSION_RADIUS = 150;
+=======
+	Tutorial stage = Tutorial.ONE;
+>>>>>>> a50fe777534a312aa19768ecfe732028af715260
 
+	public enum Tutorial {
+		ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NONE;
+	}
+	
 	public HarrierModel(){
 		super();
 		harrier = new Harrier();
@@ -138,12 +146,107 @@ public class HarrierModel extends Model {
 	 */
 	@Override
 	public void update() {
+<<<<<<< HEAD
 		setTime(getTime() + 1);
 		harrier.moveBounded(TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, 0); harrier.incrementAnimation();
 		for(Fox f : foxes) { f.roam(harrier, TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, -1); f.incrementAnimation(); }
 		for(Mouse m : mice) { m.roam(TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, -1); m.incrementAnimation(); }
+=======
+		harrier.move(); harrier.incrementAnimation();
+		for(Fox f : foxes) { f.roam(harrier); f.incrementAnimation(); }
+		for(Mouse m : mice) { m.roam(); m.incrementAnimation(); }
+>>>>>>> a50fe777534a312aa19768ecfe732028af715260
 		checkInteractions();
-		generate();
+		switch(stage) {
+		case ONE:
+			if (harrier.getYVel() < 0) {
+				stage = Tutorial.TWO;
+			}
+			break;
+		case TWO:
+			if (harrier.getXVel() > 0) {
+				stage = Tutorial.THREE;
+			}
+			break;
+		case THREE:
+			if (harrier.getYVel() > 0) {
+				stage = Tutorial.FOUR;
+			}
+			break;
+		case FOUR:
+			if (harrier.getXVel() < 0) {
+				stage = Tutorial.FIVE;
+				harrier.setXPos(0);
+				harrier.setYPos(0);
+				harrier.setYVel(0);
+				harrier.setXVel(0);
+				Twig tw = new Twig(100, 100);
+				twigs.add(tw);
+			}
+			break;
+		case FIVE:
+			if (twigs.size() < 1) {
+				stage = Tutorial.SIX;
+				harrier.setXPos(0);
+				harrier.setYPos(0);
+				harrier.setYVel(0);
+				harrier.setXVel(0);
+				Mouse m = new Mouse(300, 300);
+				mice.add(m);
+			}
+			break;
+		case SIX:
+			if (mice.size() < 1) {
+				stage = Tutorial.SEVEN;
+				harrier.setXPos(0);
+				harrier.setYPos(0);
+				harrier.setYVel(0);
+				harrier.setXVel(0);
+				Tree tree1 = new Tree(120, 0);
+				Tree tree2 = new Tree(120, 120);
+				Tree tree3 = new Tree(120, 240);
+				Tree tree4 = new Tree(240, 240);
+				Tree tree5 = new Tree(360, 240);
+				Tree tree6 = new Tree(360, 120);
+				Tree tree7 = new Tree(360, 0);
+				Tree tree8 = new Tree(240, 0);
+				trees.add(tree1);
+				trees.add(tree2);
+				trees.add(tree3);
+				trees.add(tree4);
+				trees.add(tree5);
+				trees.add(tree6);
+				trees.add(tree7);
+				trees.add(tree8);
+				GoldenMouse m = new GoldenMouse(240, 120);
+				mice.add(m);
+			}
+			break;
+		case SEVEN:
+			if (harrier.getVision() < harrier.INITIAL_VISION + 37.5) {
+				stage = Tutorial.EIGHT;
+				if (harrier.getYPos() > 0) {
+					trees.remove(7);
+				} else {
+					trees.remove(1);
+				}
+			}
+			break;
+		case EIGHT:
+			if (mice.size() < 1) {
+				stage = Tutorial.NONE;
+				Iterator iter = trees.iterator();
+				while (iter.hasNext()) {
+					Object t = iter.next();
+					iter.remove();
+				}
+			}
+			break;
+		case NONE:
+			setTime(getTime() + 1);
+			generate();
+			break;
+		}
 	}
 
 	/*
