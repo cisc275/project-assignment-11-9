@@ -23,6 +23,10 @@ public class OspreyModel extends Model {
 		ONE, TWO, THREE, FOUR, NONE;
 	}
 	
+	public Tutorial getTutorial() {
+		return state;
+	}
+	
 	public OspreyModel(){
 		super();
 		osprey = new Osprey();
@@ -148,7 +152,7 @@ public class OspreyModel extends Model {
 		destroy();
 		switch(state) {
 		case ONE:
-			if (osprey.getYPos() < WATER_HEIGHT) {
+			if (osprey.getYPos() > WATER_HEIGHT) {
 				state = Tutorial.TWO;
 				double[] coords = genCoords();
 				Fish f = new Fish(osprey.getXPos() + TitleView.FRAME_WIDTH,TitleView.FRAME_HEIGHT - 300, 3);

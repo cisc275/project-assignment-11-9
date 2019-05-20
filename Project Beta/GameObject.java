@@ -27,16 +27,13 @@ public abstract class GameObject {
 
 	public void setYWidth(double yWidth) { this.yWidth = yWidth; }
 	
-<<<<<<< HEAD
 	/*
 	 * public method calcDist.
 	 * Takes no parameters and returns double.
 	 * Calculates the distance of the Game Object from the origin.
 	 */
 	public double calcDist() { return Math.sqrt(xPosition * xPosition + yPosition * yPosition); }
-
-}
-=======
+	
 	public double radius(double objectY, double objectX) { 
 		double x = Math.abs(objectX) - Math.abs(this.getXPos());
 		double y = Math.abs(objectY) - Math.abs(this.getYPos());
@@ -59,4 +56,3 @@ public abstract class GameObject {
 		}
 	}
 }
->>>>>>> a50fe777534a312aa19768ecfe732028af715260

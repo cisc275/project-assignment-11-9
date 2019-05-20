@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 /*
  * Public class Quiz defines the behavior and attributes of the Quizzes in both games.
  */
-public class Quiz extends JDialog {
+public class Quiz extends JDialog implements java.io.Serializable {
 	
 	private JPanel panel;
 	
@@ -56,7 +56,6 @@ public class Quiz extends JDialog {
 					if (answer == "0") {
 						answer = "c";
 					}
-					System.out.println(answer);
 					f.answer = answer;
 					f.correct = "a";
 					dispose();
@@ -113,7 +112,6 @@ public class Quiz extends JDialog {
 					if (answer == "0") {
 						answer = "c";
 					}
-					System.out.println(answer);
 					m.answer = answer;
 					m.correct = "a";
 					dispose();

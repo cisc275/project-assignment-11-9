@@ -7,7 +7,7 @@ import javax.swing.*;
 /*
  * Public class TitleView handles the UI, and defines the main method.
  */
-public class TitleView extends JPanel {
+public class TitleView extends JPanel implements java.io.Serializable {
 
 	private JButton buttonO;
 	private JButton buttonH;

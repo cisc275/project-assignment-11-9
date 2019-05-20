@@ -1,13 +1,20 @@
- //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+import static org.junit.Assert.fail;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import javax.swing.*;
 
 /* 
  * Public Controller class runs the game.
  */
-public class Controller implements ActionListener, KeyListener {
+public class Controller implements ActionListener, KeyListener, java.io.Serializable {
 
 	private GameState gs;
 	private Model model;
@@ -17,6 +24,7 @@ public class Controller implements ActionListener, KeyListener {
 	private Timer timerO, timerH;
 	private boolean paused;
 	public final static int TICK_TIME = 20;
+	private boolean canSaveLoad = false;
 	
 	public Controller() {
 		view = new JPanel();
@@ -42,7 +50,7 @@ public class Controller implements ActionListener, KeyListener {
 					OspreyModel om = (OspreyModel)model;
 					OspreyView ov = (OspreyView)view.getComponent(gs.getNum());
 					om.update();
-					ov.update(om.getOsprey(), om.getFish(), om.getSeaweed());
+					ov.update(om.getOsprey(), om.getFish(), om.getSeaweed(), om.getTutorial());
 					frame.repaint();
 				}
 				else {
@@ -58,7 +66,7 @@ public class Controller implements ActionListener, KeyListener {
 					HarrierModel hm = (HarrierModel)model;
 					HarrierView hv = (HarrierView)view.getComponent(gs.getNum());
 					hm.update();
-					hv.update(hm.getHarrier(), hm.getFoxes(), hm.getMice(), hm.getTwigs(), hm.getTrees());
+					hv.update(hm.getHarrier(), hm.getFoxes(), hm.getMice(), hm.getTwigs(), hm.getTrees(), hm.getTutorial());
 					frame.repaint();
 				}
 				else {
@@ -113,6 +121,13 @@ public class Controller implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(gs != GameState.TITLE) {
+			if (e.getKeyCode() == KeyEvent.VK_A) {
+				canSaveLoad = ! canSaveLoad;
+			} else if (e.getKeyCode() == KeyEvent.VK_S) {
+				save();
+			} else if (e.getKeyCode() == KeyEvent.VK_L) {
+				load();
+			}
 			if (gs == GameState.OSPREY) {
 				OspreyModel om = (OspreyModel)model;
 				if (e.getKeyCode() == KeyEvent.VK_SPACE && !om.getOsprey().getIsRecovering()) { om.getOsprey().dive(); }
@@ -159,9 +174,57 @@ public class Controller implements ActionListener, KeyListener {
 		else if (src.equals(tv.getButtonH())) { startHarrier(); }
 	}
 
+	public void save() {
+		try {
+			FileOutputStream fos;
+			if (gs == GameState.OSPREY) {
+				fos = new FileOutputStream("ospreyfile.ser");
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				oos.writeObject(model);
+				oos.close();
+				//om.testing = 0;
+			} else if (gs == GameState.HARRIER){
+				fos = new FileOutputStream("harrierfile.ser");
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				oos.writeObject(model);
+				oos.close();
+			}		
+		}
+		catch (Exception ex)
+		{
+			fail("Exception thrown during test: " + ex.toString());
+		}
+	}
+	
+	public void load() {
+		try {
+			FileInputStream fis;
+			if (gs == GameState.OSPREY) {
+				paused = true;
+				fis = new FileInputStream("ospreyfile.ser");
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				model = (OspreyModel) ois.readObject();
+				ois.close();
+				paused = false;
+			} else if (gs == GameState.HARRIER){
+				paused = true;
+				fis = new FileInputStream("harrierfile.ser");
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				model = (HarrierModel) ois.readObject();
+				ois.close();
+				paused = false;
+			}		
+		}
+		catch (Exception ex)
+		{
+			fail("Exception thrown during test: " + ex.toString());
+		}
+	}
+	
 	public static void main(String[] args) {
 		Controller c = new Controller();
 		c.start();
 	}
-
+	
+	
 }

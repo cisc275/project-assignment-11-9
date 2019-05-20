@@ -16,13 +16,12 @@ public class OspreyView extends GameView {
 	private Osprey osprey;
 	private ArrayList<Fish> fish;
 	private ArrayList<Seaweed> seaweed;
+	OspreyModel.Tutorial state;
 	final static int X_OFFSET = 100;
 	final static int Y_OFFSET = 100;
 	private FileReader readFile = null;
 	private BufferedReader reader = null;
 	private String fastTime;
-	
-
 
 	public OspreyView() {
 		setOpaque(true);
@@ -39,10 +38,11 @@ public class OspreyView extends GameView {
 	 * Takes Osprey, ArrayList<Fish>, and ArrayList<Seaweed> as parameters and returns nothing.
 	 * Passes the model objects to the helper for drawing.
 	 */
-	public void update(Osprey osprey, ArrayList<Fish> fish, ArrayList<Seaweed> seaweed) {
+	public void update(Osprey osprey, ArrayList<Fish> fish, ArrayList<Seaweed> seaweed, OspreyModel.Tutorial state) {
 		this.osprey = osprey;
 		this.fish = fish;
 		this.seaweed = seaweed;
+		this.state = state;
 	}
 
 	/*
@@ -83,7 +83,7 @@ public class OspreyView extends GameView {
 		if(d == Direction.EAST) { return 0; }
 		else { return 1; }
 	}
-	
+
 	/*
 	 * Reads the file for fastestTime and assigns the string fastTime to that line
 	 * No Parameters
@@ -150,12 +150,10 @@ public class OspreyView extends GameView {
 				} catch (Exception e) {}
 			}
 		}
-		}
+	}
 	
 
 	
-
-
 	/*
 	 * public method paintComponent.
 	 * Takes Graphics as parameter and returns nothing.
@@ -181,10 +179,6 @@ public class OspreyView extends GameView {
 			g.drawImage(images[4], x, y, (int)s.getXWidth(), (int)s.getYWidth(), this);
 			if(isDebug) { g.drawRect(x, y, (int)s.getXWidth(), (int)s.getYWidth()); }
 		}
-		g.drawString("Time: " + osprey.gameTimer + "s", 1450, 20);
-		g.drawString("Press P to pause", 1425, 30);
-		g.drawString("Press ESC to return to menu", 1375, 40);
-		//g.drawString("Time "+ osprey.displayMin + ":" + osprey.displaySec + osprey.display2Sec, 1450, 20);
 	}
 
 }

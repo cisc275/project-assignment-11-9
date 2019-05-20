@@ -6,7 +6,7 @@ import java.lang.Math;
 /*
  * Public abstract class Model defines general behaviors for the models in both the Harrier and Osprey games.
  */
-public abstract class Model {
+public abstract class Model implements java.io.Serializable {
 
 	private int time;
 	private Quiz quiz;
