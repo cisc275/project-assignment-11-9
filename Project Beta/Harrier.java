@@ -8,7 +8,7 @@ public class Harrier extends Animal {
 
 	private int score;
 	private double visionRadius;
-	public static int INITIAL_VISION = 280;
+	public static int INITIAL_VISION = 300;
 	private static int STARTPOS = 0;
 	private static int STARTVEL = 0;
 	private static int SIZE = 40;

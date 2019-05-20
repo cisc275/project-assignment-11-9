@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.*;
 import javax.swing.*;
 
+
 public class OspreyView extends GameView {
 
 	private Osprey osprey;
@@ -51,12 +52,14 @@ public class OspreyView extends GameView {
 	 * Reads the images into the images array.
 	 */
 	private void initializeImages() {
-		images = new BufferedImage[5];
+		images = new BufferedImage[7];
 		images[0] = createBufferedImage("Osprey Background.png");
 		images[1] = createBufferedImage("Osprey.png");
 		images[2] = createBufferedImage("FishEast.png");
 		images[3] = createBufferedImage("FishWest.png");
 		images[4] = createBufferedImage("Seaweed.png");
+		images[5] = createBufferedImage("GreenArrow.png");
+		images[6] = createBufferedImage("SpaceBar.png");
 		makeFrames();
 	}
 
@@ -163,6 +166,9 @@ public class OspreyView extends GameView {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(images[0], 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
+		if (state == OspreyModel.Tutorial.ONE) {
+			g.drawImage(images[6], TitleView.FRAME_WIDTH / 2 - 120, TitleView.FRAME_HEIGHT / 3 - 20, 240, 40, this);
+		}
 		int ox = X_OFFSET - (int)(osprey.getXWidth() / 2);
 		int oy = (int)osprey.getYPos() + Y_OFFSET - (int)(osprey.getYWidth() / 2);
 		g.drawImage(animationFrames[osprey.getAnimation()], ox, oy, (int)osprey.getXWidth(), (int)osprey.getYWidth(), this);
@@ -172,6 +178,9 @@ public class OspreyView extends GameView {
 			int y = (int)f.getYPos() + Y_OFFSET - (int)(f.getYWidth() / 2);
 			g.drawImage(animationFrames[f.getAnimation() + 4 + 4* directionConverter(f.getDirection())], x, y, (int)f.getXWidth(), (int)f.getYWidth(), this);
 			if(isDebug) { g.drawRect(x, y, (int)f.getXWidth(), (int)f.getYWidth()); }
+			if (state != OspreyModel.Tutorial.NONE) {
+				g.drawImage(images[5], x, y - 80, 40, 40, this);
+			}
 		}
 		for(Seaweed s : seaweed) {
 			int x = (int)(s.getXPos() - osprey.getXPos()) + X_OFFSET - (int)(s.getXWidth() / 2);

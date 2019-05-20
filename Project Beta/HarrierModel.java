@@ -26,7 +26,7 @@ public class HarrierModel extends Model {
 	}
 	
 	public enum Tutorial {
-		ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NONE;
+		ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, NONE;
 	}
 	
 	public HarrierModel(){
@@ -225,16 +225,35 @@ public class HarrierModel extends Model {
 			break;
 		case EIGHT:
 			if (mice.size() < 1) {
-				stage = Tutorial.NONE;
+				stage = Tutorial.NINE;
 				Iterator iter = trees.iterator();
 				while (iter.hasNext()) {
 					Object t = iter.next();
 					iter.remove();
 				}
-				harrier.setXPos(0);
-				harrier.setYPos(0);
+				harrier.setXPos(300);
+				harrier.setYPos(300);
 				harrier.setYVel(0);
 				harrier.setXVel(0);
+				Fox f1 = new Fox(600, 600);
+				Fox f2 = new Fox(100, 100);
+				Fox f3 = new Fox(100, 600);
+				Fox f4 = new Fox(600, 100);
+				foxes.add(f1);
+				foxes.add(f2);
+				foxes.add(f3);
+				foxes.add(f4);
+			}
+			break;
+		case NINE:
+			if (harrier.getXPos() == 0) {
+				stage = Tutorial.NONE;
+				harrier.setVision(harrier.INITIAL_VISION);
+				Iterator iter = foxes.iterator();
+				while (iter.hasNext()) {
+					Object o = iter.next();
+					iter.remove();
+				}
 			}
 			break;
 		case NONE:
