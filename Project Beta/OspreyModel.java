@@ -16,7 +16,7 @@ public class OspreyModel extends Model {
 	private final static int GOLD_CHANCE_MOD = 25;
 	private final static double AIR_DRAG = .0001;
 	private final static double WATER_DRAG = .001;
-	Tutorial stage = Tutorial.NONE;
+	Tutorial stage = Tutorial.ONE;
 
 	public enum Tutorial {
 		ONE, TWO, THREE, FOUR, NONE;

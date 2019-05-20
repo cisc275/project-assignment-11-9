@@ -82,7 +82,7 @@ public class HarrierView extends GameView {
 	public void checkScore() {
 		highScore = GetHighScore();
 		if(harrier.getScore() > Integer.parseInt((highScore.split(":")[1]))) {
-			String name = JOptionPane.showInputDialog("Congratulations on setting a new HighScore! Please enter your name.");
+			String name = JOptionPane.showInputDialog("Congratulations on setting a new HighScore! Please enter your initials.");
 			while(name.length() >= 4 || filterInput(name).equals("no")) {
 				name = JOptionPane.showInputDialog("Name Invalid. Try Again");
 				}
@@ -121,7 +121,7 @@ public class HarrierView extends GameView {
 	 * Reads the images into the images array.
 	 */
 	private void initializeImages() {
-		images = new BufferedImage[40];
+		images = new BufferedImage[48];
 		images[0] = createBufferedImage("HarrierBackground.png");
 		initializeImageSet("Harrier", 1);
 		initializeImageSet("Fox", 9);
@@ -156,6 +156,7 @@ public class HarrierView extends GameView {
 		images[37] = createBufferedImage("RightArrow.png");
 		images[38] = createBufferedImage("DownArrow.png");
 		images[39] = createBufferedImage("LeftArrow.png");
+		initializeImageSet("GoldenMouse", 40);
 		makeFrames();
 	}
 
@@ -225,10 +226,12 @@ public class HarrierView extends GameView {
 		default:
 			break;
 		}
+		g.setColor(Color.WHITE);
 		g.setFont(new Font(Font.SERIF, Font.BOLD, 16));
-		g.drawString("Score: " + harrier.getScore(), 1450, 20);
-		g.drawString("Press P to pause", 1400, 40);
-		g.drawString("Press ESC to return to menu", 1325, 60);
+		g.drawString("Score: " + harrier.getScore(), TitleView.FRAME_WIDTH - 225, 20);
+		g.drawString("Press P to pause", TitleView.FRAME_WIDTH - 225, 40);
+		g.drawString("Press ESC to return to menu", TitleView.FRAME_WIDTH - 225, 60);
+		g.setColor(Color.BLACK);
 		Ellipse2D.Double ellipse = new Ellipse2D.Double(TitleView.FRAME_WIDTH / 2 - harrier.getVision(),
 				TitleView.FRAME_HEIGHT / 2 - harrier.getVision(), harrier.getVision() * 2, harrier.getVision()*2);
 		g.setClip(ellipse);
@@ -285,7 +288,12 @@ public class HarrierView extends GameView {
 		for(Mouse m : mice) {
 			int x = (int)(m.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(m.getXWidth() / 2);
 			int y = (int)(m.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(m.getYWidth() / 2);
+			if(m.getSpeedMod() > 4.9) {
+				g.drawImage(images[40 + directionConverter(m.getDirection())], x, y, (int)m.getXWidth(), (int)m.getYWidth(), this);
+			}
+			else {
 			g.drawImage(images[17 + directionConverter(m.getDirection())], x, y, (int)m.getXWidth(), (int)m.getYWidth(), this);
+			}
 			if(isDebug) { g.drawRect(x, y, (int)m.getXWidth(), (int)m.getYWidth()); }
 			double myRadius = m.calcDist(harrier);
 			if (myRadius + 10 >= harrier.getVision()) {

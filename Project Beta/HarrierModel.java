@@ -16,7 +16,7 @@ public class HarrierModel extends Model {
 	private final static int MAX_MICE = 20;
 	private final static int MAX_TWIGS = 20;
 	private final static int MAX_TREES = 125;
-	private final static int GOLD_CHANCE_MOD = 25;
+	private final static int GOLD_CHANCE_MOD = 5;
 	public final static double EXCLUSION_RADIUS = 150;
 	Tutorial stage = Tutorial.ONE;
 
