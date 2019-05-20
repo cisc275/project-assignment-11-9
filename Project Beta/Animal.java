@@ -18,11 +18,11 @@ public abstract class Animal extends GameObject {
 
 	public double getXVel() { return this.xVelocity; }
 
-	public void setXVel(double xVel) { this.xVelocity = xVel; updateDirection(); }
+	public void setXVel(double xVel) { this.xVelocity = xVel; }
 
 	public double getYVel() { return this.yVelocity; }
 
-	public void setYVel(double yVel) { this.yVelocity = yVel; updateDirection(); }
+	public void setYVel(double yVel) { this.yVelocity = yVel; }
 	
 	public double getAngle() { return this.velAngle; }
 	
@@ -65,15 +65,36 @@ public abstract class Animal extends GameObject {
 	}
 	
 	/*
+	 * public method moveBounded.
+	 * Takes two doubles and int as parameters and returns nothing.
+	 * Increments the positions by their respective velocity if within bounds, otherwise sends animal into bounds.
+	 */
+	public void moveBounded(double xBound, double yBound, int velMultiplier) {
+		double xF = getXPos() + xVelocity;
+		if (xF < xBound && xF > -xBound) { setXPos(getXPos() + xVelocity); }
+		else {
+			setXVel(velMultiplier * getXVel());
+			if(velMultiplier != 0) { updateDirection(); }
+		}
+		double yF = getYPos() + yVelocity;
+		if (yF < yBound && yF > -yBound) { setYPos(getYPos() + yVelocity); }
+		else {
+			setYVel(velMultiplier * getYVel());
+			if(velMultiplier != 0) { updateDirection(); }
+		}
+	}
+	
+	/*
 	 * public method twitch.
 	 * Takes no parameters and returns nothing.
 	 * Changes the velocities randomly on a random interval determined by chanceMod.
 	 */
 	public void twitch() {
 		if(Model.rand.nextInt(chanceMod) % chanceMod == 0) {
-			setXVel(Model.rand.nextDouble() * 2 * speedMod - speedMod);
-			setYVel(Model.rand.nextDouble() * 2 * speedMod - speedMod);
+			xVelocity = Model.rand.nextDouble() * 2 * speedMod - speedMod;
+			yVelocity = Model.rand.nextDouble() * 2 * speedMod - speedMod;
 		}
+		updateDirection();
 	}
 	
 	/*
@@ -107,7 +128,7 @@ public abstract class Animal extends GameObject {
 	 */
 	public double calcSpeed() { return Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity); }
 	
-	private void updateAngle() {
+	public void updateAngle() {
 		velAngle = Math.atan(-getYVel()/getXVel());
 		if(getXVel() >= 0 && getYVel() > 0) { velAngle += 2 * Math.PI; }
 		else if(getXVel() < 0 || getYVel() > 0) { velAngle += Math.PI; }
@@ -118,16 +139,16 @@ public abstract class Animal extends GameObject {
 	 * Takes no parameters and returns nothing.
 	 * Updates the direction of the animal by checking angle of velocity.
 	 */
-	private void updateDirection() {
+	public void updateDirection() {
 		updateAngle();
 		double degrees = velAngle * 180 / Math.PI;
-		if(degrees < 15 || degrees > 345) { direction = Direction.EAST; }
-		else if(degrees < 75) { direction = Direction.NORTHEAST; }
-		else if(degrees < 105) { direction = Direction.NORTH; }
-		else if(degrees < 165) { direction = Direction.NORTHWEST; }
-		else if(degrees < 195) { direction = Direction.WEST; }
-		else if(degrees < 255) { direction = Direction.SOUTHWEST; }
-		else if(degrees > 285) { direction = Direction.SOUTHEAST; }
+		if(degrees < 22.5 || degrees > 337.5) { direction = Direction.EAST; }
+		else if(degrees < 67.5) { direction = Direction.NORTHEAST; }
+		else if(degrees < 112.5) { direction = Direction.NORTH; }
+		else if(degrees < 157.5) { direction = Direction.NORTHWEST; }
+		else if(degrees < 202.5) { direction = Direction.WEST; }
+		else if(degrees < 247.5) { direction = Direction.SOUTHWEST; }
+		else if(degrees > 292.5) { direction = Direction.SOUTHEAST; }
 		else { direction = Direction.SOUTH; }
 	}
 

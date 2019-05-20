@@ -9,8 +9,8 @@ public class Twig extends GameObject {
 	public Twig(double x, double y) {
 		setXPos(x);
 		setYPos(y);
-		setXWidth(15);
-		setYWidth(40);
+		setXWidth(40);
+		setYWidth(25);
 	}
 	
 	/*

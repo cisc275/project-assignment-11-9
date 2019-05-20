@@ -7,13 +7,12 @@ package Project;
 public class Fox extends Animal {
 	
 	private final static double CHASE_RADIUS = 500;
-	private final static double EXCLUSION_RADIUS = 150;
 	
 	public Fox(double x, double y) {
 		setXPos(x);
 		setYPos(y);
-		setXWidth(75);
-		setYWidth(75);
+		setXWidth(35);
+		setYWidth(35);
 		setSpeedMod(3.5);
 		setChanceMod(50);
 	}
@@ -41,6 +40,7 @@ public class Fox extends Animal {
 		if(dx < 0) { chaseAngle += Math.PI; }
 		setXVel( getSpeedMod() * Math.cos(chaseAngle));
 		setYVel( getSpeedMod() * Math.sin(chaseAngle));
+		updateDirection();
 	}
 	
 	/*
@@ -48,16 +48,16 @@ public class Fox extends Animal {
 	 * Takes no parameters and returns nothing.
 	 * Makes the fox possibly change direction or chase the Harrier, and move.
 	 */
-	public void roam(Harrier h) {
-		double dx = Math.abs(h.getXPos() - this.getXPos());
-		double dy = Math.abs(h.getYPos() - this.getYPos());
+	public void roam(Harrier h, double xBound, double yBound, int velMultiplier) {
+		double dx = h.getXPos() - this.getXPos();
+		double dy = h.getYPos() - this.getYPos();
 		double dist = Math.sqrt(dx * dx + dy * dy);
-		double hx = Math.abs(h.getXPos());
-		double hy = Math.abs(h.getYPos());
+		double hx = h.getXPos();
+		double hy = h.getYPos();
 		double hdist = Math.sqrt(hx * hx + hy * hy);
-		if(dist < CHASE_RADIUS && hdist > EXCLUSION_RADIUS) { chase(h); }
+		if(dist < CHASE_RADIUS && hdist > HarrierModel.EXCLUSION_RADIUS) { chase(h); }
 		else { twitch(); }
-		move();
+		moveBounded(xBound, yBound, velMultiplier);
 	}
 	
 }

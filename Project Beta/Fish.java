@@ -12,8 +12,9 @@ public class Fish extends Animal {
 		setXPos(x);
 		setYPos(y);
 		setXWidth(10 * size + 15);
-		setYWidth(10 * size + 15);
-		setXVel(Model.rand.nextDouble() * 2 * size - size);
+		setYWidth(5 * size + 15);
+		setXVel(Model.randomSign() * (Model.rand.nextDouble() + 1) * size / 2.0);
+		updateDirection();
 		this.size = size;
 	}
 

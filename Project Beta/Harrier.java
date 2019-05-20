@@ -11,7 +11,7 @@ public class Harrier extends Animal {
 	private static int INITIAL_VISION = 250;
 	private static int STARTPOS = 0;
 	private static int STARTVEL = 0;
-	private static int SIZE = 60;
+	private static int SIZE = 40;
 	public final static double MIN_VISION = 0;
 	public final static double MAX_VISION = 2 * INITIAL_VISION;
 	private final static double MAX_SPEED = 5;
@@ -25,6 +25,7 @@ public class Harrier extends Animal {
 		setYWidth(SIZE);
 		setXVel(STARTVEL);
 		setYVel(STARTVEL);
+		updateDirection();
 		score = 0;
 		visionRadius = INITIAL_VISION;
 	}
@@ -49,6 +50,7 @@ public class Harrier extends Animal {
 			else { turnCCW(-TURN_ANGLE); }
 		}
 		else { setXVel(0); setYVel(-calcSpeed()); }
+		updateDirection();
 	}
 	
 	/*
@@ -63,6 +65,7 @@ public class Harrier extends Animal {
 			else { turnCCW(TURN_ANGLE); }
 		}
 		else { setXVel(0); setYVel(calcSpeed()); }
+		updateDirection();
 	}
 	
 	/*
@@ -77,6 +80,7 @@ public class Harrier extends Animal {
 			else { turnCCW(TURN_ANGLE); }
 		}
 		else { setXVel(calcSpeed()); setYVel(0); }
+		updateDirection();
 	}
 	
 	/*
@@ -91,6 +95,7 @@ public class Harrier extends Animal {
 			else { turnCCW(-TURN_ANGLE); }
 		}
 		else { setXVel(-calcSpeed()); setYVel(0); }
+		updateDirection();
 	}
 
 	/*
@@ -103,6 +108,7 @@ public class Harrier extends Animal {
 		setYPos(STARTPOS);
 		setXVel(STARTVEL);
 		setYVel(STARTVEL);
+		updateDirection();
 	}
 
 }

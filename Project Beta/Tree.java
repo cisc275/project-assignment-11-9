@@ -11,8 +11,8 @@ public class Tree extends GameObject {
 	public Tree(double x, double y) {
 		setXPos(x);
 		setYPos(y);
-		setXWidth(120);
-		setYWidth(120);
+		setXWidth(90);
+		setYWidth(90);
 	}
 	
 	/*

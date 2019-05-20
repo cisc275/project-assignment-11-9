@@ -11,8 +11,8 @@ public class Seaweed extends GameObject {
 	Seaweed(double x, double y){
 		setXPos(x);
 		setYPos(y);
-		setXWidth(50);
-		setYWidth(80);
+		setXWidth(35);
+		setYWidth(60);
 	}
 	
 	/*

@@ -16,8 +16,8 @@ public class Osprey extends Animal {
 	public Osprey(){
 		setXPos(0);
 		setYPos(0);
-		setXWidth(100);
-		setYWidth(50);
+		setXWidth(75);
+		setYWidth(35);
 		setXVel(5);
 		setYVel(0);
 		isRecovering = false;

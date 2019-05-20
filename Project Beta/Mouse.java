@@ -31,9 +31,9 @@ public class Mouse extends Animal {
 	 * Takes no parameters and returns nothing.
 	 * Makes the mouse possibly change direction and move.
 	 */
-	public void roam() {
+	public void roam(double xBound, double yBound, int velMultiplier) {
 		twitch();
-		move();
+		moveBounded(xBound, yBound, velMultiplier);
 	}
 	
 }

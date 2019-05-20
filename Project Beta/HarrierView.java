@@ -13,6 +13,8 @@ public class HarrierView extends GameView {
 	private ArrayList<Twig> twigs;
 	private ArrayList<Tree> trees;
 	private String[] imageEndings = {"East", "North", "Northeast", "Northwest", "South", "Southeast", "Southwest", "West"};
+	private final static double backgroundScalarX = 1600 / (TitleView.FRAME_WIDTH * 3.0);
+	private final static double backgroundScalarY = 1600 / (TitleView.FRAME_HEIGHT * 3.0);
 
 	public HarrierView() {
 		setOpaque(true);
@@ -106,16 +108,27 @@ public class HarrierView extends GameView {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(images[0], 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, null);
+		g.drawImage(images[0], 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT,
+					(int)(backgroundScalarX * (harrier.getXPos() - TitleView.FRAME_WIDTH / 2) + 800),
+					(int)(backgroundScalarY * (harrier.getYPos() - TitleView.FRAME_HEIGHT / 2) + 800),
+					(int)(backgroundScalarX * (harrier.getXPos() + TitleView.FRAME_WIDTH / 2) + 800),
+					(int)(backgroundScalarY * (harrier.getYPos() + TitleView.FRAME_HEIGHT / 2) + 800), this);
+		/*g.setColor(Color.RED);
+		g.drawRect(-TitleView.FRAME_WIDTH / 2 - (int)harrier.getXPos(),
+				   -TitleView.FRAME_HEIGHT / 2 - (int)harrier.getYPos(), 
+				   2 * TitleView.FRAME_WIDTH, 
+				   2 * TitleView.FRAME_HEIGHT);
+		g.setColor(Color.BLACK);*/
 		int hx = TitleView.FRAME_WIDTH / 2 - (int)(harrier.getXWidth() / 2);
 		int hy = TitleView.FRAME_HEIGHT / 2 - (int)(harrier.getYWidth() / 2);
-		g.drawImage(animationFrames[harrier.getAnimation() + 4 * directionConverter(harrier.getDirection())], hx, hy, (int)harrier.getXWidth(), (int)harrier.getYWidth(), this);
+		g.drawImage(animationFrames[harrier.getAnimation() + 4 * directionConverter(harrier.getDirection())], 
+					hx - (int)(harrier.getXWidth() / 2), hy - (int)(harrier.getYWidth() / 2), (int)(harrier.getXWidth() * 2), (int)(harrier.getYWidth() * 2), this);
 		if(isDebug) { g.drawRect(hx, hy, (int)harrier.getXWidth(), (int)harrier.getYWidth()); }
-		for(Fox f : foxes) {
-			int x = (int)(f.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(f.getXWidth() / 2);
-			int y = (int)(f.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(f.getYWidth() / 2);
-			g.drawImage(animationFrames[f.getAnimation() + 32 + 4 * directionConverter(f.getDirection())], x, y, (int)f.getXWidth(), (int)f.getYWidth(), this);
-			if(isDebug) { g.drawRect(x, y, (int)f.getXWidth(), (int)f.getYWidth()); }
+		for(Twig tw : twigs) {
+			int x = (int)(tw.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(tw.getXWidth() / 2);
+			int y = (int)(tw.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(tw.getYWidth() / 2);
+			g.drawImage(images[25], x , y, (int)tw.getXWidth(), (int)tw.getYWidth(), this);
+			if(isDebug) { g.drawRect(x, y, (int)tw.getXWidth(), (int)tw.getYWidth()); }
 		}
 		for(Mouse m : mice) {
 			int x = (int)(m.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(m.getXWidth() / 2);
@@ -123,16 +136,17 @@ public class HarrierView extends GameView {
 			g.drawImage(images[17 + directionConverter(m.getDirection())], x, y, (int)m.getXWidth(), (int)m.getYWidth(), this);
 			if(isDebug) { g.drawRect(x, y, (int)m.getXWidth(), (int)m.getYWidth()); }
 		}
-		for(Twig tw : twigs) {
-			int x = (int)(tw.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(tw.getXWidth() / 2);
-			int y = (int)(tw.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(tw.getYWidth() / 2);
-			g.drawImage(images[25], x, y, (int)tw.getXWidth(), (int)tw.getYWidth(), this);
-			if(isDebug) { g.drawRect(x, y, (int)tw.getXWidth(), (int)tw.getYWidth()); }
+		for(Fox f : foxes) {
+			int x = (int)(f.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(f.getXWidth() / 2);
+			int y = (int)(f.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(f.getYWidth() / 2);
+			g.drawImage(animationFrames[f.getAnimation() + 32 + 4 * directionConverter(f.getDirection())],
+						x - (int)(f.getXWidth() / 2), y - (int)(f.getYWidth() / 2), (int)(f.getXWidth() * 2), (int)(f.getYWidth() * 2), this);
+			if(isDebug) { g.drawRect(x, y, (int)f.getXWidth(), (int)f.getYWidth()); }
 		}
 		for(Tree tr : trees) {
 			int x = (int)(tr.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(tr.getXWidth() / 2);
 			int y = (int)(tr.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(tr.getYWidth() / 2);
-			g.drawImage(images[26], x, y, (int)tr.getXWidth(), (int)tr.getYWidth(), this);
+			g.drawImage(images[26], x - (int)(tr.getXWidth() * .75), y - (int)(tr.getYWidth() / 2), (int)(tr.getXWidth() * 2.5), (int)(tr.getYWidth() * 2), this);
 			if(isDebug) { g.drawRect(x, y, (int)tr.getXWidth(), (int)tr.getYWidth()); }
 		}
 		/*g.drawImage(images[27], 

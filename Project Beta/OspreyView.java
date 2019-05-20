@@ -83,18 +83,20 @@ public class OspreyView extends GameView {
 		g.drawImage(images[0], 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
 		int ox = X_OFFSET - (int)(osprey.getXWidth() / 2);
 		int oy = (int)osprey.getYPos() + Y_OFFSET - (int)(osprey.getYWidth() / 2);
-		g.drawImage(animationFrames[osprey.getAnimation()], ox, oy, (int)osprey.getXWidth(), (int)osprey.getYWidth(), this);
+		g.drawImage(animationFrames[osprey.getAnimation()],
+					ox - (int)(osprey.getXWidth() / 2), oy - (int)(osprey.getYWidth() / 2), (int)(osprey.getXWidth() * 2), (int)(osprey.getYWidth() * 2), this);
 		if(isDebug) { g.drawRect(ox, oy, (int)osprey.getXWidth(), (int)osprey.getYWidth()); }
 		for(Fish f : fish) {
 			int x = (int)(f.getXPos() - osprey.getXPos()) + X_OFFSET - (int)(f.getXWidth() / 2);
 			int y = (int)f.getYPos() + Y_OFFSET - (int)(f.getYWidth() / 2);
-			g.drawImage(animationFrames[f.getAnimation() + 4 + 4* directionConverter(f.getDirection())], x, y, (int)f.getXWidth(), (int)f.getYWidth(), this);
+			g.drawImage(animationFrames[f.getAnimation() + 4 + 4* directionConverter(f.getDirection())],
+						x - (int)(f.getXWidth()), y - (int)(f.getYWidth() * 1.5), (int)(f.getXWidth() * 3), (int)(f.getYWidth() * 4), this);
 			if(isDebug) { g.drawRect(x, y, (int)f.getXWidth(), (int)f.getYWidth()); }
 		}
 		for(Seaweed s : seaweed) {
 			int x = (int)(s.getXPos() - osprey.getXPos()) + X_OFFSET - (int)(s.getXWidth() / 2);
 			int y = (int)s.getYPos() + Y_OFFSET - (int)(s.getYWidth() / 2);
-			g.drawImage(images[4], x, y, (int)s.getXWidth(), (int)s.getYWidth(), this);
+			g.drawImage(images[4], x - (int)(s.getXWidth() / 8), y - (int)(s.getYWidth() / 8), (int)(s.getXWidth() * 1.25), (int)(s.getYWidth() * 1.25), this);
 			if(isDebug) { g.drawRect(x, y, (int)s.getXWidth(), (int)s.getYWidth()); }
 		}
 	}
