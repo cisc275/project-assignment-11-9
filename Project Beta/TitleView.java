@@ -2,6 +2,10 @@
 package Project;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /*
@@ -11,10 +15,16 @@ public class TitleView extends JPanel implements java.io.Serializable {
 
 	private JButton buttonO;
 	private JButton buttonH;
+	private Image background;
 	public final static int FRAME_WIDTH = 1600;
 	public final static int FRAME_HEIGHT = 900;
 
 	public TitleView() {
+		try{
+			background = ImageIO.read(new File("src/images/MenuScreen.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		buttonO = new JButton("Osprey");
 		buttonH = new JButton("Harrier");
 		add(buttonO);
@@ -23,10 +33,14 @@ public class TitleView extends JPanel implements java.io.Serializable {
 		int buttonWidth = FRAME_WIDTH / 3;
 		int buttonHeight = FRAME_HEIGHT / 5;
 		buttonO.setBounds(FRAME_WIDTH / 4 - buttonWidth / 2, FRAME_HEIGHT / 2 - buttonHeight / 2, buttonWidth, buttonHeight);
-		buttonH.setBounds(FRAME_WIDTH * 74 / 100 - buttonWidth / 2, FRAME_HEIGHT / 2 - buttonHeight / 2, buttonWidth, buttonHeight);
+		buttonH.setBounds(FRAME_WIDTH * 74 / 100 - (buttonWidth+100) / 2, FRAME_HEIGHT / 2 - buttonHeight / 2, buttonWidth, buttonHeight);
 		buttonO.setFont(new Font(Font.SERIF, Font.PLAIN, 50));
 		buttonH.setFont(new Font(Font.SERIF, Font.PLAIN, 50));
-		setBackground(Color.CYAN);
+	}
+	
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
 	}
 	
 	public JButton getButtonO() { return buttonO; }
