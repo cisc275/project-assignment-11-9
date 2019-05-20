@@ -1,9 +1,10 @@
+
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 
 /* 
- * Public class Osprey contains the behaviors and attributes of Ospreys, one of the types of playable characters.
- */
+* Public class Osprey contains the behaviors and attributes of Ospreys, one of the types of playable characters.
+*/
 public class Osprey extends Animal {
 	
 	private boolean isRecovering;
@@ -18,9 +19,16 @@ public class Osprey extends Animal {
 	public Osprey(){
 		setXPos(0);
 		setYPos(0);
+<<<<<<< HEAD
 		setXWidth(75);
 		setYWidth(35);
 		setXVel(5);
+		gameTimer = 0;
+=======
+		setXWidth(100);
+		setYWidth(50);
+		setXVel(START_SPEED);
+>>>>>>> a50fe777534a312aa19768ecfe732028af715260
 		setYVel(0);
 		isRecovering = false;
 	}
@@ -59,10 +67,6 @@ public class Osprey extends Animal {
 		setYVel(-FLYING_SPEED);
 	}
 	
-	public void gameClock(OspreyModel om) {
-		if (om.getTime()%40 == 0) {
-			gameTimer += 1;
-		}
-	}
+	
 
 }
