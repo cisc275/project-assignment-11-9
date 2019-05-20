@@ -385,6 +385,10 @@ public class HarrierView extends GameView {
 			g.drawImage(images[26], x, y, (int)tr.getXWidth(), (int)tr.getYWidth(), this);
 			if(isDebug) { g.drawRect(x, y, (int)tr.getXWidth(), (int)tr.getYWidth()); }
 		}
+		g.fillRect(0, 0 - TitleView.FRAME_HEIGHT/2 - (int)harrier.getYPos(), TitleView.FRAME_WIDTH, 10);
+		g.fillRect(0, TitleView.FRAME_HEIGHT*3/2 - (int)harrier.getYPos(), TitleView.FRAME_WIDTH, 10);
+		g.fillRect(0 - TitleView.FRAME_WIDTH/2 - (int)harrier.getXPos(), 0, 10, TitleView.FRAME_HEIGHT);
+		g.fillRect(TitleView.FRAME_WIDTH*3/2 - (int)harrier.getXPos(), 0, 10, TitleView.FRAME_HEIGHT);
 		/*g.drawImage(images[27], 
 						(int) (0 - harrier.getVision()*20), (int) (0 - harrier.getVision()*20),
 						(int) (TitleView.FRAME_WIDTH + harrier.getVision()*20), (int) (TitleView.FRAME_HEIGHT + harrier.getVision()*20),
