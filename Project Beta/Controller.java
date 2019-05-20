@@ -49,9 +49,19 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 				if(!paused) {
 					OspreyModel om = (OspreyModel)model;
 					OspreyView ov = (OspreyView)view.getComponent(gs.getNum());
+					if(om.isWin()) {
+						ov.checkTime();
+						endOsprey();
+					}
+					else if (om.isEnd()) {
+						gameOver();
+					}
+					else {
 					om.update();
+					om.gameClock();
 					ov.update(om.getOsprey(), om.getFish(), om.getSeaweed(), om.getTutorial());
 					frame.repaint();
+					}
 				}
 				else {
 					try { Thread.sleep(TICK_TIME); }
@@ -65,9 +75,18 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 				if(!paused) {
 					HarrierModel hm = (HarrierModel)model;
 					HarrierView hv = (HarrierView)view.getComponent(gs.getNum());
+					if(hm.isWin()) {
+						hv.checkScore();
+						endHarrier();
+					}
+					else if (hm.isEnd()) {
+						gameOver();
+					}
+					else {
 					hm.update();
 					hv.update(hm.getHarrier(), hm.getFoxes(), hm.getMice(), hm.getTwigs(), hm.getTrees(), hm.getTutorial());
 					frame.repaint();
+					}
 				}
 				else {
 					try { Thread.sleep(TICK_TIME); }
@@ -114,6 +133,36 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 		frame.requestFocus();
 		timerH.start();
 	}
+	
+	private void endOsprey() {
+		gs = GameState.END;
+		layout.show(view, "oe");
+		frame.requestFocus();
+		timerO.stop();
+		
+	}
+	
+	private void endHarrier() {
+		gs = GameState.END;
+		layout.show(view, "he");
+		frame.requestFocus();
+		timerH.stop();
+	}
+	
+	private void gameOver() {
+		if(gs == GameState.OSPREY) {
+		gs = GameState.END;
+		layout.show(view, "go");
+		frame.requestFocus();
+		timerO.stop();
+		}
+		else if (gs == GameState.HARRIER) {
+			gs = GameState.END;
+			layout.show(view, "go");
+			frame.requestFocus();
+			timerH.stop();
+		}
+	
 
 	/* 
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)

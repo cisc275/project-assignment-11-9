@@ -248,6 +248,17 @@ public class OspreyModel extends Model {
 	}
 	
 	/*
+	 * Runs a game clock during the game in seconds
+	 * No Parameters
+	 * Void method, returns nothing
+	 */
+	public void gameClock() {
+		if(getTime()%30 == 0) {
+			osprey.gameTimer += 1;
+		}
+	}
+	
+	/*
 	 * Public method checkInteractions.
 	 * Takes no parameters, returns nothing.
 	 * Checks if any of the objects in the model are interacting, and handles those interactions.

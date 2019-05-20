@@ -5,7 +5,8 @@ public enum GameState {
 	
 	TITLE("title", 0),
 	OSPREY("osprey", 1),
-	HARRIER("harrier", 2);
+	HARRIER("harrier", 2),
+	END("end", 3);
 	
 	private String name;
 	private int num;
