@@ -59,6 +59,5 @@ public class Osprey extends Animal {
 	public void rise() {
 		setYVel(-FLYING_SPEED);
 	}
-	
 
 }

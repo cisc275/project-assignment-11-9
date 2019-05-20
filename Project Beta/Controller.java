@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-
-
 import static org.junit.Assert.fail;
 
 import java.awt.*;
@@ -57,8 +55,7 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 					if(om.isWin()) {
 						ov.checkTime();
 						endOsprey();
-					}
-					else if (om.isEnd()) {
+					} else if (om.isEnd()) {
 						gameOver();
 					}
 					else {
@@ -82,8 +79,7 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 					if(hm.isWin()) {
 						hv.checkScore();
 						endHarrier();
-					}
-					else if (hm.isEnd()) {
+					} else if (hm.isEnd()) {
 						gameOver();
 					}
 					else {
@@ -137,7 +133,7 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 		frame.requestFocus();
 		timerH.start();
 	}
-	
+
 	private void endOsprey() {
 		gs = GameState.END;
 		layout.show(view, "oe");
@@ -168,6 +164,7 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 		}
 	}
 	
+
 
 	/* 
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
@@ -238,11 +235,13 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 				oos.writeObject(model);
 				oos.close();
 				//om.testing = 0;
+				canSaveLoad = false;
 			} else if (gs == GameState.HARRIER){
 				fos = new FileOutputStream("harrierfile.ser");
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
 				oos.writeObject(model);
 				oos.close();
+				canSaveLoad = false;
 			}		
 		}
 		catch (Exception ex)
@@ -261,6 +260,7 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 				model = (OspreyModel) ois.readObject();
 				ois.close();
 				paused = false;
+				canSaveLoad = false;
 			} else if (gs == GameState.HARRIER){
 				paused = true;
 				fis = new FileInputStream("harrierfile.ser");
@@ -268,6 +268,7 @@ public class Controller implements ActionListener, KeyListener, java.io.Serializ
 				model = (HarrierModel) ois.readObject();
 				ois.close();
 				paused = false;
+				canSaveLoad = false;
 			}		
 		}
 		catch (Exception ex)

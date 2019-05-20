@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
+
 import javax.swing.JLabel;
 
 /*
@@ -14,28 +16,82 @@ import javax.swing.JLabel;
 public class Quiz extends JDialog implements java.io.Serializable {
 	
 	private JPanel panel;
-	
-	private String answer = "0";
+	private Random rand = new Random();
+	private String[] answers = new String[3];
+	String answer;
+	private String[] orderedAnswers;
 	
 	public Quiz(GoldenFish f) {
+		OspreyQuestion questionInfo = null;
 		this.setModal(true);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setSize(300, 300);
-		this.setTitle("Golden animal quiz");
+		this.setTitle("Golden Fish quiz");
 		
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
-		JLabel question = new JLabel("What do Ospreys eat?");
+		if (f.tutorial) {
+			questionInfo = OspreyQuestion.ZERO;
+			answers = questionInfo.getAnswers();
+			orderedAnswers = questionInfo.getAnswers();
+		} else {
+			switch(rand.nextInt(4)) {
+			case 0:
+				questionInfo = OspreyQuestion.ONE;
+				break;
+			case 1:
+				questionInfo = OspreyQuestion.TWO;
+				break;
+			case 2:
+				questionInfo = OspreyQuestion.THREE;
+				break;
+			case 3:
+				questionInfo = OspreyQuestion.FOUR;
+				break;
+			}
+			orderedAnswers = questionInfo.getAnswers();
+			switch(rand.nextInt(6)) {
+			case 1:
+				answers = questionInfo.getAnswers();
+				break;
+			case 2:
+				answers[0] = orderedAnswers[0];
+				answers[1] = orderedAnswers[2];
+				answers[2] = orderedAnswers[1];
+				break;
+			case 3:
+				answers[0] = orderedAnswers[1];
+				answers[1] = orderedAnswers[0];
+				answers[2] = orderedAnswers[2];
+				break;
+			case 4:
+				answers[0] = orderedAnswers[1];
+				answers[1] = orderedAnswers[2];
+				answers[2] = orderedAnswers[0];
+				break;
+			case 5:
+				answers[0] = orderedAnswers[2];
+				answers[1] = orderedAnswers[0];
+				answers[2] = orderedAnswers[1];
+				break;
+			case 6:
+				answers[0] = orderedAnswers[2];
+				answers[1] = orderedAnswers[1];
+				answers[2] = orderedAnswers[0];
+				break;
+			}
+		}
+		JLabel question = new JLabel(questionInfo.getQuestion());
 		panel.add(question, "cell 0 1,alignx trailing,aligny center");
 		
-		JLabel answer1 = new JLabel("a - Fish");
-		panel.add(answer1, "cell 1, 1,alignx center,aligny center");
+		JLabel answer1 = new JLabel("a - " + answers[0]);
+		panel.add(answer1, "cell 1, 2,alignx center,aligny center");
 		
-		JLabel answer2 = new JLabel("b - Trash");
+		JLabel answer2 = new JLabel("b - " + answers[1]);
 		panel.add(answer2, "cell 2, 1,alignx center,aligny center");
 		
-		JLabel answer3 = new JLabel("c - Seaweed");
+		JLabel answer3 = new JLabel("c - " + answers[2]);
 		panel.add(answer3, "cell 3, 1,alignx center,aligny center");
 		
 		this.addKeyListener(new KeyListener() {
@@ -47,17 +103,24 @@ public class Quiz extends JDialog implements java.io.Serializable {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_A:
-					answer = "a";
+					answer = answers[0];
+					if (answer.equals(orderedAnswers[0]) || f.tutorial) {
+						f.correct = true;
+					}
+					dispose();
+					break;
 				case KeyEvent.VK_B:
-					if (answer == "0") {
-						answer = "b";
+					answer = answers[1];
+					if (answer.equals(orderedAnswers[0]) || f.tutorial) {
+						f.correct = true;
 					}
+					dispose();
+					break;
 				case KeyEvent.VK_C:
-					if (answer == "0") {
-						answer = "c";
+					answer = answers[2];
+					if (answer.equals(orderedAnswers[0]) || f.tutorial) {
+						f.correct = true;
 					}
-					f.answer = answer;
-					f.correct = "a";
 					dispose();
 					break;
 				default:
@@ -74,24 +137,76 @@ public class Quiz extends JDialog implements java.io.Serializable {
 	}
 	
 	public Quiz(GoldenMouse m) {
+		HarrierQuestion questionInfo = null;
 		this.setModal(true);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setSize(300, 300);
-		this.setTitle("Golden animal quiz");
+		this.setTitle("Golden Fish quiz");
 		
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
-		JLabel question = new JLabel("What do Ospreys eat?");
+		if (m.tutorial) {
+			questionInfo = HarrierQuestion.ZERO;
+			answers = questionInfo.getAnswers();
+			orderedAnswers = questionInfo.getAnswers();
+		} else {
+			switch(rand.nextInt(4)) {
+			case 1:
+				questionInfo = HarrierQuestion.ONE;
+				break;
+			case 2:
+				questionInfo = HarrierQuestion.TWO;
+				break;
+			case 3:
+				questionInfo = HarrierQuestion.THREE;
+				break;
+			case 4:
+				questionInfo = HarrierQuestion.FOUR;
+				break;
+			}
+			orderedAnswers = questionInfo.getAnswers();
+			switch(rand.nextInt(6)) {
+			case 1:
+				answers = questionInfo.getAnswers();
+				break;
+			case 2:
+				answers[0] = orderedAnswers[0];
+				answers[1] = orderedAnswers[2];
+				answers[2] = orderedAnswers[1];
+				break;
+			case 3:
+				answers[0] = orderedAnswers[1];
+				answers[1] = orderedAnswers[0];
+				answers[2] = orderedAnswers[2];
+				break;
+			case 4:
+				answers[0] = orderedAnswers[1];
+				answers[1] = orderedAnswers[2];
+				answers[2] = orderedAnswers[0];
+				break;
+			case 5:
+				answers[0] = orderedAnswers[2];
+				answers[1] = orderedAnswers[0];
+				answers[2] = orderedAnswers[1];
+				break;
+			case 6:
+				answers[0] = orderedAnswers[2];
+				answers[1] = orderedAnswers[1];
+				answers[2] = orderedAnswers[0];
+				break;
+			}
+		}
+		JLabel question = new JLabel(questionInfo.getQuestion());
 		panel.add(question, "cell 0 1,alignx trailing,aligny center");
 		
-		JLabel answer1 = new JLabel("a - Fish");
-		panel.add(answer1, "cell 1, 1,alignx center,aligny center");
+		JLabel answer1 = new JLabel("a - " + answers[0]);
+		panel.add(answer1, "cell 1, 2,alignx center,aligny center");
 		
-		JLabel answer2 = new JLabel("b - Trash");
+		JLabel answer2 = new JLabel("b - " + answers[1]);
 		panel.add(answer2, "cell 2, 1,alignx center,aligny center");
 		
-		JLabel answer3 = new JLabel("c - Seaweed");
+		JLabel answer3 = new JLabel("c - " + answers[2]);
 		panel.add(answer3, "cell 3, 1,alignx center,aligny center");
 		
 		this.addKeyListener(new KeyListener() {
@@ -103,17 +218,24 @@ public class Quiz extends JDialog implements java.io.Serializable {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_A:
-					answer = "a";
+					answer = answers[0];
+					if (answer.equals(orderedAnswers[0]) || m.tutorial) {
+						m.correct = true;
+					}
+					dispose();
+					break;
 				case KeyEvent.VK_B:
-					if (answer == "0") {
-						answer = "b";
+					answer = answers[1];
+					if (answer.equals(orderedAnswers[0]) || m.tutorial) {
+						m.correct = true;
 					}
+					dispose();
+					break;
 				case KeyEvent.VK_C:
-					if (answer == "0") {
-						answer = "c";
+					answer = answers[2];
+					if (answer.equals(orderedAnswers[0]) || m.tutorial) {
+						m.correct = true;
 					}
-					m.answer = answer;
-					m.correct = "a";
 					dispose();
 					break;
 				default:

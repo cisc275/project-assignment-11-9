@@ -200,7 +200,7 @@ public class OspreyModel extends Model {
 		case THREE:
 			if (osprey.getXVel() < osprey.START_SPEED + 1) {
 				state = Tutorial.FOUR;
-				GoldenFish f = new GoldenFish(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 320);
+				GoldenFish f = new GoldenFish(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 320, true);
 				fish.add(f);
 			} else {
 				if (seaweed.size() == 8) {
@@ -235,7 +235,6 @@ public class OspreyModel extends Model {
 			}
 			break;
 		case NONE:
-			System.out.println(osprey.getXVel());
 			applyResistance();
 			setTime(getTime() + 1);
 			gameClock();

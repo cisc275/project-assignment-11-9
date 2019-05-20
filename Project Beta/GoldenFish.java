@@ -6,11 +6,16 @@ package Project;
  */
 public class GoldenFish extends Fish {
 	
-	String answer = "1";
-	String correct = "2";
+	boolean tutorial = false;
+	boolean correct = false;
 	
 	public GoldenFish(double x, double y) {
 		super(x, y, 0);
+	}
+	
+	public GoldenFish(double x, double y, boolean tutorial) {
+		super(x, y, 0);
+		this.tutorial = tutorial;
 	}
 	
 	/*
@@ -20,7 +25,7 @@ public class GoldenFish extends Fish {
 	 */
 	public void interact(Osprey o) {
 		Quiz quiz = new Quiz(this);
-		if (answer.equals(correct)) {
+		if (correct) {
 			if(o.getXVel() + 5 < Osprey.MAX_SPEED) { o.setXVel(o.getXVel() + 5); }
 			else { o.setXVel(Osprey.MAX_SPEED); }
 		}

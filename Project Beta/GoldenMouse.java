@@ -6,12 +6,17 @@ package Project;
  */
 public class GoldenMouse extends Mouse {
 	
-	String answer = "1";
-	String correct = "2";
+	boolean tutorial = false;
+	boolean correct = false;
 	
 	public GoldenMouse(double x, double y) {
 		super(x, y);
 		setSpeedMod(5);
+	}
+	public GoldenMouse(double x, double y, boolean tutorial) {
+		super(x, y);
+		setSpeedMod(5);
+		this.tutorial = tutorial;
 	}
 	
 	/*
@@ -21,7 +26,7 @@ public class GoldenMouse extends Mouse {
 	 */
 	public void interact(Harrier h) {
 		Quiz quiz = new Quiz(this);
-		if (answer.equals(correct)) {
+		if (correct) {
 			h.setScore(h.getScore() + 100);
 			if(h.getVision() + 250 < Harrier.MAX_VISION) { h.setVision(h.getVision() + 250); }
 			else { h.setVision(Harrier.MAX_VISION); }
