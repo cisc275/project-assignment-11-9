@@ -53,7 +53,7 @@ public class OspreyView extends GameView {
 			reader = new BufferedReader(readFile);
 			return reader.readLine();
 		}catch(Exception e) {
-			return "Nobody:0";
+			return "Nobody:2000";
 		}
 		finally {
 			try {
@@ -73,7 +73,7 @@ public class OspreyView extends GameView {
 	 */
 	public void checkTime() {
 		fastTime = getFastTime();
-		if(osprey.gameTimer > Integer.parseInt((fastTime.split(":")[1]))) {
+		if(osprey.gameTimer < Integer.parseInt((fastTime.split(":")[1]))) {
 			String name = JOptionPane.showInputDialog("Congratulations on setting a new HighScore! Please enter your initials.");
 			while(name == null || name.length() >= 4 || filterInput(name).equals("no")) {
 			name = JOptionPane.showInputDialog("Name Invalid. Try Again");

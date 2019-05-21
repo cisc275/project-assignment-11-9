@@ -194,6 +194,7 @@ public class OspreyModel extends Model {
 			break;
 		case THREE:
 			if (osprey.getXVel() < osprey.START_SPEED + 1) {
+				osprey.setXVel(osprey.getXVel() - 15);
 				stage = Tutorial.FOUR;
 				GoldenFish f = new GoldenFish(osprey.getXPos() + TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT - 320, true);
 				fish.add(f);

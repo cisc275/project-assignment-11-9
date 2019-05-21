@@ -1,4 +1,4 @@
- //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 import java.awt.*;
 import java.awt.event.*;
@@ -54,7 +54,6 @@ public class Controller implements KeyListener, java.io.Serializable {
 						gameOver();
 					} else {
 						om.update();
-						om.gameClock();
 						ov.update(om.getOsprey(), om.getFish(), om.getSeaweed(), om.getTutorial());
 						frame.repaint();
 					}

@@ -21,7 +21,7 @@ public class Seaweed extends GameObject {
 	 * Processes an interaction between the Osprey and the Seaweed if it has not already been hit.
 	 */
 	public void interact(Osprey o) {
-		if (!hasBeenHit) {
+		if (!hasBeenHit && !o.getIsRecovering()) {
 			hasBeenHit = true;
 			o.setXVel(o.getXVel() - 1);
 			o.setIsRecovering(true);

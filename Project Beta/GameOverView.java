@@ -25,6 +25,6 @@ public class GameOverView extends GameView {
 	protected void paintComponent(Graphics g) {
 		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH-75, TitleView.FRAME_HEIGHT, this);
 		g.setFont(new Font(Font.SERIF, Font.BOLD, 42));
-		g.drawString("You were unable to fly safely! Press ESC to return to the menu!", 200,600);
+		g.drawString("You were unable to fly safely! Press ESC to return to the menu!", 250,700);
 	}
 }

@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 
-class QuizTest {
+class QuizTest {/*
 
 	
-	/*String[] questions= {"test", "test2"};
+	String[] questions= {"test", "test2"};
 	char[] answers= {'a','b'};
 	Quiz q= new Quiz(questions, answers);
 	
@@ -39,6 +39,6 @@ class QuizTest {
 		Quiz q= new Quiz(questions, answers);
 		assertArrayEquals(new char[] {'a', 'b'}, q.getAnswers());
 		fail("Not yet implemented");
-	}*/
-
+	}
+*/
 }

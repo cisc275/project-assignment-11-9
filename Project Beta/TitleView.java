@@ -15,8 +15,13 @@ import javax.swing.*;
 public class TitleView extends JPanel implements java.io.Serializable {
 
 	private BufferedImage background;
-	public final static int FRAME_WIDTH = 1600;
-	public final static int FRAME_HEIGHT = 900;
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	//public final static int FRAME_WIDTH = FRAME_HEIGHT_temp;
+	//public final static int FRAME_HEIGHT = FRAME_WIDTH_temp;
+	
+	public final static int FRAME_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+	public final static int FRAME_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
 
 	public TitleView() {
 		setLayout(null);

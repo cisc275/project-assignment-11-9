@@ -374,4 +374,3 @@ public class HarrierView extends GameView {
 	}
 
 }
-
