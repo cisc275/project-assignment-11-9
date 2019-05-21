@@ -225,7 +225,7 @@ public class OspreyModel extends Model {
 			} else {
 				if (fish.size() < 1) {
 					GoldenFish f = new GoldenFish(osprey.getXPos() + TitleView.FRAME_WIDTH,
-							TitleView.FRAME_HEIGHT - 320);
+							TitleView.FRAME_HEIGHT - 320, true);
 					fish.add(f);
 				}
 			}
