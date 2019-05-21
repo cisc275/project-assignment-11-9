@@ -25,7 +25,7 @@ public class TitleView extends JPanel implements java.io.Serializable {
 
 	public TitleView() {
 		setLayout(null);
-		setBackground(Color.green);
+		setBackground(Color.black);
 		background = createBufferedImage("Menu Background.png");
 	}
 	
