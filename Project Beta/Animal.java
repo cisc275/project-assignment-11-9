@@ -15,6 +15,16 @@ public abstract class Animal extends GameObject {
 	private int chanceMod;
 	private int animationCounter;
 	private int animationDelay;
+	private final static int DELAY = 6;
+	private final static int NUM_FRAMES = 4;
+	private final static double EAST_UPPER_BOUND = 22.5;
+	private final static double EAST_LOWER_BOUND = 337.5;
+	private final static double NORTHEAST_UPPER_BOUND = 67.5;
+	private final static double NORTH_UPPER_BOUND = 112.5;
+	private final static double NORTHWEST_UPPER_BOUND = 157.5;
+	private final static double WEST_UPPER_BOUND = 202.5;
+	private final static double SOUTHWEST_UPPER_BOUND = 247.5;
+	private final static double SOUTH_UPPER_BOUND = 292.5;
 
 	public double getXVel() { return this.xVelocity; }
 
@@ -50,8 +60,8 @@ public abstract class Animal extends GameObject {
 	 * Increments the animationCounter.
 	 */
 	public void incrementAnimation() {
-		animationDelay = (animationDelay + 1) % 6;
-		if(animationDelay == 0) { animationCounter = (animationCounter + 1) % 4; }
+		animationDelay = (animationDelay + 1) % DELAY;
+		if(animationDelay == 0) { animationCounter = (animationCounter + 1) % NUM_FRAMES; }
 	}
 
 	/*
@@ -70,14 +80,14 @@ public abstract class Animal extends GameObject {
 	 * Increments the positions by their respective velocity if within bounds, otherwise sends animal into bounds.
 	 */
 	public void moveBounded(double xBound, double yBound, int velMultiplier) {
-		double xF = getXPos() + xVelocity;
-		if (xF < xBound && xF > -xBound) { setXPos(getXPos() + xVelocity); }
+		double xFuture = getXPos() + xVelocity;
+		if (xFuture < xBound && xFuture > -xBound) { setXPos(getXPos() + xVelocity); }
 		else {
 			setXVel(velMultiplier * getXVel());
 			if(velMultiplier != 0) { updateDirection(); }
 		}
-		double yF = getYPos() + yVelocity;
-		if (yF < yBound && yF > -yBound) { setYPos(getYPos() + yVelocity); }
+		double yFuture = getYPos() + yVelocity;
+		if (yFuture < yBound && yFuture > -yBound) { setYPos(getYPos() + yVelocity); }
 		else {
 			setYVel(velMultiplier * getYVel());
 			if(velMultiplier != 0) { updateDirection(); }
@@ -90,7 +100,7 @@ public abstract class Animal extends GameObject {
 	 * Changes the velocities randomly on a random interval determined by chanceMod.
 	 */
 	public void twitch() {
-		if(Model.rand.nextInt(chanceMod) % chanceMod == 0) {
+		if(Model.rand.nextInt(chanceMod) == 0) {
 			xVelocity = Model.rand.nextDouble() * 2 * speedMod - speedMod;
 			yVelocity = Model.rand.nextDouble() * 2 * speedMod - speedMod;
 		}
@@ -129,9 +139,9 @@ public abstract class Animal extends GameObject {
 	public double calcSpeed() { return Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity); }
 	
 	public void updateAngle() {
-		velAngle = Math.atan(-getYVel()/getXVel());
-		if(getXVel() >= 0 && getYVel() > 0) { velAngle += 2 * Math.PI; }
-		else if(getXVel() < 0 || getYVel() > 0) { velAngle += Math.PI; }
+		velAngle = Math.atan(-getYVel()/getXVel()); // negative because up from a viewer's perspecitve is in the negative y direction.
+		if(getXVel() < 0) { velAngle += Math.PI; }
+		else if (velAngle < 0) { velAngle += 2*Math.PI; }
 	}
 
 	/*
@@ -142,14 +152,14 @@ public abstract class Animal extends GameObject {
 	public void updateDirection() {
 		updateAngle();
 		double degrees = velAngle * 180 / Math.PI;
-		if(degrees < 22.5 || degrees > 337.5) { direction = Direction.EAST; }
-		else if(degrees < 67.5) { direction = Direction.NORTHEAST; }
-		else if(degrees < 112.5) { direction = Direction.NORTH; }
-		else if(degrees < 157.5) { direction = Direction.NORTHWEST; }
-		else if(degrees < 202.5) { direction = Direction.WEST; }
-		else if(degrees < 247.5) { direction = Direction.SOUTHWEST; }
-		else if(degrees > 292.5) { direction = Direction.SOUTHEAST; }
-		else { direction = Direction.SOUTH; }
+		if(degrees < EAST_UPPER_BOUND || degrees > EAST_LOWER_BOUND) { direction = Direction.EAST; }
+		else if(degrees < NORTHEAST_UPPER_BOUND) { direction = Direction.NORTHEAST; }
+		else if(degrees < NORTH_UPPER_BOUND) { direction = Direction.NORTH; }
+		else if(degrees < NORTHWEST_UPPER_BOUND) { direction = Direction.NORTHWEST; }
+		else if(degrees < WEST_UPPER_BOUND) { direction = Direction.WEST; }
+		else if(degrees < SOUTHWEST_UPPER_BOUND) { direction = Direction.SOUTHWEST; }
+		else if(degrees < SOUTH_UPPER_BOUND) { direction = Direction.SOUTH; }
+		else { direction = Direction.SOUTHEAST; }
 	}
 
 }
