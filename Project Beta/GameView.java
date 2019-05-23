@@ -34,8 +34,9 @@ public abstract class GameView extends JPanel {
 				}
 			}
 			return name;
+		} else {
+			return "no";
 		}
-		return "no";
 	}
 	
 	/*

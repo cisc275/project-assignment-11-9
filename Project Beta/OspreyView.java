@@ -75,7 +75,7 @@ public class OspreyView extends GameView {
 		fastTime = getFastTime();
 		if(osprey.gameTimer < Integer.parseInt((fastTime.split(":")[1]))) {
 			String name = JOptionPane.showInputDialog("Congratulations on setting a new HighScore! Please enter your initials.");
-			while(name == null || name.length() >= 4 || filterInput(name).equals("no")) {
+			while(name == null || filterInput(name).equals("no")) {
 			name = JOptionPane.showInputDialog("Name Invalid. Try Again");
 			}
 			fastTime = name.toUpperCase() + ":" + osprey.gameTimer;

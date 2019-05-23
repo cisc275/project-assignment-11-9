@@ -83,7 +83,7 @@ public class HarrierView extends GameView {
 		highScore = GetHighScore();
 		if(harrier.getScore() > Integer.parseInt((highScore.split(":")[1]))) {
 			String name = JOptionPane.showInputDialog("Congratulations on setting a new HighScore! Please enter your initials.");
-			while(name.length() >= 4 || filterInput(name).equals("no")) {
+			while(name == null || filterInput(name).equals("no")) {
 				name = JOptionPane.showInputDialog("Name Invalid. Try Again");
 				}
 			highScore = name + ":" + harrier.getScore();

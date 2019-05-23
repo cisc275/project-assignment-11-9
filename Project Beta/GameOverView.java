@@ -1,5 +1,5 @@
-package Project;
 
+package Project;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,6 +12,9 @@ import javax.imageio.ImageIO;
 public class GameOverView extends GameView {
 	
 	private Image background;
+	private final static int TEXT_X = 250;
+	private final static int TEXT_Y = 700; 
+	private final static int FONT_SIZE = 42;
 	
 	public GameOverView() {
 		try{
@@ -23,8 +26,8 @@ public class GameOverView extends GameView {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH-75, TitleView.FRAME_HEIGHT, this);
-		g.setFont(new Font(Font.SERIF, Font.BOLD, 42));
-		g.drawString("You were unable to fly safely! Press ESC to return to the menu!", 250,700);
+		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
+		g.setFont(new Font(Font.SERIF, Font.BOLD, FONT_SIZE));
+		g.drawString("You were unable to fly safely! Press ESC to return to the menu!", TEXT_X,TEXT_Y);
 	}
 }
