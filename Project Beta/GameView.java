@@ -6,6 +6,11 @@ import javax.swing.*;
 import java.awt.image.*;
 
 public abstract class GameView extends JPanel {
+	
+	public static void main(String[] args) {
+		Controller c = new Controller();
+		c.start();
+	}
 
 	protected boolean isDebug;
 	protected BufferedImage[] images;

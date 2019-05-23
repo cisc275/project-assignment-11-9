@@ -133,6 +133,7 @@ public class Controller implements KeyListener, java.io.Serializable {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
 		if(gs != GameState.TITLE) {
 			if (e.getKeyCode() == KeyEvent.VK_A) {
 				canSaveLoad = ! canSaveLoad;
@@ -169,9 +170,11 @@ public class Controller implements KeyListener, java.io.Serializable {
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (gs == GameState.OSPREY) {
-			OspreyModel om = (OspreyModel)model;
-			if (e.getKeyCode() == KeyEvent.VK_SPACE) { om.getOsprey().rise(); }
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			if (gs == GameState.OSPREY) {
+				OspreyModel om = (OspreyModel)model;
+				om.getOsprey().rise(); 
+			}
 		}
 	}
 
@@ -197,36 +200,29 @@ public class Controller implements KeyListener, java.io.Serializable {
 	}
 
 	private void gameOver() {
-		if(gs == GameState.OSPREY) {
 		gs = GameState.END;
 		layout.show(view, "go");
 		frame.requestFocus();
-		timerO.stop();
-		}
-		else if (gs == GameState.HARRIER) {
-			gs = GameState.END;
-			layout.show(view, "go");
-			frame.requestFocus();
+		if (gs == GameState.OSPREY) {
+			timerO.stop();
+		} else if (gs == GameState.HARRIER) {
 			timerH.stop();
 		}
 	}
 	
 	public void save() {
 		try {
-			FileOutputStream fos;
+			FileOutputStream fos = null;
+			ObjectOutputStream oos;
 			if (gs == GameState.OSPREY) {
 				fos = new FileOutputStream("ospreyfile.ser");
-				ObjectOutputStream oos = new ObjectOutputStream(fos);
-				oos.writeObject(model);
-				oos.close();
-				canSaveLoad = false;
 			} else if (gs == GameState.HARRIER){
 				fos = new FileOutputStream("harrierfile.ser");
-				ObjectOutputStream oos = new ObjectOutputStream(fos);
-				oos.writeObject(model);
-				oos.close();
-				canSaveLoad = false;
 			}		
+			oos = new ObjectOutputStream(fos);
+			oos.writeObject(model);
+			oos.close();
+			canSaveLoad = false;
 		}
 		catch (Exception ex)
 		{
@@ -236,34 +232,22 @@ public class Controller implements KeyListener, java.io.Serializable {
 
 	public void load() {
 		try {
-			FileInputStream fis;
+			FileInputStream fis = null;
+			ObjectInputStream ois;
 			if (gs == GameState.OSPREY) {
-				paused = true;
 				fis = new FileInputStream("ospreyfile.ser");
-				ObjectInputStream ois = new ObjectInputStream(fis);
-				model = (OspreyModel) ois.readObject();
-				ois.close();
-				paused = false;
-				canSaveLoad = false;
 			} else if (gs == GameState.HARRIER){
-				paused = true;
 				fis = new FileInputStream("harrierfile.ser");
-				ObjectInputStream ois = new ObjectInputStream(fis);
-				model = (HarrierModel) ois.readObject();
-				ois.close();
-				paused = false;
-				canSaveLoad = false;
 			}		
+			ois = new ObjectInputStream(fis);
+			model = (OspreyModel) ois.readObject();
+			ois.close();
+			canSaveLoad = false;
 		}
 		catch (Exception ex)
 		{
 			fail("Exception thrown during test: " + ex.toString());
 		}
-	}
-
-	public static void main(String[] args) {
-		Controller c = new Controller();
-		c.start();
 	}
 
 }
