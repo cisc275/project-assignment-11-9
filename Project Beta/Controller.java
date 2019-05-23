@@ -200,14 +200,14 @@ public class Controller implements KeyListener, java.io.Serializable {
 	}
 
 	private void gameOver() {
-		gs = GameState.END;
-		layout.show(view, "go");
-		frame.requestFocus();
 		if (gs == GameState.OSPREY) {
 			timerO.stop();
 		} else if (gs == GameState.HARRIER) {
 			timerH.stop();
 		}
+		gs = GameState.END;
+		layout.show(view, "go");
+		frame.requestFocus();
 	}
 	
 	public void save() {
