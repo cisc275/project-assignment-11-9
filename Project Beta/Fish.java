@@ -7,13 +7,17 @@ package Project;
 public class Fish extends Animal {
 
 	private int size;
+	private final static int SIZE_OFFSET = 15;
+	private final static int WIDTH_MULTIPLIER = 10;
+	private final static int HEIGHT_MULTIPLIER = 5;
+	private final static double VELOCITY_DIVISOR = 2;
 
 	public Fish(double x, double y, int size) {
 		setXPos(x);
 		setYPos(y);
-		setXWidth(10 * size + 15);
-		setYWidth(5 * size + 15);
-		setXVel(Model.randomSign() * (Model.rand.nextDouble() + 1) * size / 2.0);
+		setXWidth(WIDTH_MULTIPLIER * size + SIZE_OFFSET);
+		setYWidth(HEIGHT_MULTIPLIER * size + SIZE_OFFSET);
+		setXVel(Model.randomSign() * (Model.rand.nextDouble() + 1) * size / VELOCITY_DIVISOR);
 		updateDirection();
 		this.size = size;
 	}

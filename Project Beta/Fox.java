@@ -7,14 +7,19 @@ package Project;
 public class Fox extends Animal {
 	
 	private final static double CHASE_RADIUS = 500;
+	private final static double SIZE = 35;
+	private final static double SPEED = 3.5;
+	private final static int CHANCE = 50;
+	private final static int SCORE_HIT = 30;
+	private final static int VISION_HIT = 75;
 	
 	public Fox(double x, double y) {
 		setXPos(x);
 		setYPos(y);
-		setXWidth(35);
-		setYWidth(35);
-		setSpeedMod(3.5);
-		setChanceMod(50);
+		setXWidth(SIZE);
+		setYWidth(SIZE);
+		setSpeedMod(SPEED);
+		setChanceMod(CHANCE);
 	}
 	
 	/*
@@ -23,8 +28,8 @@ public class Fox extends Animal {
 	 * Processes an interaction between the Harrier and the Fox.
 	 */
 	public void interact(Harrier h) {
-		h.setScore(h.getScore() - 30);
-		h.setVision(h.getVision() - 75);
+		h.setScore(h.getScore() - SCORE_HIT);
+		h.setVision(h.getVision() - VISION_HIT);
 		h.die();
 	}
 	
@@ -49,12 +54,8 @@ public class Fox extends Animal {
 	 * Makes the fox possibly change direction or chase the Harrier, and move.
 	 */
 	public void roam(Harrier h, double xBound, double yBound, int velMultiplier) {
-		double dx = h.getXPos() - this.getXPos();
-		double dy = h.getYPos() - this.getYPos();
-		double dist = Math.sqrt(dx * dx + dy * dy);
-		double hx = h.getXPos();
-		double hy = h.getYPos();
-		double hdist = Math.sqrt(hx * hx + hy * hy);
+		double dist = calcDist(h);
+		double hdist = calcDist();
 		if(dist < CHASE_RADIUS && hdist > HarrierModel.EXCLUSION_RADIUS) { chase(h); }
 		else { twitch(); }
 		moveBounded(xBound, yBound, velMultiplier);
