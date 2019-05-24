@@ -31,7 +31,7 @@ public class Quiz extends JDialog implements java.io.Serializable {
 		
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
-		if (f.tutorial) {
+		if (f.getTutorial()) {
 			questionInfo = OspreyQuestion.ZERO;
 			answers = questionInfo.getAnswers();
 			orderedAnswers = questionInfo.getAnswers();
@@ -104,22 +104,22 @@ public class Quiz extends JDialog implements java.io.Serializable {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_A:
 					answer = answers[0];
-					if (answer.equals(orderedAnswers[0]) || f.tutorial) {
-						f.correct = true;
+					if (answer.equals(orderedAnswers[0]) || f.getTutorial()) {
+						f.setCorrect(true);
 					}
 					dispose();
 					break;
 				case KeyEvent.VK_B:
 					answer = answers[1];
-					if (answer.equals(orderedAnswers[0]) || f.tutorial) {
-						f.correct = true;
+					if (answer.equals(orderedAnswers[0]) || f.getTutorial()) {
+						f.setCorrect(true);
 					}
 					dispose();
 					break;
 				case KeyEvent.VK_C:
 					answer = answers[2];
-					if (answer.equals(orderedAnswers[0]) || f.tutorial) {
-						f.correct = true;
+					if (answer.equals(orderedAnswers[0]) || f.getTutorial()) {
+						f.setCorrect(true);
 					}
 					dispose();
 					break;
@@ -146,7 +146,7 @@ public class Quiz extends JDialog implements java.io.Serializable {
 		
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
-		if (m.tutorial) {
+		if (m.getTutorial()) {
 			questionInfo = HarrierQuestion.ZERO;
 			answers = questionInfo.getAnswers();
 			orderedAnswers = questionInfo.getAnswers();
@@ -219,22 +219,22 @@ public class Quiz extends JDialog implements java.io.Serializable {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_A:
 					answer = answers[0];
-					if (answer.equals(orderedAnswers[0]) || m.tutorial) {
-						m.correct = true;
+					if (answer.equals(orderedAnswers[0]) || m.getTutorial()) {
+						m.setCorrect(true);
 					}
 					dispose();
 					break;
 				case KeyEvent.VK_B:
 					answer = answers[1];
-					if (answer.equals(orderedAnswers[0]) || m.tutorial) {
-						m.correct = true;
+					if (answer.equals(orderedAnswers[0]) || m.getTutorial()) {
+						m.setCorrect(true);
 					}
 					dispose();
 					break;
 				case KeyEvent.VK_C:
 					answer = answers[2];
-					if (answer.equals(orderedAnswers[0]) || m.tutorial) {
-						m.correct = true;
+					if (answer.equals(orderedAnswers[0]) || m.getTutorial()) {
+						m.setCorrect(true);
 					}
 					dispose();
 					break;
@@ -250,22 +250,5 @@ public class Quiz extends JDialog implements java.io.Serializable {
 		this.setVisible(true);
 		
 	}
-	//String[] questions;
-	//char[] answerKey;
-
-	/*
-	 * public method isRight.
-	 * Takes int and char as parameter, and returns a boolean value 
-	 * reflecting if the correct answer was chosen for the given question.
-	 */
-	/*public boolean isRight(int question, char answer) {
-		return answer == answerKey[question];
-	}
-	
-	public String[] getQuestions() { return this.questions; }
-	
-	public char[] getAnswers() { return this.answerKey; }
-	
-	public String getInput() { return answer; }*/
 
 }
