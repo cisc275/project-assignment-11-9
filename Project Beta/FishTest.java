@@ -9,22 +9,20 @@ public class FishTest {
 	public void testInteract() {
 		Osprey o = new Osprey();
 		Fish f = new Fish(0, 0, 1);
-		double xVel = o.getXVel();
-		double yVel = o.getYVel();
-		int size = f.getSize();
+		f.setSize(2);
+		o.setXVel(80);
 		f.interact(o);
+		assertEquals(o.getXVel(), 40, 0.0001);
 		
-		assertEquals(o.getXVel(), xVel + size, .00001);
-		assertEquals(o.getYVel(), yVel, .00001);
-		
-		f.setSize(3);
-		xVel = o.getXVel();
-		yVel = o.getYVel();
-		size = f.getSize();
+		o.setXVel(18);
 		f.interact(o);
-		
-		assertEquals(o.getXVel(), xVel + size, .00001);
-		assertEquals(o.getYVel(), yVel, .00001);
+	}
+	
+	@Test
+	public void testGetSize() {
+		Fish f = new Fish(0, 0, 1);
+		f.setSize(2);
+		assertEquals(f.getSize(), 2);
 	}
 
 }
