@@ -17,41 +17,50 @@ public abstract class Model implements java.io.Serializable {
 
 	/* 
 	 * Public abstract method isEnd.
-	 * Takes no parameters, returns a boolean signifying if the game has achieved the end state.
+	 * Parameters: none
+	 * Returns: boolean
+	 * Returns a boolean signifying if the game has achieved the end state.
 	 */
 	public abstract boolean isEnd();
 	
 	/*
 	 * Public abstract method isWin.
-	 * Takes no parameters, returns a boolean signifying if the game was won.
+	 * Parameters: none
+	 * Returns: boolean
+	 * Returns a boolean signifying if the game was won.
 	 */
 	public abstract boolean isWin();
 	
 	/* 
 	 * Public abstract method generate.
-	 * Takes no parameters and returns nothing.
+	 * Parameters: none
+	 * Returns: nothing
 	 * Adds relevant GameObjects to the model.
 	 */
 	public abstract void generate();
 	
 	/*
 	 * Public abstract method update.
-	 * Takes no parameters, returns nothing.
+	 * Parameters: none
+	 * Returns: nothing
 	 * Changes model variables on each tick.
 	 */
 	public abstract void update();
 	
 	/*
 	 * Public abstract method checkInteractions.
-	 * Takes no parameters, returns nothing.
+	 * Parameters: none
+	 * Returns: nothing
 	 * Checks if any of the objects in the model are interacting, and handles those interactions.
 	 */
 	public abstract void checkInteractions();
 	
 	/*
 	 * Public method isCollision.
-	 * Takes two GameObjects, returns boolean.
-	 * Checks if the hit-boxes of the two objects are in contact.
+	 * Parameters: 
+	 *     GameObject: g1, g2
+	 * Returns: boolean
+	 * Returns a boolean indicating if the hit-boxes of the two objects are in contact
 	 */
 	public boolean isCollision(GameObject g1, GameObject g2) {
 		//Widths of GameObjects are divided by 2 to convert diameters to radii.
@@ -64,7 +73,8 @@ public abstract class Model implements java.io.Serializable {
 	
 	/*
 	 * Public method randomSign.
-	 * Takes no parameters, and returns an int.
+	 * Parameters: none
+	 * Returns: int
 	 * Produces 1 or -1 randomly.
 	 */
 	public static int randomSign() {

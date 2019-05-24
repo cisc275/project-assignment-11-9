@@ -23,7 +23,9 @@ public class Mouse extends Animal {
 	
 	/*
 	 * public method interact.
-	 * Takes Harrier as parameter and returns nothing.
+	 * Parameters: 
+	 *     Harrier: h
+	 * Returns: nothing
 	 * Processes an interaction between the Harrier and the Mouse.
 	 */
 	public void interact(Harrier h) {
@@ -34,8 +36,9 @@ public class Mouse extends Animal {
 	
 	/*
 	 * public method roam.
-	 * Takes no parameters and returns nothing.
-	 * Makes the mouse possibly change direction and move.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Makes the mouse move after possibly changing direction.
 	 */
 	public void roam(double xBound, double yBound, int velMultiplier) {
 		twitch();
