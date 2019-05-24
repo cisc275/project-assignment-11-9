@@ -91,7 +91,8 @@ public class Controller implements KeyListener, java.io.Serializable {
 	
 	/*
 	 * public method start.
-	 * Takes no parameters and returns nothing.
+	 * Parameters: none
+	 * Returns: nothing
 	 * Opens the title screen.
 	 */
 	public void start() {
@@ -103,8 +104,9 @@ public class Controller implements KeyListener, java.io.Serializable {
 
 	/*
 	 * public method startOsprey.
-	 * Takes no parameters and returns nothing.
-	 * Runs the game that involves the osprey.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Opens the osprey game.
 	 */
 	public void startOsprey() {
 		gs = GameState.OSPREY;
@@ -116,8 +118,9 @@ public class Controller implements KeyListener, java.io.Serializable {
 	
 	/*
 	 * public method startOsprey.
-	 * Takes no parameters and returns nothing.
-	 * Runs the game that involves the harrier.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Opens the harrier game.
 	 */
 	public void startHarrier() {
 		gs = GameState.HARRIER;
@@ -132,35 +135,67 @@ public class Controller implements KeyListener, java.io.Serializable {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
-		if(gs != GameState.TITLE) {
-			if (e.getKeyCode() == KeyEvent.VK_A) {
-				canSaveLoad = ! canSaveLoad;
-			} else if (e.getKeyCode() == KeyEvent.VK_S) {
-				save();
-			} else if (e.getKeyCode() == KeyEvent.VK_L) {
-				load();
+		switch(e.getKeyCode()) {
+		case KeyEvent.VK_O:
+			if (gs == GameState.TITLE) { startOsprey(); }
+			break;
+		case KeyEvent.VK_H:
+			if (gs == GameState.TITLE) { startHarrier(); }
+			break;
+		case KeyEvent.VK_ESCAPE:
+			if (gs == GameState.OSPREY) { timerO.stop(); } 
+			else if (gs == GameState.HARRIER) { timerH.stop(); }
+			
+			if (gs != GameState.TITLE) { start(); }
+			break;
+		case KeyEvent.VK_CONTROL:
+			if (gs != GameState.TITLE) { 
+				GameView gv = (GameView)view.getComponent(gs.getNum()); 
+				gv.setIsDebug(!gv.getIsDebug()); 
 			}
+			break;
+		case KeyEvent.VK_P:
+			if (gs != GameState.TITLE) { paused = !paused; }
+			break;
+		case KeyEvent.VK_SHIFT:
+			if (gs == GameState.OSPREY || gs == GameState.HARRIER) { canSaveLoad = !canSaveLoad; }
+			break;
+		case KeyEvent.VK_S:
+			if (canSaveLoad && (gs == GameState.OSPREY || gs == GameState.HARRIER)) { save(); }
+			break;
+		case KeyEvent.VK_L:
+			if (canSaveLoad && (gs == GameState.OSPREY || gs == GameState.HARRIER)) { load(); }
+			break;
+		case KeyEvent.VK_SPACE:
 			if (gs == GameState.OSPREY) {
-				OspreyModel om = (OspreyModel)model;
-				if (e.getKeyCode() == KeyEvent.VK_SPACE && !om.getOsprey().getIsRecovering()) { om.getOsprey().dive(); }
-				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { timerO.stop(); start(); }
+				OspreyModel om = (OspreyModel) model;
+				if (!om.getOsprey().getIsRecovering()) { om.getOsprey().dive(); }
 			}
-			else if(gs == GameState.HARRIER) {
-				HarrierModel hm = (HarrierModel)model;
-				if (e.getKeyCode() == KeyEvent.VK_UP) { hm.getHarrier().goNorth(); }
-				if (e.getKeyCode() == KeyEvent.VK_DOWN) { hm.getHarrier().goSouth(); }
-				if (e.getKeyCode() == KeyEvent.VK_LEFT) { hm.getHarrier().goWest(); }
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT) { hm.getHarrier().goEast(); }
-				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { timerH.stop(); start(); }
+			break;
+		case KeyEvent.VK_UP:
+			if (gs == GameState.HARRIER) {
+				HarrierModel hm = (HarrierModel) model;
+				hm.getHarrier().goNorth();
 			}
-			if (e.getKeyCode() == KeyEvent.VK_CONTROL) { GameView gv = (GameView)view.getComponent(gs.getNum()); gv.setIsDebug(!gv.getIsDebug()); }
-			if (e.getKeyCode() == KeyEvent.VK_P) { paused = !paused; }
-			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { start(); }
-		}
-		else {
-			if(e.getKeyCode() == KeyEvent.VK_O) { startOsprey(); }
-			else if(e.getKeyCode() == KeyEvent.VK_H) { startHarrier(); }
+			break;
+		case KeyEvent.VK_DOWN:
+			if (gs == GameState.HARRIER) {
+				HarrierModel hm = (HarrierModel) model;
+				hm.getHarrier().goSouth();
+			}
+			break;
+		case KeyEvent.VK_LEFT:
+			if (gs == GameState.HARRIER) {
+				HarrierModel hm = (HarrierModel) model;
+				hm.getHarrier().goWest();
+			}
+			break;
+		case KeyEvent.VK_RIGHT:
+			if (gs == GameState.HARRIER) {
+				HarrierModel hm = (HarrierModel) model;
+				hm.getHarrier().goEast();
+			}
+			break;
 		}
 	}
 
@@ -183,6 +218,12 @@ public class Controller implements KeyListener, java.io.Serializable {
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	
+	/*
+	 * private method endOsprey
+	 * Parameters: none
+	 * Returns: nothing
+	 * Ends the Osprey game, and switches to the OspreyEnding Screen.
+	 */
 	private void endOsprey() {
 		gs = GameState.END;
 		layout.show(view, "oe");
@@ -191,6 +232,12 @@ public class Controller implements KeyListener, java.io.Serializable {
 
 	}
 
+	/*
+	 * private method endHarrier
+	 * Parameters: none
+	 * Returns: nothing
+	 * Ends the Harrier game, and switches to the HarrierEnding Screen.
+	 */
 	private void endHarrier() {
 		gs = GameState.END;
 		layout.show(view, "he");
@@ -198,6 +245,12 @@ public class Controller implements KeyListener, java.io.Serializable {
 		timerH.stop();
 	}
 
+	/*
+	 * private method gameOver
+	 * Parameters: none
+	 * Returns: nothing
+	 * Ends the game, and switches to the GameOver Screen.
+	 */
 	private void gameOver() {
 		if (gs == GameState.OSPREY) {
 			timerO.stop();
@@ -209,7 +262,13 @@ public class Controller implements KeyListener, java.io.Serializable {
 		frame.requestFocus();
 	}
 	
-	public void save() {
+	/*
+	 * private method save
+	 * Parameters: none
+	 * Returns: nothing
+	 * Serializes the model variable and stores it in a file.
+	 */
+	private void save() {
 		try {
 			FileOutputStream fos = null;
 			ObjectOutputStream oos;
@@ -229,7 +288,14 @@ public class Controller implements KeyListener, java.io.Serializable {
 		}
 	}
 
-	public void load() {
+	/*
+	 * private method load
+	 * Parameters: none
+	 * Returns: nothing
+	 * Loads a serialized model from a file and sets 
+	 * the model to be the newly loaded one
+	 */
+	private void load() {
 		try {
 			FileInputStream fis = null;
 			ObjectInputStream ois;
