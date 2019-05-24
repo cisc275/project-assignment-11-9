@@ -10,16 +10,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /*
- * Public class TitleView handles the UI, and defines the main method.
+ * Public class TitleView handles displaying the Title Screen view, and holds the main function
  */
 public class TitleView extends JPanel implements java.io.Serializable {
 
 	private BufferedImage background;
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	
-	//public final static int FRAME_WIDTH = FRAME_HEIGHT_temp;
-	//public final static int FRAME_HEIGHT = FRAME_WIDTH_temp;
-	
 	public final static int FRAME_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public final static int FRAME_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
 
@@ -31,8 +26,10 @@ public class TitleView extends JPanel implements java.io.Serializable {
 	
 	/*
 	 * public method createBufferedImage.
-	 * Takes String as parameter and returns nothing.
-	 * Reads and creates a BufferedImage object of the image with the given filename.
+	 * Parameters:
+	 *     String: fileName
+	 * Returns: BufferedImage
+	 * Reads the file indicated by fileName, and creates a BufferedImage from that file.
 	 */
 	public BufferedImage createBufferedImage(String fileName) {
     	BufferedImage bufferedImage;
@@ -47,11 +44,21 @@ public class TitleView extends JPanel implements java.io.Serializable {
     	return null;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 * Displays the Title screen
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
 		g.setColor(Color.WHITE);
+	}
+	
+	public static void main(String[] args) {
+		Controller c = new Controller();
+		c.start();
 	}
 
 }

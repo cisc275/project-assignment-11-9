@@ -1,16 +1,14 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
-
+package Project;
 import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
 import java.awt.image.*;
 
+/*
+ * Public abstract class GameView defines functions for the various Views used by the Game.
+ */
 public abstract class GameView extends JPanel {
-	
-	public static void main(String[] args) {
-		Controller c = new Controller();
-		c.start();
-	}
 
 	protected boolean isDebug;
 	protected BufferedImage[] images;

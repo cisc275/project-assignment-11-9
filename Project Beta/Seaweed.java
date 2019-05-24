@@ -1,6 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-
 /* 
  * Public class Seaweed contains the behaviors and attributes of Seaweed, the obstacles in the Osprey game.
  */
@@ -20,7 +19,9 @@ public class Seaweed extends GameObject {
 	
 	/*
 	 * public method interact.
-	 * Takes Osprey as parameter and returns nothing.
+	 * Parameters:
+	 *     Osprey: o
+	 * Returns: nothing
 	 * Processes an interaction between the Osprey and the Seaweed if it has not already been hit.
 	 */
 	public void interact(Osprey o) {
