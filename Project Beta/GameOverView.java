@@ -29,7 +29,7 @@ public class GameOverView extends GameView {
 
 	/*
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-	 * Also paints the end screen for Game Over.
+	 * Paints the end screen for Game Over.
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
