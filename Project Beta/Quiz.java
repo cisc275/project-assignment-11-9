@@ -33,12 +33,14 @@ public class Quiz extends JDialog implements java.io.Serializable {
 		getContentPane().add(panel, BorderLayout.CENTER);
 		
 		
-		if (f.getTutorial()) {//Uses the tutorial question
+		if (f.getTutorial()) {
+			//Uses the tutorial question
 			questionInfo = OspreyQuestion.ZERO;
 			answers = questionInfo.getAnswers();
 			orderedAnswers = questionInfo.getAnswers();
 		} else {
-			switch(rand.nextInt(4)) {//Randomly chooses a question to display
+			switch(rand.nextInt(4)) {
+			//Randomly chooses a question to display
 			case 0:
 				questionInfo = OspreyQuestion.ONE;
 				break;
@@ -53,7 +55,8 @@ public class Quiz extends JDialog implements java.io.Serializable {
 				break;
 			}
 			orderedAnswers = questionInfo.getAnswers();
-			switch(rand.nextInt(6)) {//Randomly chooses an order for the answers
+			switch(rand.nextInt(6)) {
+			//Randomly chooses an order for the answers
 			case 0:
 				answers = questionInfo.getAnswers();
 				break;
@@ -151,12 +154,14 @@ public class Quiz extends JDialog implements java.io.Serializable {
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		
-		if (m.getTutorial()) {//Uses the tutorial question
+		if (m.getTutorial()) {
+			//Uses the tutorial question
 			questionInfo = HarrierQuestion.ZERO;
 			answers = questionInfo.getAnswers();
 			orderedAnswers = questionInfo.getAnswers();
 		} else {
-			switch(rand.nextInt(4)) {//Randomly chooses a question to display
+			switch(rand.nextInt(4)) {
+			//Randomly chooses a question to display
 			case 0:
 				questionInfo = HarrierQuestion.ONE;
 				break;
@@ -171,7 +176,8 @@ public class Quiz extends JDialog implements java.io.Serializable {
 				break;
 			}
 			orderedAnswers = questionInfo.getAnswers();
-			switch(rand.nextInt(6)) {//Randomly chooses an order for the answers
+			switch(rand.nextInt(6)) {
+			//Randomly chooses an order for the answers
 			case 0:
 				answers = questionInfo.getAnswers();
 				break;
