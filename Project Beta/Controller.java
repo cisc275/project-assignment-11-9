@@ -77,8 +77,7 @@ public class Controller implements KeyListener, java.io.Serializable {
 						gameOver();
 					} else {
 						hm.update();
-						hv.update(hm.getHarrier(), hm.getFoxes(), hm.getMice(), hm.getTwigs(), hm.getTrees(),
-								hm.getTutorial());
+						hv.update(hm.getHarrier(), hm.getFoxes(), hm.getMice(), hm.getTwigs(), hm.getTrees(), hm.getStage());
 						frame.repaint();
 					}
 				}

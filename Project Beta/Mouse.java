@@ -10,7 +10,7 @@ public class Mouse extends Animal {
 	private final static double SPEED = 1.5;
 	private final static int CHANCE = 30;
 	private final static int SCORE_BOOST = 10;
-	private final static int VISION_BOOST = 25;
+	public final static int VISION_BOOST = 25;
 
 	public Mouse(double x, double y) {
 		setXPos(x);

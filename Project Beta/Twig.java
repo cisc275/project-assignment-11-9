@@ -9,7 +9,7 @@ public class Twig extends GameObject {
 	private final static int WIDTH = 40;
 	private final static int HEIGHT = 25;
 	private final static int SCORE_BOOST = 20;
-	private final static double VISION_BOOST = 12.5;
+	public final static double VISION_BOOST = 12.5;
 	
 	public Twig(double x, double y) {
 		setXPos(x);
