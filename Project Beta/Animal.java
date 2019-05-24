@@ -9,7 +9,7 @@ public abstract class Animal extends GameObject {
 
 	private double xVelocity;
 	private double yVelocity;
-	private double velAngle;
+	private double velAngle; //Expressed in degrees.
 	private Direction direction;
 	private double speedMod;
 	private int chanceMod;
@@ -56,8 +56,10 @@ public abstract class Animal extends GameObject {
 	
 	/*
 	 * public method incrementAnimation.
-	 * Takes no parameters, and returns nothing.
-	 * Increments the animationCounter.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Increments the animationDelay, and when the 
+	 * animationDelay resets, increments the animationCounter
 	 */
 	public void incrementAnimation() {
 		animationDelay = (animationDelay + 1) % DELAY;
@@ -66,8 +68,9 @@ public abstract class Animal extends GameObject {
 
 	/*
 	 * public method move.
-	 * Takes no parameters and returns nothing.
-	 * Increments the positions by their respective velocity.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Increments the Animal's position by its velocity.
 	 */
 	public void move() {
 		setXPos(getXPos() + xVelocity);
@@ -76,8 +79,11 @@ public abstract class Animal extends GameObject {
 	
 	/*
 	 * public method moveBounded.
-	 * Takes two doubles and int as parameters and returns nothing.
-	 * Increments the positions by their respective velocity if within bounds, otherwise sends animal into bounds.
+	 * Parameters:
+	 *     doubles: xBound, yBound, int: velMultiplier
+	 * Returns: nothing
+	 * Increments the Animal's position by its velocity if within bounds,
+	 * otherwise ricochets animal into bounds.
 	 */
 	public void moveBounded(double xBound, double yBound, int velMultiplier) {
 		double xFuture = getXPos() + xVelocity;
@@ -96,8 +102,10 @@ public abstract class Animal extends GameObject {
 	
 	/*
 	 * public method twitch.
-	 * Takes no parameters and returns nothing.
-	 * Changes the velocities randomly on a random interval determined by chanceMod.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Uses chanceMod to randomly decide if the velocities should change, and
+	 * if the velocities should change, randomly changes them using speedMod.
 	 */
 	public void twitch() {
 		if(Model.rand.nextInt(chanceMod) == 0) {
@@ -109,8 +117,10 @@ public abstract class Animal extends GameObject {
 	
 	/*
 	 * public method turnCCW.
-	 * Takes double as parameter and returns nothing.
-	 * Changes the velocities to allow the Animal to turn counter-clockwise by the given angle.
+	 * Parameters:
+	 *     double: angle
+	 * Returns: nothing
+	 * Turns the Animal counter-clockwise by the angle, given in degrees.
 	 */
 	public void turnCCW (double angle) {
 		double newXVel = getXVel() * Math.cos(angle) + getYVel() * Math.sin(angle);
@@ -122,8 +132,11 @@ public abstract class Animal extends GameObject {
 	
 	/*
 	 * public method interact.
-	 * Takes GameObject as parameter and returns nothing.
-	 * Processes an interaction between the Animal and the GameObject, a general ricochet.
+	 * Parameters:
+	 *     GameObject: g
+	 * Returns: nothing
+	 * Processes an interaction between the Animal and the 
+	 * GameObject by making the Animal ricochet off.
 	 */
 	public void interact(GameObject g) {
 		xVelocity *= -1;
@@ -133,21 +146,31 @@ public abstract class Animal extends GameObject {
 	
 	/*
 	 * public method calcSpeed.
-	 * Takes no parameters and returns double.
-	 * Calculates the speed of the Animal.
+	 * Parameters: none
+	 * Returns: double
+	 * Returns the magnitude of the speed of the Animal.
 	 */
 	public double calcSpeed() { return Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity); }
 	
-	public void updateAngle() {
+	/*
+	 * private method updateAngle.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Uses the velocities to calculate the angle the animal is going,
+	 * then updates the velAngle variable accordingly. 
+	 * Note: velAngle expressed in degrees.
+	 */
+	private void updateAngle() {
 		velAngle = Math.atan(-getYVel()/getXVel()); // negative because up from a viewer's perspecitve is in the negative y direction.
 		if(getXVel() < 0) { velAngle += Math.PI; }
 		else if (velAngle < 0) { velAngle += 2*Math.PI; }
 	}
 
 	/*
-	 * private method updateDirection.
-	 * Takes no parameters and returns nothing.
-	 * Updates the direction of the animal by checking angle of velocity.
+	 * public method updateDirection.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Updates the direction variable by checking the angle of velocity.
 	 */
 	public void updateDirection() {
 		updateAngle();
