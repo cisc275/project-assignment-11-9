@@ -22,9 +22,12 @@ public abstract class GameView extends JPanel {
 	public void setIsDebug(boolean isDebug) { this.isDebug = isDebug; }
 	
 	/*
-	 * This public method checks for inappropriate words and for only letters
-	 * Takes in user inputed name
-	 * Returns either the name typed if accepted or no for inappropriate
+	 * public method filterInput.
+	 * Parameters:
+	 *     String: name
+	 * Returns: String
+	 * Checks name parameter for inappropriate words and wrong-sized words.
+	 * Returns either the name typed if accepted or no if inappropriate.
 	 */
 	public String filterInput(String name) {
 		if(name.length() == 3 && name.matches("^[a-zA-Z]*$")) {
@@ -41,8 +44,10 @@ public abstract class GameView extends JPanel {
 	
 	/*
 	 * public method createBufferedImage.
-	 * Takes String as parameter and returns nothing.
-	 * Reads and creates a BufferedImage object of the image with the given filename.
+	 * Parameters:
+	 *     String: fileName
+	 * Returns: BufferedImage
+	 * Reads the file indicated by fileName, and creates a BufferedImage from that file.
 	 */
 	public BufferedImage createBufferedImage(String fileName) {
     	BufferedImage bufferedImage;

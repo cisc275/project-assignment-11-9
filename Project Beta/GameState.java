@@ -1,6 +1,8 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-
+/*
+ * public enum GameState defines the four possible states that the game can be in.
+ */
 public enum GameState {
 	
 	TITLE("title", 0),

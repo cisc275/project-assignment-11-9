@@ -1,5 +1,8 @@
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-
+/*
+ * public enum Direction defines the 8 directions that the objects in the Harrier game can travel
+ */
 public enum Direction {
 
 	NORTH("north"),

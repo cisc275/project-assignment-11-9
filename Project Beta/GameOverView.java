@@ -1,4 +1,4 @@
-
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 import java.awt.Color;
 import java.awt.Font;
@@ -9,6 +9,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/*
+ * Public class GameOverView handles displaying the view when the player loses the game
+ */
 public class GameOverView extends GameView {
 	
 	private Image background;
@@ -24,6 +27,10 @@ public class GameOverView extends GameView {
 		}
 	}
 
+	/*
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 * Also paints the end screen for Game Over.
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
