@@ -235,12 +235,15 @@ public class Controller implements KeyListener, java.io.Serializable {
 			ObjectInputStream ois;
 			if (gs == GameState.OSPREY) {
 				fis = new FileInputStream("ospreyfile.ser");
+				ois = new ObjectInputStream(fis);
+				model = (OspreyModel) ois.readObject();
+				ois.close();
 			} else if (gs == GameState.HARRIER){
 				fis = new FileInputStream("harrierfile.ser");
+				ois = new ObjectInputStream(fis);
+				model = (HarrierModel) ois.readObject();
+				ois.close();
 			}		
-			ois = new ObjectInputStream(fis);
-			model = (OspreyModel) ois.readObject();
-			ois.close();
 			canSaveLoad = false;
 		}
 		catch (Exception ex)

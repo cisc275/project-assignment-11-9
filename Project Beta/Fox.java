@@ -55,7 +55,7 @@ public class Fox extends Animal {
 	 */
 	public void roam(Harrier h, double xBound, double yBound, int velMultiplier) {
 		double dist = calcDist(h);
-		double hdist = calcDist();
+		double hdist = h.calcDist();
 		if(dist < CHASE_RADIUS && hdist > HarrierModel.EXCLUSION_RADIUS) { chase(h); }
 		else { twitch(); }
 		moveBounded(xBound, yBound, velMultiplier);
