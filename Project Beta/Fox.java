@@ -55,7 +55,8 @@ public class Fox extends Animal {
 	
 	/*
 	 * public method roam.
-	 * Parameters: none
+	 * Parameters:
+	 *     Harrier: h, doubles: xBound, yBound, int: velMultiplier
 	 * Returns: nothing
 	 * Makes the fox either randomly move or chase the Harrier.
 	 */
