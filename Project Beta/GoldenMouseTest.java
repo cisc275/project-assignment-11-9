@@ -10,15 +10,18 @@ public class GoldenMouseTest {
 		GoldenMouse gm = new GoldenMouse(0, 0);
 		Harrier h= new Harrier();
 		
-		
+		h.setScore(200);
 		
 		gm.interact(h);
+		assertEquals(h.getScore(), 300);
 		
-		assertEquals(h.getScore(), 100);
-		assertEquals(10, h.getVision(), 0.01);
-		
-		
-		
-		
+		h.setVision(600);
+		gm.interact(h);
+		assertEquals(h.getVision(), 600, 0);
+	}
+	
+	@Test
+	public void testGoldenMouse() {
+		GoldenMouse gm = new GoldenMouse(0, 0, false);
 	}
 }

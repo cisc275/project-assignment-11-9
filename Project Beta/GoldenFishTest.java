@@ -9,12 +9,18 @@ public class GoldenFishTest {
 	public void testInteract() {
 		Osprey o = new Osprey();
 		GoldenFish gf = new GoldenFish(0, 0);
-		double xVel = o.getXVel();
-		double yVel = o.getYVel();
+		o.setXVel(5);
+		gf.interact(o);
+		assertEquals(o.getXVel(), 10, 0.0);
+		
+		o.setXVel(75);
 		gf.interact(o);
 		
-		assertEquals(o.getXVel(), xVel + 10, .001);
-		assertEquals(o.getYVel(), yVel, .001);
+	}
+	
+	@Test
+	public void testGoldenFish() {
+		GoldenFish gf = new GoldenFish(0, 0, true);
 	}
 	
 }
