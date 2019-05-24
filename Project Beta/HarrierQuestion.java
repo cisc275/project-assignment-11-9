@@ -1,4 +1,8 @@
-package Project;
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
+/*
+ * public enum HarrierQuestion defines the 5 questions a player could be asked in a Harrier game quiz.
+ */
 public enum HarrierQuestion {
 	ZERO("Press one of the 'a', 'b', or 'c' keys to proceed", "a", "b", "c"),
 	ONE("What do Harriers eat?", "mice", "badgers", "leaves"),

@@ -1,4 +1,5 @@
-package Project;
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
+
 
 import java.awt.Color;
 import java.awt.Font;
@@ -14,6 +15,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+/*
+ * Public class HarrierEnding handles displaying the view when the player wins the Harrier Game
+ */
 public class HarrierEnding extends HarrierView{
 
 
@@ -34,6 +38,11 @@ public class HarrierEnding extends HarrierView{
 	}
 
 
+	/*
+	 * (non-Javadoc)
+	 * @see HarrierView#paintComponent(java.awt.Graphics)
+	 * Paints the end screen for a Harrier win.
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
