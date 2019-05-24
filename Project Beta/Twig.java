@@ -20,7 +20,9 @@ public class Twig extends GameObject {
 	
 	/*
 	 * public method interact.
-	 * Takes Harrier as parameter and returns nothing.
+	 * Parameters:
+	 *     Harrier: h
+	 * Returns: nothing
 	 * Processes an interaction between the Harrier and the Twig.
 	 */
 	public void interact(Harrier h) {

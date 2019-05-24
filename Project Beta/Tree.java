@@ -22,7 +22,9 @@ public class Tree extends GameObject {
 	
 	/*
 	 * public method interact.
-	 * Takes Harrier as parameter and returns nothing.
+	 * Parameters:
+	 *     Harrier: h
+	 * Returns: nothing
 	 * Processes an interaction between the Harrier and the Tree if a second has elapsed since last hit.
 	 */
 	public void interact(Harrier h) {
