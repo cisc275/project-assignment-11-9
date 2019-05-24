@@ -40,8 +40,9 @@ public class Harrier extends Animal {
 	
 	/*
 	 * public method goNorth.
-	 * Takes no parameters and returns nothing.
-	 * Makes the Harrier turn to the northern direction and accelerate northwards.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Makes the Harrier turn north and accelerate northwards.
 	 */
 	public void goNorth() {
 		if(calcSpeed() < MAX_SPEED) { setYVel(getYVel() - ACCELERATION); }
@@ -54,8 +55,9 @@ public class Harrier extends Animal {
 	
 	/*
 	 * public method goSouth.
-	 * Takes no parameters and returns nothing.
-	 * Makes the Harrier turn to the southern direction and accelerate southwards.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Makes the Harrier turn south and accelerate southwards.
 	 */
 	public void goSouth() {
 		if(calcSpeed() < MAX_SPEED) { setYVel(getYVel() + ACCELERATION); }
@@ -69,8 +71,9 @@ public class Harrier extends Animal {
 	
 	/*
 	 * public method goEast.
-	 * Takes no parameters and returns nothing.
-	 * Makes the Harrier turn to the eastern direction and accelerate eastwards.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Makes the Harrier turn east and accelerate eastwards.
 	 */
 	public void goEast() {
 		if(calcSpeed() < MAX_SPEED) { setXVel(getXVel() + ACCELERATION); }
@@ -84,8 +87,9 @@ public class Harrier extends Animal {
 	
 	/*
 	 * public method goWest.
-	 * Takes no parameters and returns nothing.
-	 * Makes the Harrier turn to the western direction and accelerate westwards.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Makes the Harrier turn west and accelerate westwards.
 	 */
 	public void goWest() {
 		if(calcSpeed() < MAX_SPEED) { setXVel(getXVel() - ACCELERATION); }
@@ -99,8 +103,9 @@ public class Harrier extends Animal {
 
 	/*
 	 * public method die.
-	 * Takes no parameters and returns nothing.
-	 * Resets the Harrier to its spawn.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Resets the Harrier to its spawn point with 0 velocity.
 	 */
 	public void die() {
 		setXPos(STARTPOS);

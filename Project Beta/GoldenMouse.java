@@ -28,8 +28,10 @@ public class GoldenMouse extends Mouse {
 	
 	/*
 	 * public method interact.
-	 * Takes Harrier as parameter and returns nothing.
-	 * Processes an interaction between the Harrier and the GoldenMouse if the player correctly answers the triggerd quiz.
+	 * Parameters:
+	 *     Harrier: h
+	 * Returns: nothing
+	 * Triggers a quiz, and if the user gets the quiz question right, boosts the Harrier.
 	 */
 	public void interact(Harrier h) {
 		Quiz quiz = new Quiz(this);

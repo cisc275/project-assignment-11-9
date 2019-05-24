@@ -25,8 +25,10 @@ public class GoldenFish extends Fish {
 	
 	/*
 	 * public method interact.
-	 * Takes Osprey as parameter and returns nothing.
-	 * Processes an interaction between the Osprey and the GoldenFish if the player correctly answers the triggered quiz.
+	 * Parameters:
+	 *     Osprey: o
+	 * Returns: nothing
+	 * Triggers a quiz, and if the user gets the quiz question right, boosts the Osprey.
 	 */
 	public void interact(Osprey o) {
 		Quiz quiz = new Quiz(this);
