@@ -24,7 +24,9 @@ public class Fox extends Animal {
 	
 	/*
 	 * public method interact.
-	 * Takes Harrier as parameter and returns nothing.
+	 * Parameters:
+	 *     Harrier: h
+	 * Returns: nothing
 	 * Processes an interaction between the Harrier and the Fox.
 	 */
 	public void interact(Harrier h) {
@@ -35,8 +37,11 @@ public class Fox extends Animal {
 	
 	/*
 	 * public method chase.
-	 * Takes Harrier object and returns nothing.
-	 * Makes the Fox chase the Harrier by incrementing the Fox's velocities to direct at the Harrier's position.
+	 * Parameters:
+	 *     Harrier: h
+	 * Returns: nothing
+	 * Makes the Fox chase the Harrier by setting the Fox's 
+	 * velocities to direct it at the Harrier's position.
 	 */
 	public void chase(Harrier h) {
 		double dx = h.getXPos() - this.getXPos();
@@ -50,8 +55,9 @@ public class Fox extends Animal {
 	
 	/*
 	 * public method roam.
-	 * Takes no parameters and returns nothing.
-	 * Makes the fox possibly change direction or chase the Harrier, and move.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Makes the fox either randomly move or chase the Harrier.
 	 */
 	public void roam(Harrier h, double xBound, double yBound, int velMultiplier) {
 		double dist = calcDist(h);

@@ -29,15 +29,18 @@ public abstract class GameObject implements java.io.Serializable {
 	
 	/*
 	 * public method calcDist.
-	 * Takes no parameters and returns double.
-	 * Calculates the distance of the Game Object from the origin.
+	 * Parameters: none
+	 * Returns: double
+	 * Returns the distance of the Game Object from the origin.
 	 */
 	public double calcDist() { return Math.sqrt(xPosition * xPosition + yPosition * yPosition); }
 	
 	/*
 	 * public method calcDist.
-	 * Takes GameObject as parameter and returns double.
-	 * Calculates the distance between the GameObjects.
+	 * Parameters:
+	 *     GameObject: go
+	 * Returns: double
+	 * Returns the distance between the GameObjects.
 	 */
 	public double calcDist(GameObject go) {
 		double dx = this.xPosition - go.xPosition;
@@ -45,6 +48,13 @@ public abstract class GameObject implements java.io.Serializable {
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 	
+	/*
+	 * public method getApproximateDirection.
+	 * Parameters:
+	 *     GameObject: go
+	 * Returns: Direction
+	 * Returns the approximate direction from this gameObject to the parameter go.
+	 */
 	public Direction getApproximateDirection(GameObject go) {
 		if (Math.abs(go.xPosition - this.xPosition) > Math.abs(go.yPosition - this.yPosition)) {
 			if (this.xPosition < go.xPosition) { return Direction.WEST; } 

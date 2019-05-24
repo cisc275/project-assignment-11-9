@@ -28,7 +28,9 @@ public class Fish extends Animal {
 	
 	/*
 	 * public method interact.
-	 * Takes Osprey as parameter and returns nothing.
+	 * Parameters:
+	 *     Osprey: o
+	 * Returns: nothing
 	 * Processes an interaction between the Osprey and the Fish.
 	 */
 	public void interact(Osprey o) {
