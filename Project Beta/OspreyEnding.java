@@ -1,5 +1,5 @@
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -8,9 +8,11 @@ import java.io.*;
 
 import javax.imageio.ImageIO;
 
+/*
+ * Public class OspreyEnding handles displaying the view when the player wins the Osprey Game
+ */
 public class OspreyEnding extends OspreyView{
 
-	
 	private Image background;
 	private final static int HIGHSCORE_TEXT_X = 625;
 	private final static int HIGHSCORE_TEXT_Y = 300; 
@@ -24,14 +26,12 @@ public class OspreyEnding extends OspreyView{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
-	
 	/*
-	 * Draws the background image for the win screen, displays the highscore
-	 * Takes in graphics
-	 * Returns Nothing
+	 * (non-Javadoc)
+	 * @see OspreyView#paintComponent(java.awt.Graphics)
+	 * Draws the background image for the win screen and displays the highscore
 	 */
 	protected void paintComponent(Graphics g) {
 		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
@@ -39,6 +39,5 @@ public class OspreyEnding extends OspreyView{
 		g.setFont(new Font(Font.SERIF, Font.BOLD, FONT_SIZE));
 		g.drawString("Fastest Time: " + getFastTime() + " seconds", HIGHSCORE_TEXT_X, HIGHSCORE_TEXT_Y);
 		g.drawString("Press ESC to return to the menu!", ESCAPE_TEXT_X, ESCAPE_TEXT_Y);
-		//g.drawString("Completed Time" + Osprey.displayMin +":"+ Osprey.displaySec + Osprey.display2Sec, 500,500);
 	}
 }

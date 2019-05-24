@@ -1,4 +1,8 @@
+//Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+/*
+ * public enum OspreyQuestion defines the 5 questions a player could be asked in a Osprey game quiz.
+ */
 public enum OspreyQuestion {
 	ZERO("Press one of the 'a', 'b', or 'c' keys to proceed", "a", "b", "c"),
 	ONE("What do Ospreys eat?", "fish", "garbage", "seaweed"),

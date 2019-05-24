@@ -22,21 +22,23 @@ public class Quiz extends JDialog implements java.io.Serializable {
 	private String[] orderedAnswers;
 	
 	public Quiz(GoldenFish f) {
+		//Opens a dialog window to display the quiz 
 		OspreyQuestion questionInfo = null;
 		this.setModal(true);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setSize(300, 300);
 		this.setTitle("Golden Fish quiz");
-		
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
-		if (f.getTutorial()) {
+		
+		
+		if (f.getTutorial()) {//Uses the tutorial question
 			questionInfo = OspreyQuestion.ZERO;
 			answers = questionInfo.getAnswers();
 			orderedAnswers = questionInfo.getAnswers();
 		} else {
-			switch(rand.nextInt(4)) {
+			switch(rand.nextInt(4)) {//Randomly chooses a question to display
 			case 0:
 				questionInfo = OspreyQuestion.ONE;
 				break;
@@ -51,7 +53,7 @@ public class Quiz extends JDialog implements java.io.Serializable {
 				break;
 			}
 			orderedAnswers = questionInfo.getAnswers();
-			switch(rand.nextInt(6)) {
+			switch(rand.nextInt(6)) {//Randomly chooses an order for the answers
 			case 0:
 				answers = questionInfo.getAnswers();
 				break;
@@ -82,6 +84,7 @@ public class Quiz extends JDialog implements java.io.Serializable {
 				break;
 			}
 		}
+		//Displays the question and answers in the dialog
 		JLabel question = new JLabel(questionInfo.getQuestion());
 		panel.add(question, "cell 0 1,alignx trailing,aligny center");
 		
@@ -101,6 +104,7 @@ public class Quiz extends JDialog implements java.io.Serializable {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
+				//If the answer is correct, sets the GoldenFish to have a correct value of true;				
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_A:
 					answer = answers[0];
@@ -137,21 +141,22 @@ public class Quiz extends JDialog implements java.io.Serializable {
 	}
 	
 	public Quiz(GoldenMouse m) {
+		//Opens a dialog window to display the quiz 
 		HarrierQuestion questionInfo = null;
 		this.setModal(true);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setSize(300, 300);
 		this.setTitle("Golden Fish quiz");
-		
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
-		if (m.getTutorial()) {
+		
+		if (m.getTutorial()) {//Uses the tutorial question
 			questionInfo = HarrierQuestion.ZERO;
 			answers = questionInfo.getAnswers();
 			orderedAnswers = questionInfo.getAnswers();
 		} else {
-			switch(rand.nextInt(4)) {
+			switch(rand.nextInt(4)) {//Randomly chooses a question to display
 			case 0:
 				questionInfo = HarrierQuestion.ONE;
 				break;
@@ -166,7 +171,7 @@ public class Quiz extends JDialog implements java.io.Serializable {
 				break;
 			}
 			orderedAnswers = questionInfo.getAnswers();
-			switch(rand.nextInt(6)) {
+			switch(rand.nextInt(6)) {//Randomly chooses an order for the answers
 			case 0:
 				answers = questionInfo.getAnswers();
 				break;
@@ -197,6 +202,7 @@ public class Quiz extends JDialog implements java.io.Serializable {
 				break;
 			}
 		}
+		//Displays the question and answers in the dialog
 		JLabel question = new JLabel(questionInfo.getQuestion());
 		panel.add(question, "cell 0 1,alignx trailing,aligny center");
 		
@@ -216,6 +222,7 @@ public class Quiz extends JDialog implements java.io.Serializable {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
+				//If the answer is correct, sets the GoldenMouse to have a correct value of true;
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_A:
 					answer = answers[0];
