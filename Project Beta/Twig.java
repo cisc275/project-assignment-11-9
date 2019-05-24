@@ -6,11 +6,16 @@ package Project;
  */
 public class Twig extends GameObject {
 	
+	private final static int WIDTH = 40;
+	private final static int HEIGHT = 25;
+	private final static int SCORE_BOOST = 20;
+	private final static double VISION_BOOST = 12.5;
+	
 	public Twig(double x, double y) {
 		setXPos(x);
 		setYPos(y);
-		setXWidth(40);
-		setYWidth(25);
+		setXWidth(WIDTH);
+		setYWidth(HEIGHT);
 	}
 	
 	/*
@@ -19,8 +24,8 @@ public class Twig extends GameObject {
 	 * Processes an interaction between the Harrier and the Twig.
 	 */
 	public void interact(Harrier h) {
-		h.setScore(h.getScore() + 20);
-		if(h.getVision() + 12.5 < Harrier.MAX_VISION) { h.setVision(h.getVision() + 12.5); }
+		h.setScore(h.getScore() + SCORE_BOOST);
+		if(h.getVision() + VISION_BOOST < Harrier.MAX_VISION) { h.setVision(h.getVision() + VISION_BOOST); }
 		else { h.setVision(Harrier.MAX_VISION); }
 	}
 	

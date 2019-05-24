@@ -50,7 +50,7 @@ public class TitleView extends JPanel implements java.io.Serializable {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH, (int)(TitleView.FRAME_HEIGHT * .98), this);
+		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
 		g.setColor(Color.WHITE);
 	}
 

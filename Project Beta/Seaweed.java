@@ -7,12 +7,15 @@ package Project;
 public class Seaweed extends GameObject {
 	
 	boolean hasBeenHit = false;
+	private final static int WIDTH = 35;
+	private final static int HEIGHT = 60;
+	private final static int PENALTY = 1;
 	
 	Seaweed(double x, double y){
 		setXPos(x);
 		setYPos(y);
-		setXWidth(35);
-		setYWidth(60);
+		setXWidth(WIDTH);
+		setYWidth(HEIGHT);
 	}
 	
 	/*
@@ -23,7 +26,7 @@ public class Seaweed extends GameObject {
 	public void interact(Osprey o) {
 		if (!hasBeenHit && !o.getIsRecovering()) {
 			hasBeenHit = true;
-			o.setXVel(o.getXVel() - 1);
+			o.setXVel(o.getXVel() - PENALTY);
 			o.setIsRecovering(true);
 			o.rise();
 		}

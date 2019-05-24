@@ -7,12 +7,17 @@ package Project;
 public class Tree extends GameObject {
 	
 	long lastTime;
+	private final static int SIZE = 90;
+	private final static int NANOSECONDS_TO_SECONDS = 1000000000;
+	private final static int TREE_DELAY = 1;
+	private final static int SCORE_HIT = 10;
+	private final static int VISION_HIT = 25;
 	
 	public Tree(double x, double y) {
 		setXPos(x);
 		setYPos(y);
-		setXWidth(90);
-		setYWidth(90);
+		setXWidth(SIZE);
+		setYWidth(SIZE);
 	}
 	
 	/*
@@ -24,9 +29,9 @@ public class Tree extends GameObject {
 		h.setXPos(h.getXPos() - h.getXVel());
 		h.setYPos(h.getYPos() - h.getYVel());
 		long newTime = System.nanoTime();
-		if ((newTime - lastTime) / 1000000000 > 1) {
-			h.setScore(h.getScore() - 10);
-			h.setVision(h.getVision() - 25);
+		if ((newTime - lastTime) / NANOSECONDS_TO_SECONDS > TREE_DELAY) {
+			h.setScore(h.getScore() - SCORE_HIT);
+			h.setVision(h.getVision() - VISION_HIT);
 			lastTime = newTime;
 		} 
 		h.setXVel(0);
