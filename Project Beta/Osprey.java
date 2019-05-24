@@ -14,12 +14,14 @@ public class Osprey extends Animal {
 	public final static double MAX_SPEED = 40;
 	public final static double FLYING_SPEED = 15;
 	public final static double START_SPEED = 5;
+	private final static int WIDTH = 75;
+	private final static int HEIGHT = 35;
 	
 	public Osprey(){
 		setXPos(0);
 		setYPos(0);
-		setXWidth(75);
-		setYWidth(35);
+		setXWidth(WIDTH);
+		setYWidth(HEIGHT);
 		setXVel(START_SPEED);
 		setYVel(0);
 		isRecovering = false;
@@ -37,7 +39,7 @@ public class Osprey extends Animal {
 	@Override
 	public void move() {
 		setXPos(getXPos() + getXVel());
-		if(getYPos() + getYVel() < MIN_HEIGHT || getYPos() + getYVel() > MAX_HEIGHT) { setYVel(0); }
+		if(getYPos() + getYVel() < MIN_HEIGHT || getYPos() + getYVel() > MAX_HEIGHT) { setYVel(0); setYPos(MAX_HEIGHT); }
 		else { setYPos(getYPos() + getYVel()); }
 	}
 
