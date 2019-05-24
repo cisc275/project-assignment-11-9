@@ -5,14 +5,20 @@ package Project;
  * Public class Mouse contains the behaviors and attributes of Mice, the primary consumables in the Harrier game.
  */
 public class Mouse extends Animal {
+	
+	private final static int SIZE = 25;
+	private final static double SPEED = 1.5;
+	private final static int CHANCE = 30;
+	private final static int SCORE_BOOST = 10;
+	private final static int VISION_BOOST = 25;
 
 	public Mouse(double x, double y) {
 		setXPos(x);
 		setYPos(y);
-		setXWidth(25);
-		setYWidth(25);
-		setSpeedMod(1.5);
-		setChanceMod(30);
+		setXWidth(SIZE);
+		setYWidth(SIZE);
+		setSpeedMod(SPEED);
+		setChanceMod(CHANCE);
 	}
 	
 	/*
@@ -21,8 +27,8 @@ public class Mouse extends Animal {
 	 * Processes an interaction between the Harrier and the Mouse.
 	 */
 	public void interact(Harrier h) {
-		h.setScore(h.getScore() + 10);
-		if(h.getVision() + 25 < Harrier.MAX_VISION) { h.setVision(h.getVision() + 25); }
+		h.setScore(h.getScore() + SCORE_BOOST);
+		if(h.getVision() + VISION_BOOST < Harrier.MAX_VISION) { h.setVision(h.getVision() + VISION_BOOST); }
 		else { h.setVision(Harrier.MAX_VISION); }
 	}
 	

@@ -9,16 +9,11 @@ import java.lang.Math;
 public abstract class Model implements java.io.Serializable {
 
 	private int time;
-	private Quiz quiz;
 	public static Random rand = new Random(System.currentTimeMillis());
 
 	public int getTime() { return this.time; }
 
 	public void setTime(int time) { this.time = time; }
-
-	public Quiz getQuiz() { return this.quiz; }
-
-	public void setQuiz(Quiz quiz) { this.quiz = quiz; }
 
 	/* 
 	 * Public abstract method isEnd.

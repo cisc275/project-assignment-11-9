@@ -17,12 +17,15 @@ import javax.swing.JOptionPane;
 public class HarrierEnding extends HarrierView{
 
 
-	public String highScore;
 	private Image background;
+	private final static int HIGHSCORE_TEXT_X = 650;
+	private final static int HIGHSCORE_TEXT_Y = 300; 
+	private final static int FONT_SIZE = 30;
+	private final static int ESCAPE_TEXT_X = 575;
+	private final static int ESCAPE_TEXT_Y = 350;
 
 
 	public HarrierEnding() {
-		highScore = "";
 		try{
 			background = ImageIO.read(new File("src/images/Harrier Ending .png"));
 		} catch (IOException e) {
@@ -33,12 +36,11 @@ public class HarrierEnding extends HarrierView{
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		highScore = GetHighScore();
 		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
 		g.setColor(Color.WHITE);
-		g.setFont(new Font(Font.SERIF, Font.BOLD, 30));
-		g.drawString("HighScore: " + highScore, 650, 300);
-		g.drawString("Press ESC to return to the menu!", 575, 350);
+		g.setFont(new Font(Font.SERIF, Font.BOLD, FONT_SIZE));
+		g.drawString("HighScore: " + getHighScore(), HIGHSCORE_TEXT_X, HIGHSCORE_TEXT_Y);
+		g.drawString("Press ESC to return to the menu!", ESCAPE_TEXT_X, ESCAPE_TEXT_Y);
 		
 
 	}

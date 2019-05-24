@@ -48,8 +48,7 @@ public class Harrier extends Animal {
 		if(Math.abs(getAngle() - Math.PI / 2) >= TURN_ANGLE) {
 			if(getAngle() < Math.PI / 2 || getAngle() > 3 * Math.PI / 2) { turnCCW(TURN_ANGLE); }
 			else { turnCCW(-TURN_ANGLE); }
-		}
-		else { setXVel(0); setYVel(-calcSpeed()); }
+		} else { setXVel(0); setYVel(-calcSpeed()); }
 		updateDirection();
 	}
 	
