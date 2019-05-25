@@ -37,7 +37,7 @@ public class TreeTest {
 		
 		h.setVision(15);
 		t.interact(h);
-		assertEquals((int)h.getVision(), (int)HarrierModel.MIN_VISION);
+		assertEquals((int)h.getVision(), (int)Harrier.MIN_VISION);
 		
 		fail("Not yet implemented");
 	}
