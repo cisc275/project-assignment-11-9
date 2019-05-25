@@ -1,26 +1,33 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
 import java.awt.*;
-import java.util.*;
-import java.awt.image.*;
-import javax.swing.*;
 import java.awt.geom.*;
+import java.awt.image.*;
 import java.io.*;
-
+import java.util.*;
+import javax.swing.*;
+/*
+ * Public class HarierView displays the Harrier game.
+ */
 public class HarrierView extends GameView {
 
 	private Harrier harrier;
-	private String highScore;
 	private ArrayList<Fox> foxes;
 	private ArrayList<Mouse> mice;
 	private ArrayList<Twig> twigs;
 	private ArrayList<Tree> trees;
-	HarrierModel.Tutorial state = HarrierModel.Tutorial.NONE;
+	private Tutorial state = Tutorial.NONE;
+	private String highScore;
 	private FileReader readFile;
 	private BufferedReader reader;
 	private String[] imageEndings = {"East", "North", "Northeast", "Northwest", "South", "Southeast", "Southwest", "West"};
 	private final static double backgroundScalarX = 2400 / (TitleView.FRAME_WIDTH * 3.0);
 	private final static double backgroundScalarY = 2400 / (TitleView.FRAME_HEIGHT * 3.0);
+	private final static int NUM_IMAGES = 48;
+	private final static int NUM_ANIMATIONS = 16;
+	private final static int NUM_FRAMES = 4;
+	private final static int IMAGE_WIDTH = 165;
+	private final static int IMAGE_HEIGHT = 140;
 
 	public HarrierView() {
 		setOpaque(true);
@@ -34,98 +41,16 @@ public class HarrierView extends GameView {
 	}
 
 	/*
-	 * public method update.
-	 * Takes Harrier, ArrayList<Fox>, and ArrayList<Mouse>, ArrayList<Twig>, ArrayList<Tree> as parameters and returns nothing.
-	 * Passes the model objects to the helper for drawing.
-	 */
-	public void update(Harrier harrier, ArrayList<Fox> foxes, ArrayList<Mouse> mice, ArrayList<Twig> twigs, ArrayList<Tree> trees, HarrierModel.Tutorial state) {
-		this.harrier = harrier;
-		this.foxes = foxes;
-		this.mice = mice;
-		this.twigs = twigs;
-		this.trees = trees;
-		this.state = state;
-	}
-	
-	/*
-	 * Reads the file containing harrier highscore and assigns the string highscore
-	 * Takes in no parameters
-	 * Void method, returns nothing
-	 */
-	public String GetHighScore() {
-		//format: Name: 100
-
-		try {
-
-			readFile = new FileReader("highscore.dat");//possibly change this for monday to a different file so we can let her put her initials
-			reader = new BufferedReader(readFile);
-			return reader.readLine();
-		}catch(Exception e) {
-			return "Nobody:0";
-		}
-		finally {
-			try {
-				if(reader != null) {
-					reader.close();
-				}
-			} catch (IOException e) {  
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	/*
-	 * Compares final score with highest score to see if a new highscore is reached
-	 * Takes in no parameters
-	 * Void method, returns nothing
-	 */
-	public void checkScore() {
-		highScore = GetHighScore();
-		if(harrier.getScore() > Integer.parseInt((highScore.split(":")[1]))) {
-			String name = JOptionPane.showInputDialog("Congratulations on setting a new HighScore! Please enter your initials.");
-			while(name == null || filterInput(name).equals("no")) {
-				name = JOptionPane.showInputDialog("Name Invalid. Try Again");
-				}
-			highScore = name + ":" + harrier.getScore();
-
-			File scoreFile = new File("highscore.dat");
-			if(!scoreFile.exists()) {
-				try {
-					scoreFile.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			FileWriter writeFile = null;
-			BufferedWriter writer = null;
-			try {
-				writeFile = new FileWriter(scoreFile);
-				writer = new BufferedWriter(writeFile);
-				writer.write(this.highScore);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			finally {
-				try {
-					if(writer != null) {
-						writer.close();
-					}
-				} catch (Exception e) {}
-			}
-		}
-		}
-	
-	/*
 	 * private method initializeImages.
 	 * Takes no parameter and returns nothing.
 	 * Reads the images into the images array.
 	 */
 	private void initializeImages() {
-		images = new BufferedImage[48];
+		images = new BufferedImage[NUM_IMAGES];
 		images[0] = createBufferedImage("HarrierBackground.png");
-		initializeImageSet("Harrier", 1);
-		initializeImageSet("Fox", 9);
-		initializeImageSet("Mouse", 17);
+		initializeImageSet("Harrier", ".png", 1);
+		initializeImageSet("Fox", ".png", 9);
+		initializeImageSet("Mouse", ".png", 17);
 		images[25] = createBufferedImage("Twig.png");
 		images[26] = createBufferedImage("Tree.png");
 		images[27] = createBufferedImage("Vision.png");
@@ -156,19 +81,19 @@ public class HarrierView extends GameView {
 		images[37] = createBufferedImage("RightArrow.png");
 		images[38] = createBufferedImage("DownArrow.png");
 		images[39] = createBufferedImage("LeftArrow.png");
-		initializeImageSet("GoldenMouse", 40);
+		initializeImageSet("GoldenMouse", ".png", 40);
 		makeFrames();
 	}
-
+	
 	/*
 	 * private method initializeImageSet.
 	 * Takes no parameter and returns nothing.
 	 * Reads a set of images into the images array.
 	 */
-	private void initializeImageSet(String fileSet, int offset) {
+	private void initializeImageSet(String fileSet, String fileType, int offset) {
 		for(int i = 0; i < imageEndings.length; i++) {
 			String fileName = fileSet;
-			fileName += imageEndings[i] + ".png";
+			fileName += imageEndings[i] + fileType;
 			images[offset + i] = createBufferedImage(fileName);
 		}
 	}
@@ -179,10 +104,91 @@ public class HarrierView extends GameView {
 	 * Splits those images into their respective frames for animation.
 	 */
 	private void makeFrames() {
-		animationFrames = new BufferedImage[64];
-		for(int i = 0; i < 16; i++) {
-			for(int j = 0; j < 4; j++){
-				animationFrames[j + 4*i] = images[1 + i].getSubimage(165*j, 0, 165, 140);
+		animationFrames = new BufferedImage[NUM_ANIMATIONS * NUM_FRAMES];
+		for(int i = 0; i < NUM_ANIMATIONS; i++) {
+			for(int j = 0; j < NUM_FRAMES; j++){
+				animationFrames[j + NUM_FRAMES*i] = images[1 + i].getSubimage(IMAGE_WIDTH*j, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+			}
+		}
+	}
+	
+	/*
+	 * public method update.
+	 * Takes Harrier, ArrayList<Fox>, and ArrayList<Mouse>, ArrayList<Twig>, ArrayList<Tree> as parameters and returns nothing.
+	 * Passes the model objects to the helper for drawing.
+	 */
+	public void update(Harrier harrier, ArrayList<Fox> foxes, ArrayList<Mouse> mice, ArrayList<Twig> twigs, ArrayList<Tree> trees, Tutorial state) {
+		this.harrier = harrier;
+		this.foxes = foxes;
+		this.mice = mice;
+		this.twigs = twigs;
+		this.trees = trees;
+		this.state = state;
+	}
+	
+	/*
+	 * Reads the file containing harrier highscore and assigns the string highscore
+	 * Takes in no parameters
+	 * Void method, returns nothing
+	 */
+	public String getHighScore() {
+		//format: Name: Score
+		try {
+			readFile = new FileReader("highscore.dat");//possibly change this for monday to a different file so we can let her put her initials
+			reader = new BufferedReader(readFile);
+			return reader.readLine();
+		}catch(Exception e) {
+			return "Nobody:0";
+		}
+		finally {
+			try {
+				if(reader != null) {
+					reader.close();
+				}
+			} catch (IOException e) {  
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/*
+	 * Compares final score with highest score to see if a new highscore is reached
+	 * Takes in no parameters
+	 * Void method, returns nothing
+	 */
+	public void checkScore() {
+		highScore = getHighScore();
+		if (harrier.getScore() > Integer.parseInt((highScore.split(":")[1]))) {
+			String name = JOptionPane
+					.showInputDialog("Congratulations on setting a new HighScore! Please enter your initials.");
+			while (name == null || filterInput(name).equals("no")) {
+				name = JOptionPane.showInputDialog("Name Invalid. Try Again");
+			}
+			highScore = name + ":" + harrier.getScore();
+
+			File scoreFile = new File("highscore.dat");
+			if (!scoreFile.exists()) {
+				try {
+					scoreFile.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			FileWriter writeFile = null;
+			BufferedWriter writer = null;
+			try {
+				writeFile = new FileWriter(scoreFile);
+				writer = new BufferedWriter(writeFile);
+				writer.write(this.highScore);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (writer != null) {
+						writer.close();
+					}
+				} catch (Exception e) {
+				}
 			}
 		}
 	}
@@ -210,6 +216,24 @@ public class HarrierView extends GameView {
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
+		paintIcons(g);
+		paintText(g);
+		paintSight(g);
+		super.paintComponent(g);
+		paintBackground(g);
+		paintHarrier(g);
+		paintTwigs(g);
+		paintMice(g);
+		paintFoxes(g);
+		paintTrees(g);
+	}
+	
+	/*
+	 * private method paintIcons.
+	 * Takes Graphics as parameter and returns nothing.
+	 * Draws tutorial icons on the screen when needed.
+	 */
+	private void paintIcons(Graphics g) {
 		switch(state) {
 		case ONE:
 			g.drawImage(images[36], TitleView.FRAME_WIDTH / 6, TitleView.FRAME_HEIGHT / 2 - 40, 80, 80, this);
@@ -226,38 +250,77 @@ public class HarrierView extends GameView {
 		default:
 			break;
 		}
+	}
+	
+	/*
+	 * private method paintText.
+	 * Takes Graphics as parameter and returns nothing.
+	 * Draws text GUI on the screen.
+	 */
+	private void paintText(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.setFont(new Font(Font.SERIF, Font.BOLD, 16));
 		g.drawString("Score: " + harrier.getScore(), TitleView.FRAME_WIDTH - 225, 20);
 		g.drawString("Press P to pause", TitleView.FRAME_WIDTH - 225, 40);
 		g.drawString("Press ESC to return to menu", TitleView.FRAME_WIDTH - 225, 60);
 		g.setColor(Color.BLACK);
+	}
+	
+	/*
+	 * private method paintSight.
+	 * Takes Graphics as parameter and returns nothing.
+	 * Draws vision radius on the screen.
+	 */
+	private void paintSight(Graphics g) {
 		Ellipse2D.Double ellipse = new Ellipse2D.Double(TitleView.FRAME_WIDTH / 2 - harrier.getVision(),
 				TitleView.FRAME_HEIGHT / 2 - harrier.getVision(), harrier.getVision() * 2, harrier.getVision()*2);
 		g.setClip(ellipse);
-		super.paintComponent(g);
+	}
+	
+	/*
+	 * private method paintBackground.
+	 * Takes Graphics as parameter and returns nothing.
+	 * Draws background on the screen.
+	 */
+	private void paintBackground(Graphics g) {
 		g.drawImage(images[0], 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT,
-					(int)(backgroundScalarX * (harrier.getXPos() - TitleView.FRAME_WIDTH / 2) + 1200),
-					(int)(backgroundScalarY * (harrier.getYPos() - TitleView.FRAME_HEIGHT / 2) + 1200),
-					(int)(backgroundScalarX * (harrier.getXPos() + TitleView.FRAME_WIDTH / 2) + 1200),
-					(int)(backgroundScalarY * (harrier.getYPos() + TitleView.FRAME_HEIGHT / 2) + 1200), this);
+				(int)(backgroundScalarX * (harrier.getXPos() - TitleView.FRAME_WIDTH / 2) + 1200),
+				(int)(backgroundScalarY * (harrier.getYPos() - TitleView.FRAME_HEIGHT / 2) + 1200),
+				(int)(backgroundScalarX * (harrier.getXPos() + TitleView.FRAME_WIDTH / 2) + 1200),
+				(int)(backgroundScalarY * (harrier.getYPos() + TitleView.FRAME_HEIGHT / 2) + 1200), this);
 		g.setColor(Color.RED);
 		g.drawRect(-TitleView.FRAME_WIDTH / 2 - (int)harrier.getXPos(),
-				   -TitleView.FRAME_HEIGHT / 2 - (int)harrier.getYPos(), 
-				   2 * TitleView.FRAME_WIDTH, 
-				   2 * TitleView.FRAME_HEIGHT);
+				-TitleView.FRAME_HEIGHT / 2 - (int)harrier.getYPos(), 
+				2 * TitleView.FRAME_WIDTH, 
+				2 * TitleView.FRAME_HEIGHT);
 		g.setColor(Color.BLACK);
+	}
+	
+	/*
+	 * private method paintHarrier.
+	 * Takes Graphics as parameter and returns nothing.
+	 * Draws the harrier on the screen.
+	 */
+	private void paintHarrier(Graphics g) {
 		int hx = TitleView.FRAME_WIDTH / 2 - (int)(harrier.getXWidth() / 2);
 		int hy = TitleView.FRAME_HEIGHT / 2 - (int)(harrier.getYWidth() / 2);
 		g.drawImage(animationFrames[harrier.getAnimation() + 4 * directionConverter(harrier.getDirection())], 
 					hx - (int)(harrier.getXWidth() / 2), hy - (int)(harrier.getYWidth() / 2), (int)(harrier.getXWidth() * 2), (int)(harrier.getYWidth() * 2), this);
 		if(isDebug) { g.drawRect(hx, hy, (int)harrier.getXWidth(), (int)harrier.getYWidth()); }
+	}
+	
+	/*
+	 * private method paintTwigs.
+	 * Takes Graphics as parameter and returns nothing.
+	 * Draws the twigs on the screen.
+	 */
+	private void paintTwigs(Graphics g) {
 		for(Twig tw : twigs) {
 			int x = (int)(tw.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(tw.getXWidth() / 2);
 			int y = (int)(tw.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(tw.getYWidth() / 2);
 			g.drawImage(images[25], x , y, (int)tw.getXWidth(), (int)tw.getYWidth(), this);
 			if(isDebug) { g.drawRect(x, y, (int)tw.getXWidth(), (int)tw.getYWidth()); }
-			if (state == HarrierModel.Tutorial.FIVE) {
+			if (state == Tutorial.FIVE) {
 				double myRadius = tw.calcDist(harrier);
 				if (myRadius >= harrier.getVision()) {
 					switch(tw.getApproximateDirection(harrier)) {
@@ -285,6 +348,14 @@ public class HarrierView extends GameView {
 				}
 			}
 		}
+	}
+	
+	/*
+	 * private method paintMice.
+	 * Takes Graphics as parameter and returns nothing.
+	 * Draws the mice on the screen.
+	 */
+	private void paintMice(Graphics g) {
 		for(Mouse m : mice) {
 			int x = (int)(m.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(m.getXWidth() / 2);
 			int y = (int)(m.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(m.getYWidth() / 2);
@@ -301,7 +372,7 @@ public class HarrierView extends GameView {
 				case NORTH:
 					if (harrier.getVision() < TitleView.FRAME_HEIGHT / 2) {
 						g.drawImage(images[33], TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT / 2 - (int) harrier.getVision(), 30, 30, this);
-						if (state == HarrierModel.Tutorial.SIX) {
+						if (state == Tutorial.SIX) {
 							g.drawImage(images[36], TitleView.FRAME_WIDTH / 2 + 10, TitleView.FRAME_HEIGHT / 2 - (int) harrier.getVision() + 40, 30, 30, this);
 						}
 					} else {
@@ -311,7 +382,7 @@ public class HarrierView extends GameView {
 				case SOUTH:
 					if (harrier.getVision() < TitleView.FRAME_HEIGHT / 2) {
 						g.drawImage(images[35], TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT / 2 + (int) harrier.getVision() - 30, 30, 30, this);
-						if (state == HarrierModel.Tutorial.SIX) {
+						if (state == Tutorial.SIX) {
 							g.drawImage(images[38], TitleView.FRAME_WIDTH / 2 - 30, TitleView.FRAME_HEIGHT / 2 + (int) harrier.getVision() - 30 - 40, 30, 30, this);
 						}
 					} else {
@@ -320,19 +391,27 @@ public class HarrierView extends GameView {
 					break;
 				case WEST:
 					g.drawImage(images[32], TitleView.FRAME_WIDTH / 2 - (int)harrier.getVision(), TitleView.FRAME_HEIGHT / 2 + 10, 30, 30, this);
-					if (state == HarrierModel.Tutorial.SIX) {
+					if (state == Tutorial.SIX) {
 						g.drawImage(images[39], TitleView.FRAME_WIDTH / 2 - (int)harrier.getVision() + 40, TitleView.FRAME_HEIGHT / 2 + 10, 30, 30, this);
 					}
 					break;
 				case EAST:
 					g.drawImage(images[34], TitleView.FRAME_WIDTH / 2 + (int)harrier.getVision() - 30, TitleView.FRAME_HEIGHT / 2 - 30, 30, 30, this);
-					if (state == HarrierModel.Tutorial.SIX) {
+					if (state == Tutorial.SIX) {
 						g.drawImage(images[37], TitleView.FRAME_WIDTH / 2 + (int)harrier.getVision() - 30 - 40, TitleView.FRAME_HEIGHT / 2 - 30, 30, 30, this);
 					}
 					break;
 				}
 			}
 		}
+	}
+	
+	/*
+	 * private method paintFoxes.
+	 * Takes Graphics as parameter and returns nothing.
+	 * Draws the foxes on the screen.
+	 */
+	private void paintFoxes(Graphics g) {
 		for(Fox f : foxes) {
 			int x = (int)(f.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(f.getXWidth() / 2);
 			int y = (int)(f.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(f.getYWidth() / 2);
@@ -365,6 +444,14 @@ public class HarrierView extends GameView {
 				}
 			}
 		}
+	}
+	
+	/*
+	 * private method paintTrees.
+	 * Takes Graphics as parameter and returns nothing.
+	 * Draws the trees on the screen.
+	 */
+	private void paintTrees(Graphics g) {
 		for(Tree tr : trees) {
 			int x = (int)(tr.getXPos() - harrier.getXPos()) + TitleView.FRAME_WIDTH / 2 - (int)(tr.getXWidth() / 2);
 			int y = (int)(tr.getYPos() - harrier.getYPos()) + TitleView.FRAME_HEIGHT / 2 - (int)(tr.getYWidth() / 2);

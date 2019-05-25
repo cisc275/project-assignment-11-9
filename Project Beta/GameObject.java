@@ -1,8 +1,7 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-
 /* 
- * Public abstract class GameObject outlines general behavior and attributes shared by all of the objects in the game.
+ * Public abstract class GameObject outlines general behavior and attributes shared by all of the objects in the games.
  */
 public abstract class GameObject implements java.io.Serializable {
 
@@ -53,7 +52,7 @@ public abstract class GameObject implements java.io.Serializable {
 	 * Parameters:
 	 *     GameObject: go
 	 * Returns: Direction
-	 * Returns the approximate direction from this gameObject to the parameter go.
+	 * Returns the approximate direction of this gameObject to the parameter go.
 	 */
 	public Direction getApproximateDirection(GameObject go) {
 		if (Math.abs(go.xPosition - this.xPosition) > Math.abs(go.yPosition - this.yPosition)) {

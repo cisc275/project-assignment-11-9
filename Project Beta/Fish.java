@@ -1,6 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-
 /* 
  * Public class Fish contains the behaviors and attributes of Fish, the consumables in the Osprey game.
  */
@@ -11,6 +10,8 @@ public class Fish extends Animal {
 	private final static int WIDTH_MULTIPLIER = 10;
 	private final static int HEIGHT_MULTIPLIER = 5;
 	private final static double VELOCITY_DIVISOR = 2;
+	public final static int MAX_SIZE = 3;
+	public final static int MIN_SIZE = 1;
 
 	public Fish(double x, double y, int size) {
 		setXPos(x);
@@ -34,7 +35,7 @@ public class Fish extends Animal {
 	 * Processes an interaction between the Osprey and the Fish.
 	 */
 	public void interact(Osprey o) {
-		if(o.getXVel() + size / 2.0 < Osprey.MAX_SPEED) { o.setXVel(o.getXVel() + size / 2.0); }
+		if(o.getXVel() + size / VELOCITY_DIVISOR < Osprey.MAX_SPEED) { o.setXVel(o.getXVel() + size / VELOCITY_DIVISOR); }
 		else { o.setXVel(Osprey.MAX_SPEED); }
 		o.setIsRecovering(true);
 		o.rise();

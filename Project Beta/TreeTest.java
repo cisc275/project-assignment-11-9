@@ -1,4 +1,4 @@
-package Project
+package Project;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -29,8 +29,6 @@ class TreeTest {
 		t.interact(h);
 		
 		assertEquals(h.getScore(), -20);
-		
-		fail("Not yet implemented");
 	}
 
 }

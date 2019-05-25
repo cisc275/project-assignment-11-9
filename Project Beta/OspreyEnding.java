@@ -1,31 +1,21 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.io.*;
-
-import javax.imageio.ImageIO;
-
+import java.awt.*;
+import java.awt.image.BufferedImage;
 /*
  * Public class OspreyEnding handles displaying the view when the player wins the Osprey Game
  */
-public class OspreyEnding extends OspreyView{
+public class OspreyEnding extends OspreyView {
 
-	private Image background;
-	private final static int HIGHSCORE_TEXT_X = 625;
-	private final static int HIGHSCORE_TEXT_Y = 300; 
 	private final static int FONT_SIZE = 30;
-	private final static int ESCAPE_TEXT_X = 575;
-	private final static int ESCAPE_TEXT_Y = 350;
+	private final static double SCORE_W_SCALAR = .415;
+	private final static double SCORE_H_SCALAR = .25;
+	private final static double TEXT_W_SCALAR = .4;
+	private final static double TEXT_H_SCALAR = .25;
+	private final static int TEXT_H_OFFSET = 50;
 	
 	public OspreyEnding() {
-		try{
-			background = ImageIO.read(new File("src/images/OspreyBackground.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		images = new BufferedImage[]{createBufferedImage("OspreyBackground.png")};
 	}
 	
 	/*
@@ -33,11 +23,15 @@ public class OspreyEnding extends OspreyView{
 	 * @see OspreyView#paintComponent(java.awt.Graphics)
 	 * Draws the background image for the win screen and displays the highscore
 	 */
+	@Override
 	protected void paintComponent(Graphics g) {
-		g.drawImage(background, 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
-		g.setColor(Color.WHITE);
+		g.drawImage(images[0], 0, 0,TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, this);
 		g.setFont(new Font(Font.SERIF, Font.BOLD, FONT_SIZE));
-		g.drawString("Fastest Time: " + getFastTime() + " seconds", HIGHSCORE_TEXT_X, HIGHSCORE_TEXT_Y);
-		g.drawString("Press ESC to return to the menu!", ESCAPE_TEXT_X, ESCAPE_TEXT_Y);
+		g.setColor(Color.WHITE);
+		g.drawString("Fastest Time: " + getFastTime() + " seconds",
+					(int)(TitleView.FRAME_WIDTH * SCORE_W_SCALAR), (int)(TitleView.FRAME_HEIGHT * SCORE_H_SCALAR));
+		g.drawString("Press ESC to return to the menu!",
+					(int)(TitleView.FRAME_WIDTH * TEXT_W_SCALAR), (int)(TitleView.FRAME_HEIGHT * TEXT_H_SCALAR) + TEXT_H_OFFSET);
 	}
+	
 }

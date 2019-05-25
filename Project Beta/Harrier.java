@@ -1,6 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-
 /* 
  * Public class Harrier contains the behaviors and attributes of Harriers, one of the types of playable characters.
  */
@@ -102,12 +101,12 @@ public class Harrier extends Animal {
 	}
 
 	/*
-	 * public method die.
+	 * public method reset.
 	 * Parameters: none
 	 * Returns: nothing
 	 * Resets the Harrier to its spawn point with 0 velocity.
 	 */
-	public void die() {
+	public void reset() {
 		setXPos(STARTPOS);
 		setYPos(STARTPOS);
 		setXVel(STARTVEL);

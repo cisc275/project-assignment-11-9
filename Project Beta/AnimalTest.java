@@ -74,14 +74,14 @@ public class AnimalTest {
 	@Test
 	public void testIncrementAnimation() {
 		Animal a = new Fish(0, 0, 1);
-		a.setAnimationDelay(5);
+		a.setAnimation(5);
 		a.setAnimation(3);
 		a.incrementAnimation();
 		assertEquals(a.getAnimation(), 0);
 		
-		a.setAnimationDelay(7);
+		a.setAnimation(7);
 		a.incrementAnimation();
-		assertEquals(a.getAnimationDelay(), 2);
+		assertEquals(a.getAnimation(), 2);
 	}
 	
 	@Test

@@ -1,6 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-
 /* 
  * Public class Twig contains the behaviors and attributes of Twigs, the secondary consumables in the Harrier game.
  */

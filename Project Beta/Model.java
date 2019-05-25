@@ -2,26 +2,30 @@
 package Project;
 import java.util.*;
 import java.lang.Math;
-
 /*
  * Public abstract class Model defines general behaviors for the models in both the Harrier and Osprey games.
  */
 public abstract class Model implements java.io.Serializable {
 
 	private int time;
+	protected Tutorial stage;
 	public static Random rand = new Random(System.currentTimeMillis());
 
 	public int getTime() { return this.time; }
 
 	public void setTime(int time) { this.time = time; }
+	
+	public Tutorial getStage() { return stage; }
+	
+	public void setStage(Tutorial stage) { this.stage = stage; }
 
 	/* 
-	 * Public abstract method isEnd.
+	 * Public abstract method isLoss.
 	 * Parameters: none
 	 * Returns: boolean
-	 * Returns a boolean signifying if the game has achieved the end state.
+	 * Returns a boolean signifying if the game was lost.
 	 */
-	public abstract boolean isEnd();
+	public abstract boolean isLoss();
 	
 	/*
 	 * Public abstract method isWin.

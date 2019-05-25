@@ -9,8 +9,9 @@ public enum HarrierQuestion {
 	TWO("What animals hunt Harriers?", "foxes", "bears", "cougars"),
 	THREE("What do Harriers use to build their nests?", "twigs", "plastic bottles", "dead animals"),
 	FOUR("How do Harriers move around?", "Stay in one general area", "Migrate between continents", "Sometimes migrate, sometimes not");
+	
 	private String question;
-	private String answers[] = new String[3];
+	private String[] answers = new String[3];
 	private HarrierQuestion(String q, String a1, String a2, String a3) {
 		question = q; 
 		answers[0] = a1;

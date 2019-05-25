@@ -7,9 +7,7 @@ import javax.swing.JPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
-
 import javax.swing.JLabel;
-
 /*
  * Public class Quiz defines the behavior and attributes of the Quizzes in both games.
  */

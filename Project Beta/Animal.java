@@ -1,7 +1,5 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
-import java.util.*;
-
 /*
  * Public abstract class Animal defines general behaviors and attributes for movable objects.
  */
@@ -24,7 +22,7 @@ public abstract class Animal extends GameObject {
 	private final static double NORTHWEST_UPPER_BOUND = 157.5;
 	private final static double WEST_UPPER_BOUND = 202.5;
 	private final static double SOUTHWEST_UPPER_BOUND = 247.5;
-	private final static double SOUTH_UPPER_BOUND = 292.5;
+	private final static double SOUTHEAST_LOWER_BOUND = 292.5;
 
 	public double getXVel() { return this.xVelocity; }
 
@@ -148,7 +146,7 @@ public abstract class Animal extends GameObject {
 	 * public method calcSpeed.
 	 * Parameters: none
 	 * Returns: double
-	 * Returns the magnitude of the speed of the Animal.
+	 * Returns the magnitude of the velocity of the Animal.
 	 */
 	public double calcSpeed() { return Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity); }
 	
@@ -181,8 +179,8 @@ public abstract class Animal extends GameObject {
 		else if(degrees < NORTHWEST_UPPER_BOUND) { direction = Direction.NORTHWEST; }
 		else if(degrees < WEST_UPPER_BOUND) { direction = Direction.WEST; }
 		else if(degrees < SOUTHWEST_UPPER_BOUND) { direction = Direction.SOUTHWEST; }
-		else if(degrees < SOUTH_UPPER_BOUND) { direction = Direction.SOUTH; }
-		else { direction = Direction.SOUTHEAST; }
+		else if(degrees > SOUTHEAST_LOWER_BOUND) { direction = Direction.SOUTHEAST; }
+		else { direction = Direction.SOUTH; }
 	}
 
 }

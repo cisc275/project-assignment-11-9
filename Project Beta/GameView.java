@@ -1,10 +1,9 @@
 //Authors: Vincent Beardsley, Suryanash Gupta, Tyler Ballance, Brandon Raffa
 package Project;
+import java.awt.image.*;
 import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
-import java.awt.image.*;
-
 /*
  * Public abstract class GameView defines functions for the various Views used by the Game.
  */
@@ -30,14 +29,10 @@ public abstract class GameView extends JPanel {
 	public String filterInput(String name) {
 		if(name.length() == 3 && name.matches("^[a-zA-Z]*$")) {
 			for(int i = 0; i < list.length; i++) {
-				if(name.toUpperCase().equals(list[i])) {
-					return "no";
-				}
+				if(name.toUpperCase().equals(list[i])) { return "no"; }
 			}
 			return name;
-		} else {
-			return "no";
-		}
+		} else { return "no"; }
 	}
 	
 	/*

@@ -33,15 +33,6 @@ public class HarrierModel extends Model {
 	private final static int HARRIER_STAGE_NINE = 300;
 	private final static int FOX_RIGHT_OR_LOW = 600;
 	private final static int FOX_LEFT_OR_HIGH = 100;
-	private Tutorial stage = Tutorial.ONE;
-
-	public enum Tutorial {
-		ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, NONE;
-	}
-	
-	public Tutorial getStage() {
-		return stage;
-	}
 
 	public HarrierModel(){
 		super();
@@ -50,6 +41,7 @@ public class HarrierModel extends Model {
 		mice = new ArrayList<>();
 		twigs = new ArrayList<>();
 		trees = new ArrayList<>();
+		stage = Tutorial.ONE;
 	}
 
 	public Harrier getHarrier() { return harrier; }
@@ -73,74 +65,32 @@ public class HarrierModel extends Model {
 	public void setTrees(ArrayList<Tree> trees) { this.trees = trees; }
 	
 	/* 
-	 * Public method isEnd.
-	 * Takes no parameters, returns a boolean signifying if the game is over.
+	 * Public method isLoss.
+	 * Parameters: none
+	 * Returns: boolean
+	 * Returns a boolean signifying if the harrier's vision is too small.
 	 */
 	@Override
-	public boolean isEnd() {
+	public boolean isLoss() {
 		return harrier.getVision() <= Harrier.MIN_VISION;
 	}
 
 	/*
 	 * Public method isWin.
-	 * Takes no parameters, returns a boolean signifying if the game was won.
+	 * Parameters: none
+	 * Returns: boolean
+	 * Returns a boolean signifying if the harrier has survived long enough.
 	 */
 	@Override
 	public boolean isWin() {
 		return getTime() >= END_TIME;
 	}
-	
-	private void resetHarrier() {
-		harrier.setXPos(0);
-		harrier.setYPos(0);
-		harrier.setYVel(0);
-		harrier.setXVel(0);
-	}
-	
-	private void prepareStageSeven() {
-		Tree t;
-		for (int x = UPPER_TREE_INDEX; x <= LOWER_TREE_INDEX; x += TREE_SPACING) {
-			t = new Tree(LEFT_TREE_INDEX, x);
-			trees.add(t);
-		}
-		t = new Tree((LEFT_TREE_INDEX + RIGHT_TREE_INDEX)/2, LOWER_TREE_INDEX);
-		trees.add(t);
-		for (int x = UPPER_TREE_INDEX; x <= LOWER_TREE_INDEX; x += TREE_SPACING) {
-			t = new Tree(RIGHT_TREE_INDEX, x);
-			trees.add(t);
-		}
-		t = new Tree((LEFT_TREE_INDEX + RIGHT_TREE_INDEX)/2, UPPER_TREE_INDEX);
-		trees.add(t);
-		GoldenMouse m = new GoldenMouse((LEFT_TREE_INDEX + RIGHT_TREE_INDEX)/2, (UPPER_TREE_INDEX + LOWER_TREE_INDEX)/2, true);
-		mice.add(m);
-		resetHarrier();
-	}
-	
-	private void prepareStageNine() {
-		Iterator iter = trees.iterator();
-		while (iter.hasNext()) {
-			Object t = iter.next();
-			iter.remove();
-		}
-		harrier.setXPos(HARRIER_STAGE_NINE);
-		harrier.setYPos(HARRIER_STAGE_NINE);
-		harrier.setYVel(0);
-		harrier.setXVel(0);
-		Fox f1 = new Fox(FOX_RIGHT_OR_LOW, FOX_RIGHT_OR_LOW);
-		Fox f2 = new Fox(FOX_LEFT_OR_HIGH, FOX_LEFT_OR_HIGH);
-		Fox f3 = new Fox(FOX_LEFT_OR_HIGH, FOX_RIGHT_OR_LOW);
-		Fox f4 = new Fox(FOX_RIGHT_OR_LOW, FOX_LEFT_OR_HIGH);
-		foxes.add(f1);
-		foxes.add(f2);
-		foxes.add(f3);
-		foxes.add(f4);
-	}
-	
 
 	/* 
 	 * Public method generate.
-	 * Takes no parameters and returns nothing.
-	 * Adds relevant GameObjects to the model.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Adds foxes, mice, twigs, and trees to the model.
 	 */
 	@Override
 	public void generate() {
@@ -172,10 +122,11 @@ public class HarrierModel extends Model {
 		}
 	}
 	
-	/*
-	 * private method genCoords.
-	 * Takes no parameters, returns double[].
-	 * Generates a pair of coordinates for the harrier game.
+	/* 
+	 * Private method genCoords.
+	 * Parameters: none
+	 * Returns: double[]
+	 * Creates an x and y pair for GameObjects to spawn on.
 	 */
 	private double[] genCoords(double scalar) {
 		double angle = Model.rand.nextDouble() * Math.PI / 2;
@@ -186,10 +137,14 @@ public class HarrierModel extends Model {
 		return coords;
 	}
 	
-	/*
-	 * private method generationHelper.
-	 * Takes GameObject as parameter, and returns boolean.
-	 * Checks if the GameObject will be in contact with other GameObjects.
+	/* 
+	 * Private method generationHelper.
+	 * Parameters:
+	 * 		GameObject: go
+	 * 		boolean: boundCheck
+	 * Returns: boolean
+	 * Returns a boolean indicating whether the GameObject can be spawned, 
+	 * i.e. is not overlapping another GameObject and is potentially within the game's boundaries.
 	 */
 	private boolean generationHelper(GameObject go, boolean boundCheck) {
 		boolean flag = true;
@@ -202,10 +157,11 @@ public class HarrierModel extends Model {
 		return flag;
 	}
 	
-	/*
+	/* 
 	 * Public method update.
-	 * Takes no parameters, returns nothing.
-	 * Updates model variables.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Handles the staging of the game and updates model variables respectively.
 	 */
 	@Override
 	public void update() {
@@ -213,6 +169,16 @@ public class HarrierModel extends Model {
 		for(Fox f : foxes) { f.roam(harrier, TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, -1); f.incrementAnimation(); }
 		for(Mouse m : mice) { m.roam(TitleView.FRAME_WIDTH, TitleView.FRAME_HEIGHT, -1); m.incrementAnimation(); }
 		checkInteractions();
+		applyStaging();
+	}
+	
+	/* 
+	 * Private method applyStaging.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Handles the staging of the game.
+	 */
+	private void applyStaging() {
 		switch(stage) {
 		case ONE:
 			if (harrier.getYVel() < 0) {
@@ -232,7 +198,7 @@ public class HarrierModel extends Model {
 		case FOUR:
 			if (harrier.getXVel() < 0) {
 				stage = Tutorial.FIVE;
-				resetHarrier();
+				harrier.reset();
 				Twig tw = new Twig(100, 100);
 				twigs.add(tw);
 			}
@@ -240,7 +206,7 @@ public class HarrierModel extends Model {
 		case FIVE:
 			if (twigs.size() < 1) {
 				stage = Tutorial.SIX;
-				resetHarrier();
+				harrier.reset();
 				Mouse m = new Mouse(300, 300);
 				mice.add(m);
 			}
@@ -286,8 +252,60 @@ public class HarrierModel extends Model {
 	}
 
 	/*
+	 * Private method prepareStageSeven.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Sets up stage seven of the tutorial.
+	 */
+	private void prepareStageSeven() {
+		Tree t;
+		for (int x = UPPER_TREE_INDEX; x <= LOWER_TREE_INDEX; x += TREE_SPACING) {
+			t = new Tree(LEFT_TREE_INDEX, x);
+			trees.add(t);
+		}
+		t = new Tree((LEFT_TREE_INDEX + RIGHT_TREE_INDEX)/2, LOWER_TREE_INDEX);
+		trees.add(t);
+		for (int x = UPPER_TREE_INDEX; x <= LOWER_TREE_INDEX; x += TREE_SPACING) {
+			t = new Tree(RIGHT_TREE_INDEX, x);
+			trees.add(t);
+		}
+		t = new Tree((LEFT_TREE_INDEX + RIGHT_TREE_INDEX)/2, UPPER_TREE_INDEX);
+		trees.add(t);
+		GoldenMouse m = new GoldenMouse((LEFT_TREE_INDEX + RIGHT_TREE_INDEX)/2, (UPPER_TREE_INDEX + LOWER_TREE_INDEX)/2, true);
+		mice.add(m);
+		harrier.reset();
+	}
+	
+	/*
+	 * Private method prepareStageNine.
+	 * Parameters: none
+	 * Returns: nothing
+	 * Sets up stage nine of the tutorial.
+	 */
+	private void prepareStageNine() {
+		Iterator iter = trees.iterator();
+		while (iter.hasNext()) {
+			Object t = iter.next();
+			iter.remove();
+		}
+		harrier.setXPos(HARRIER_STAGE_NINE);
+		harrier.setYPos(HARRIER_STAGE_NINE);
+		harrier.setYVel(0);
+		harrier.setXVel(0);
+		Fox f1 = new Fox(FOX_RIGHT_OR_LOW, FOX_RIGHT_OR_LOW);
+		Fox f2 = new Fox(FOX_LEFT_OR_HIGH, FOX_LEFT_OR_HIGH);
+		Fox f3 = new Fox(FOX_LEFT_OR_HIGH, FOX_RIGHT_OR_LOW);
+		Fox f4 = new Fox(FOX_RIGHT_OR_LOW, FOX_LEFT_OR_HIGH);
+		foxes.add(f1);
+		foxes.add(f2);
+		foxes.add(f3);
+		foxes.add(f4);
+	}
+	
+	/*
 	 * Public method checkInteractions.
-	 * Takes no parameters, returns nothing.
+	 * Parameters: none
+	 * Returns: nothing
 	 * Checks if any of the objects in the model are interacting, and handles those interactions.
 	 */
 	@Override
