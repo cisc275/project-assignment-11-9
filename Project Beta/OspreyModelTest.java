@@ -4,54 +4,63 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 
-class OspreyModelTest {
-/*
+public class OspreyModelTest {
+
 	@Test
-	void testIsEnd() {
+	public void testIsEnd() {
 		OspreyModel om= new OspreyModel();
 		
+		om.getOsprey().setXVel(0);
+		assertEquals(om.isEnd(), true);
+
+	}
+
+	@Test
+	public void testIsWin() {
+		OspreyModel om = new OspreyModel();
 		
-		assertEquals(om.isEnd(), false);
+		om.getOsprey().setXPos(55000);
+		
+		assertEquals(om.isWin(), true);
+	
+	}
 
 	
-		fail("Not yet implemented");
-	}
-
 	@Test
-	void testIsWin() {
+	public void applyResistanceCheck() {
 		OspreyModel om = new OspreyModel();
 		
-		assertEquals(om.isWin(), false);
+		om.getOsprey().setYPos(Osprey.MAX_HEIGHT);
 		
 		
 		
-		fail("Not yet implemented");
+		
 	}
-
+	
+	
+	
+	
 	@Test
-	void testUpdate() {
+	public void testUpdate() {
 		
 		OspreyModel om = new OspreyModel();
-		Mouse m = new Mouse(0, 0);
-		Tree t = new Tree(10, 10);
-		
-		om.objects.add((OspreyAble) m);
-		om.objects.add((OspreyAble) t);
-		om.update();
-		
-		assertEquals((int)m.getXPos(), 2);
-		assertEquals((int)om.getOsprey().getXPos(), 0);
-		
-		
-		
-		
-		
-		fail("Not yet implemented");
-	}
+			
+			Fish f = new Fish(3,0, 0);
+			Seaweed s = new Seaweed(10, 10);
+			int origFishArray=om.getFish().size();
+			int origSeaweedArray=om.getSeaweed().size();
+			
+			
+			om.getFish().add(f);
+			om.getSeaweed().add(s);
+			
+			
+			assertEquals(origFishArray+1, om.getFish().size());
+			assertEquals(origSeaweedArray+1, om.getSeaweed().size());
 
-	@Test
-	void testCheckInteractions() {
-		fail("Not yet implemented");
+		}
 	}
-*/
-}
+		
+		
+		
+

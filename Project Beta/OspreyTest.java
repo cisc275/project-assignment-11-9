@@ -5,45 +5,38 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 
-class OspreyTest {
+public class OspreyTest {
 
 
 	@Test
-	void testDive() {
+	public void testDive() {
 		
 		
 		Osprey o = new Osprey();
 		
 		o.dive();
 		
-		assertEquals(o.getYVel(), 5);
-		fail("Not yet implemented");
+		assertEquals((int)o.getYVel(), 15);
 	}
 
 	@Test
-	void testRise() {
+	public void testRise() {
 		
 		Osprey o = new Osprey();
 		
 		o.rise();
 		
-		assertEquals(o.getYVel(), -5);
+		assertEquals((int)o.getYVel(), -15);
 		
-		
-		fail("Not yet implemented");
 	}
-
 	@Test
-	void testToString() {
+	public void testmove() {
+		Osprey o=new Osprey();
+		o.setYVel(2);
+		o.move();
+		assertEquals((int)o.getXPos(),5);
+		assertEquals((int)o.getYPos(),2);
 		
-		Osprey o = new Osprey();
-		
-		assertEquals(o.toString(), "Osprey @ (0,0)");
-		
-		
-		
-		
-		fail("Not yet implemented");
 	}
 
 }

@@ -48,9 +48,13 @@ public abstract class Animal extends GameObject {
 	
 	public void setChanceMod(int chanceMod) { this.chanceMod = chanceMod; }
 	
-	public int getAnimation() { return this.animationCounter; }
+	public int getAnimationCounter() { return this.animationCounter; }
 	
-	public void setAnimation(int animationCounter) { this.animationCounter = animationCounter; }
+	public void setAnimationCounter(int animationCounter) { this.animationCounter = animationCounter; }
+	
+	public int getAnimationDelay() { return this.animationDelay; }
+	
+	public void setAnimationDelay(int animationDelay) { this.animationDelay = animationDelay; }
 	
 	/*
 	 * public method incrementAnimation.
@@ -118,7 +122,7 @@ public abstract class Animal extends GameObject {
 	 * Parameters:
 	 *     double: angle
 	 * Returns: nothing
-	 * Turns the Animal counter-clockwise by the angle, given in degrees.
+	 * Turns the Animal counter-clockwise by the angle, given in radians.
 	 */
 	public void turnCCW (double angle) {
 		double newXVel = getXVel() * Math.cos(angle) + getYVel() * Math.sin(angle);
@@ -159,7 +163,7 @@ public abstract class Animal extends GameObject {
 	 * Note: velAngle expressed in degrees.
 	 */
 	private void updateAngle() {
-		velAngle = Math.atan(-getYVel()/getXVel()); // negative because up from a viewer's perspecitve is in the negative y direction.
+		velAngle = Math.atan(-getYVel()/getXVel()); // negative because up from a viewer's perspective is in the negative y direction.
 		if(getXVel() < 0) { velAngle += Math.PI; }
 		else if (velAngle < 0) { velAngle += 2*Math.PI; }
 	}

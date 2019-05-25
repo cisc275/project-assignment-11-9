@@ -29,5 +29,22 @@ public class TwigTest {
 		t.interact(h);
 		
 		assertEquals(h.getScore(), 40);
+		
+		
+		h.setVision(75);
+		t.interact(h);
+		
+		assertEquals(h.getScore(), -10);
+			
+		assertEquals((int)h.getVision(),63);
+		
+		h.setVision(700);
+		t.interact(h);
+		assertEquals((int)h.getVision(), (int)Harrier.MAX_VISION);
+		
+		
+		
+		
+		
 	}
 }
