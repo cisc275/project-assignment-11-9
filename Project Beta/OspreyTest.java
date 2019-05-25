@@ -16,7 +16,7 @@ class OspreyTest {
 		
 		o.dive();
 		
-		assertEquals(o.getYVel(), 5);
+		assertEquals((int)o.getYVel(), 5);
 		fail("Not yet implemented");
 	}
 
@@ -27,7 +27,7 @@ class OspreyTest {
 		
 		o.rise();
 		
-		assertEquals(o.getYVel(), -5);
+		assertEquals((int)o.getYVel(), -5);
 		
 		
 		fail("Not yet implemented");
@@ -40,8 +40,7 @@ class OspreyTest {
 		
 		assertEquals(o.toString(), "Osprey @ (0,0)");
 		
-		
-		
+
 		
 		fail("Not yet implemented");
 	}
