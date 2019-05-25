@@ -1,16 +1,18 @@
-package Project
+
+package Project;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-class TreeTest {
+public class TreeTest {
 
 	@Test
-	void Interacttest() {
+	public void Interacttest() {
 		
 		Harrier h= new Harrier();
 		
 		Tree t = new Tree(0,0);
+		
 		
 		t.interact(h);
 		
@@ -26,9 +28,16 @@ class TreeTest {
 		
 		assertEquals((int) t.getYPos(), 5);
 		
+		h.setVision(135);
 		t.interact(h);
 		
-		assertEquals(h.getScore(), -20);
+		assertEquals(h.getScore(), -10);
+			
+		assertEquals((int)h.getVision(),135);
+		
+		h.setVision(15);
+		t.interact(h);
+		assertEquals((int)h.getVision(), (int)HarrierModel.MIN_VISION);
 		
 		fail("Not yet implemented");
 	}
