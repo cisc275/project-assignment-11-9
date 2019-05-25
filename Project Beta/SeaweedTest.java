@@ -28,13 +28,10 @@ class SeaweedTest {
 		assertEquals((int) s.getYPos(), 5);
 		
 		s.interact(o);
-		
-
-		
-		
+		o.setXVel(10);
+		assertEquals((int)o.getXVel(), 9);
 		
 		
-		fail("Not yet implemented");
 	}
 
 }
