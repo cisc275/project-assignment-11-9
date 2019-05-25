@@ -11,7 +11,7 @@ public class HarrierTest {
 		
 		Harrier h = new Harrier();
 		h.goNorth();
-		assertEquals(-3,h.getYVel(), 0.01);
+		assertEquals((int)h.getXVel(), 0);
 		
 		
 
@@ -22,7 +22,7 @@ public class HarrierTest {
 		
 		Harrier h = new Harrier();
 		h.goSouth();
-		assertEquals(3,h.getYVel(), 0.01);
+		assertEquals((int)h.getXVel(), 0);
 		
 	}
 	
@@ -31,7 +31,7 @@ public class HarrierTest {
 		
 		Harrier h = new Harrier();
 		h.goEast();
-		assertEquals(3,h.getXVel(), 0.01);
+		assertEquals((int)h.getYVel(), 0);
 		
 		
 
@@ -40,9 +40,10 @@ public class HarrierTest {
 	@Test
 	public void testMoveWest() {
 		
+		
 		Harrier h = new Harrier();
 		h.goWest();
-		assertEquals(-3,h.getXVel(), 0.01);
+		assertEquals((int)h.getYVel(), 0);
 		
 		
 
@@ -56,6 +57,13 @@ public class HarrierTest {
 	
 		
 	}
+	@Test
+	public void testDie() {
+		Harrier h = new Harrier();
+		h.die();
+		assertEquals((int)h.getXPos(),0);
+		assertEquals((int)h.getYPos(),0);
+	}
 	
 	@Test
 	public void testVision() {
@@ -64,6 +72,11 @@ public class HarrierTest {
 		assertEquals(10, h.getVision(), 0.01);
 		
 	}
+	
+	
+	
+	
+	
 
 }
 
