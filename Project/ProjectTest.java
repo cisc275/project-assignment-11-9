@@ -2,7 +2,7 @@ package Project;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+/* public class ProjectTest contains all the testing for the model elements of the game. */
 public class ProjectTest {
 
 	@Test
@@ -78,8 +78,11 @@ public class ProjectTest {
 		a.setAnimation(3);
 		a.incrementAnimation();
 		assertEquals(a.getAnimation(), 3);
-		assertEquals(a.getAnimation(), 5);
 		
+		a.incrementAnimation();
+		a.incrementAnimation();
+		a.incrementAnimation();
+		a.incrementAnimation();
 		a.incrementAnimation();
 		assertEquals(a.getAnimation(), 0);
 		assertEquals(a.getAnimation(), 0);
@@ -318,7 +321,6 @@ public class ProjectTest {
 		o.setXVel(75);
 		gf.interact(o);
 		assertEquals(o.getXVel(), 40, 0.0);
-		
 	}
 	
 	@Test
@@ -350,60 +352,119 @@ public class ProjectTest {
 	}
 	
 	@Test
-	public void harrierTestMoveNorth() {
+	public void harrierTestGoNorth() {
 		
 		Harrier h = new Harrier();
 		h.setYVel(1);
+		h.updateDirection();
 		h.goNorth();
 		assertEquals((int)h.getYVel(), 0);
 		
 		h.setXVel(1);
+		h.updateDirection();
 		h.goNorth();
 		assertEquals(h.getXVel() < 1, true);
+		assertEquals(h.getYVel() < 0, true);
 		h.setXVel(20);
 		h.setYVel(20);
+		h.updateDirection();
 		h.goNorth();
-		assertEquals(h.getXVel() < 1, true);
+		assertEquals(h.getXVel() > 20, true);
+		assertEquals(h.getYVel() < 20, true);
+		
+		h.setYVel(-5);
+		h.setXVel(0);
+		h.updateDirection();
+		h.goNorth();
+		assertEquals(h.getXVel(), 0, 0.0001);
+		assertEquals(h.getYVel(), -5, 0.0001);
 	}
 	
 	@Test
-	public void harrierTestMoveSouth() {
+	public void harrierTestGoSouth() {
 		
 		Harrier h = new Harrier();
 		h.setYVel(-1);
+		h.updateDirection();
 		h.goSouth();
 		assertEquals((int)h.getYVel(), 0);
 		
 		h.setXVel(1);
+		h.updateDirection();
 		h.goSouth();
 		assertEquals(h.getXVel() < 1, true);
+		assertEquals(h.getYVel() > 0, true);
+		h.setXVel(20);
+		h.setYVel(-20);
+		h.updateDirection();
+		h.goSouth();
+		assertEquals(h.getXVel() > 20, true);
+		assertEquals(h.getYVel() > -20, true);
+		
+		h.setYVel(5);
+		h.setXVel(0);
+		h.updateDirection();
+		h.goSouth();
+		assertEquals(h.getXVel(), 0, 0.0001);
+		assertEquals(h.getYVel(), 5, 0.0001);
 	}
 	
 	@Test
-	public void harrierTestMoveEast() {
+	public void harrierTestGoEast() {
 		
 		Harrier h = new Harrier();
 		h.setXVel(-1);
+		h.updateDirection();
 		h.goEast();
 		assertEquals((int)h.getXVel(), 0);
 		
 		h.setYVel(1);
+		h.updateDirection();
 		h.goEast();
 		assertEquals(h.getYVel() < 1, true);
+		assertEquals(h.getXVel() > 0, true);
+		h.setYVel(20);
+		h.setXVel(-20);
+		h.updateDirection();
+		h.goEast();
+		assertEquals(h.getYVel() > 20, true);
+		assertEquals(h.getXVel() > -20, true);
+		
+		h.setXVel(5);
+		h.setYVel(0);
+		h.updateDirection();
+		h.goEast();
+		assertEquals(h.getYVel(), 0, 0.0001);
+		assertEquals(h.getXVel(), 5, 0.0001);
 	}
 	
 	@Test
-	public void harrierTestMoveWest() {
-		
+	public void harrierTestGoWest() {
 		
 		Harrier h = new Harrier();
 		h.setXVel(1);
+		h.updateDirection();
 		h.goWest();
 		assertEquals((int)h.getXVel(), 0);
 		
 		h.setYVel(1);
+		h.updateDirection();
 		h.goWest();
 		assertEquals(h.getYVel() < 1, true);
+		assertEquals(h.getXVel() < 0, true);
+		h.setYVel(20);
+		h.setXVel(20);
+		h.updateDirection();
+		h.goWest();
+		assertEquals(h.getYVel() > 20, true);
+		assertEquals(h.getXVel() < 20, true);
+		
+		h.setXVel(-5);
+		h.setYVel(0);
+		h.updateDirection();
+		h.goWest();
+		assertEquals(h.getYVel(), 0, 0.0001);
+		assertEquals(h.getXVel(), -5, 0.0001);
 	}
 	
 	@Test
@@ -586,6 +647,8 @@ public class ProjectTest {
 	public void ospreyModelTestUpdate() {
 		
 		OspreyModel om = new OspreyModel();
+		Osprey o = new Osprey();
+		om.setOsprey(o);
 		
 		Fish f = new Fish(3,0, 0);
 		Seaweed s = new Seaweed(10, 10);
@@ -626,9 +689,27 @@ public class ProjectTest {
 		assertEquals(om.getSeaweed().size(), 13);
 		assertEquals(om.getFish().size(), 1);
 		
+		om.getSeaweed().remove(0);
+		assertEquals(om.getSeaweed().size(), 12);
+		om.update();
+		assertEquals(om.getSeaweed().size(), 13);
+		om.getFish().remove(0);
+		assertEquals(om.getFish().size(), 0);
+		om.update();
+		assertEquals(om.getFish().size(), 1);
 		om.getOsprey().setXVel(Osprey.START_SPEED);
 		om.update();
 		assertEquals(om.getStage(), Tutorial.FOUR);
+		
+		om.getFish().remove(0);
+		om.getFish().remove(0);
+		assertEquals(om.getFish().size(), 0);
+		om.update();
+		assertEquals(om.getFish().size(), 1);
+		om.getOsprey().setXVel(Osprey.START_SPEED + 2);
+		om.update();
+		assertEquals(om.getStage(), Tutorial.NONE);
+		
 	}
 	
 	@Test
